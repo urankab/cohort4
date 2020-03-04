@@ -1,6 +1,6 @@
 import functions from './functions.js';
 import calculatorFunctions from './calculator.js'
-import taxFunc from './taxes2.js'
+import taxFunc from './taxes.js'
 
 // Add the event listeners
 

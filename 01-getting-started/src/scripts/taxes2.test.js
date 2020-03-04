@@ -1,4 +1,4 @@
-import taxFunc from './taxes2.js'
+import taxFunc from './taxes.js'
 
 test('Check that the income tax function works', () => {
     expect(taxFunc.getTaxAmount(48535)).toBe(7280.25);
