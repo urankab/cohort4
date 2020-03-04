@@ -1,46 +1,30 @@
 import functions from './functions.js';
 import calculatorFunctions from './calculator.js'
-import taxFunc from './taxes.js'
+import taxFunc from './taxes2.js'
 
 // Add the event listeners
 
 //TAXES------------------------------------------------------------
 
-var onPressTax = document.getElementById("taxBtn");
-var updateResultTax = document.getElementById("taxField");
-var salary = document.getElementById("salaryInput");
+const onPressTax = document.getElementById("taxBtn");
+const updateResultTax = document.getElementById("taxField");
+const salary = document.getElementById("salaryInput");
+const taxAmount = document.getElementById("taxAmountField");
 
 onPressTax.addEventListener("click", function(){
-    updateResultTax.value = taxFunc.getIncomeTax(salary.value);
-    // if (salary.value <= 48535){
-    //     updateResultTax.value = taxFunc.getTax1(salary.value);
-    // }
-    // if (salary.value > 48535 && salary.value <= 97069){
-    //     updateResultTax.value = taxFunc.getTax2(salary.value);
-    // }
-    // if (salary.value > 48535 && salary.value <= 97069){
-    //     updateResultTax.value = taxFunc.getTax2(salary.value);
-    // }
-    // if (salary.value > 48535 && salary.value <= 97069){
-    //     updateResultTax.value = taxFunc.getTax2(salary.value);
-    // }
-    // if (salary.value > 48535 && salary.value <= 97069){
-    //     updateResultTax.value = taxFunc.getTax2(salary.value);
-    // }else if (salary.value=undefined){
-    //     updateResultTax.value = taxFunc.empty();
-    // }
+    taxAmount.value = taxFunc.getTaxAmount(salary.value);
 });
 
 //CALCULATOR--------------------------------------------------------
 
-var onPress = document.getElementById("calculateBtn");
-var input1 = document.getElementById("value1");
-var input2 = document.getElementById("value2");
-var plusChecked = document.getElementById("plusRadio");
-var minusChecked = document.getElementById("minusRadio");
-var multiplyChecked = document.getElementById("multiplyRadio");
-var divideChecked = document.getElementById("divideRadio");
-var updateResult = document.getElementById("answerField");
+const onPress = document.getElementById("calculateBtn");
+const input1 = document.getElementById("value1");
+const input2 = document.getElementById("value2");
+const plusChecked = document.getElementById("plusRadio");
+const minusChecked = document.getElementById("minusRadio");
+const multiplyChecked = document.getElementById("multiplyRadio");
+const divideChecked = document.getElementById("divideRadio");
+const updateResult = document.getElementById("answerField");
 
 onPress.addEventListener("click", function(){
     switch(input1.value+input2.value!=undefined){
