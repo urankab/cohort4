@@ -68,5 +68,9 @@ test('FOR IN: If the array contains number 1, turn it to 1010 and then return', 
     expect(syntax.addProps([23,1,41,1])).toEqual([23,1010,41,1010]);
 });
 
+test('FOR IN: Add 5 to the first number in the array', () => {
+    expect(syntax.forIn([10,20,30,40])).toEqual(15);
+});
+
 
 

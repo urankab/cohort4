@@ -84,16 +84,30 @@ const syntax = {
     },
 
     //For In: For an array containing the number 1, turn it into 1010.
-    addProps: (arr) => {
-        var i;
+    addProps: (arr, i) => {
         for (i in arr) {
-            for (var i = 0; i < arr.length; i++)
+            for (i = 0; i < arr.length; i++)
                 if (arr[i] == 1)
                     arr[i] = 1010;
                     return arr;
         }
+    },
+
+    //For In: Add 5 to the first number in the array
+    forIn: (arr, i) => {
+        for (i in arr){
+            return arr[i]+5;
+        }
+    },
+
+    forIn: (arr, i) => {
+        for (i in arr){
+            return arr[i]+5;
+        }
     }
+
 }
+
 
 
 

@@ -13,9 +13,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="./index.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/css?family=Spartan&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>FSD</title>
 </head>
 
@@ -111,14 +113,17 @@
 
     <!--CALCULATOR HTML TAGS-->
     <div class="w3-content w3-container w3-padding-64 w3-center">
-        <!--CALCULATOR HTML TAGS-->
+        <!--CALCULATOR HTML TAGS -->
         <div id="calculator">
             First number: <input type="text" id="value1"></input><br>
-            Second number: <input type="text" id="value2"></input><br> Select operator:
-            <label for="plusRadio">+</label><input type="radio" id="plusRadio" name="operator">
-            <label for="minusRadio">-</label></label><input type="radio" id="minusRadio" name="operator">
-            <label for="multiplyRadio">x</label><input type="radio" id="multiplyRadio" name="operator">
-            <label for="divideRadio">/</label><input type="radio" id="divideRadio" name="operator"><br>
+            Second number: <input type="text" id="value2"></input><br>
+            <div class="radioButtons">
+                Select operator:
+                <label for="plusRadio">+</label><input type="radio" id="plusRadio" name="operator">
+                <label for="minusRadio">-</label></label><input type="radio" id="minusRadio" name="operator">
+                <label for="multiplyRadio">x</label><input type="radio" id="multiplyRadio" name="operator">
+                <label for="divideRadio">/</label><input type="radio" id="divideRadio" name="operator"><br>
+            </div>
             <button id="calculateBtn">Calculate</button><br>
             <input type="text" id="answerField">
         </div>
@@ -132,9 +137,9 @@
 
     <div class="w3-content w3-container w3-padding-64 w3-center">
         <div id="taxTable">
-        Please enter your income: <input type="text" id="salaryInput"><br>
-        <button id="taxBtn">Get Net Salary</button><br>
-        You will be taxed:<input type="text" id="taxAmountField"><br>
+            Please enter your income: <input type="text" id="salaryInput"><br>
+            <button id="taxBtn">Get Net Salary</button><br>
+            You will be taxed:<input type="text" id="taxAmountField"><br>
         </div>
     </div>
 
@@ -165,7 +170,7 @@
                 class="w3-hover-text-green">w3.css</a></p>
     </footer>
 
-    <script type="module" src="./scripts/main.js"></script>    
+    <script type="module" src="./scripts/main.js"></script>
 
     <script>
         // Change style of navbar on scroll
