@@ -1,13 +1,38 @@
 import functions from './functions.js';
 import calculatorFunctions from './calculator.js'
 import taxFunc from './taxes.js'
+import arraysFunc from './arrays.js'
 
 // Add the event listeners
+//WORKING WITH ARRAYS----------------------------------------------
+const inputNum = document.getElementById("arrayInput");
+const addBtn = document.getElementById("addBtn");
+const showBtn = document.getElementById("showBtn");
+const totalBtn = document.getElementById("totalBtn");
+const clearBtn = document.getElementById("clearBtn");
+const output = document.getElementById("arrayMessage");
+
+addBtn.addEventListener("click", function(){
+    output.textContent = arraysFunc.addItem(inputNum.value);
+    inputNum.value = '';
+});
+
+showBtn.addEventListener("click", function(){
+    output.textContent = arraysFunc.showArray();
+})
+
+totalBtn.addEventListener("click", function(){
+    output.textContent = arraysFunc.totalOfArray();
+})
+
+clearBtn.addEventListener("click", function(){
+    output.textContent = arraysFunc.clearArray();
+})
 
 //TAXES------------------------------------------------------------
 
 const onPressTax = document.getElementById("taxBtn");
-const updateResultTax = document.getElementById("taxField");
+//const updateResultTax = document.getElementById("taxField");
 const salary = document.getElementById("salaryInput");
 const taxAmount = document.getElementById("taxAmountField");
 
@@ -42,19 +67,7 @@ onPress.addEventListener("click", function(){
         break;
         default:
             updateResult.value = calculatorFunctions.empty();
-    }
-    
-    // if (plusChecked.checked){
-    //     updateResult.value = functions.add(input1.value, input2.value);
-    // }if (minusChecked.checked){
-    //     updateResult.value = functions.subtract(input1.value, input2.value);
-    // }
-    // if (multiplyChecked.checked){
-    //     updateResult.value = functions.multiply(input1.value, input2.value);
-    // }
-    // else if (divideChecked.checked){
-    //     updateResult.value = functions.divide(input1.value, input2.value);
-    // }    
+    } 
 });
 
 //Size

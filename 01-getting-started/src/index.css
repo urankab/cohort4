@@ -56,14 +56,34 @@ html {
     letter-spacing: 10px;
 }
 
+
+
 .w3-hover-opacity {
     cursor: pointer;
+}
+
+/*ARRAYS---------------------------------*/
+#arrays{
+    display: grid;
+    padding: 20px;
+    border: 5px solid #ccc;
+    border-radius: 10px;
+    font-family: Spartan, Arial, Helvetica, sans-serif;
+}
+
+#arrayButtons, #arrayInput{
+    font-size: 20px;
+    text-align: center;
+}
+
+#arrayMessage{
+    font-size: 25px;
 }
 
 /*CALCULATOR-----------------------------*/
 #calculator{
     display: grid;
-    padding: 20px;
+    padding: 30px;
     border: 5px solid #ccc;
     border-radius: 10px;
     font-family: Spartan, Arial, Helvetica, sans-serif;

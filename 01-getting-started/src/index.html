@@ -31,10 +31,11 @@
                 <i class="fa fa-bars"></i>
             </a>
             <a href="#home" class="w3-bar-item w3-button">HOME</a>
-            <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ABOUT</a>
-            <a href="#idSize" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> SIZE</a>
+            <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i>ABOUT</a>
+            <a href="#idArrays" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i>ARRAYS</a>
             <a href="#idCalc" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i>CALCULATOR</a>
             <a href="#idTax" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i>TAXES</a>
+            <a href="#idSize" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> SIZE</a>
             <a href="https://www.evolveu.ca" class="w3-bar-item w3-button w3-hide-small" target="_blank"><i
                     class="fa fa-envelope"></i> CONTACT</a>
             <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
@@ -45,9 +46,10 @@
         <!-- Navbar on small screens -->
         <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
             <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT</a>
-            <a href="#idSize" class="w3-bar-item w3-button" onclick="toggleFunction()">SIZE</a>
+            <a href="#idArrays" class="w3-bar-item w3-button" onclick="toggleFunction()">ARRAYS</a>
             <a href="#idCalc" class="w3-bar-item w3-button" onclick="toggleFunction()">CALCULATOR</a>
             <a href="#idTax" class="w3-bar-item w3-button" onclick="toggleFunction()">TAXES</a>
+            <a href="#idSize" class="w3-bar-item w3-button" onclick="toggleFunction()">SIZE</a>
             <a href="https://www.evolveu.ca" class="w3-bar-item w3-button" onclick="toggleFunction()"
                 target="_blank">CONTACT</a>
             <a href="#" class="w3-bar-item w3-button">SEARCH</a>
@@ -66,7 +68,7 @@
 
     <!-- Container (About The Tools) -->
 
-    <div class="w3-content w3-container w3-padding-64 info-box" id="about">
+    <!-- <div class="w3-content w3-container w3-padding-64 info-box" id="about">
         <h3 class="w3-center">ABOUT THE TOOLS & PRACTICES</h3>
         <p>
             Here, we describe at a high level the basic tools of the trade and best practices in using the tools. We are
@@ -101,102 +103,121 @@
                 delightful JavaScript Testing Framework with a focus on simplicity.</li>
         </ol>
 
-    </div>
-
-
-    <!-- ---------- Second Parallax Image with Size------------------ -->
-    <div class="bgimg-2 w3-display-container w3-opacity-min" id="idCalc">
+    </div> -->
+    <!-- ---------- Second Parallax Image with Size------------------------->
+    <!--------------------WORKING WITH ARRAYS------------------------------->
+    <div class="bgimg-2 w3-display-container w3-opacity-min" id="idArrays">
         <div class="w3-display-middle">
-            <span class="w3-xxlarge w3-text-white w3-wide">CALCULATOR</span>
+            <span class="w3-xxlarge w3-text-white w3-wide">WORKING WITH ARRAYS</span>
         </div>
     </div>
 
-    <!--CALCULATOR HTML TAGS-->
     <div class="w3-content w3-container w3-padding-64 w3-center">
-        <!--CALCULATOR HTML TAGS -->
-        <div id="calculator">
-            First number: <input type="text" id="value1"></input><br>
-            Second number: <input type="text" id="value2"></input><br>
-            <div class="radioButtons">
-                Select operator:
-                <label for="plusRadio">+</label><input type="radio" id="plusRadio" name="operator">
-                <label for="minusRadio">-</label></label><input type="radio" id="minusRadio" name="operator">
-                <label for="multiplyRadio">x</label><input type="radio" id="multiplyRadio" name="operator">
-                <label for="divideRadio">/</label><input type="radio" id="divideRadio" name="operator"><br>
+        <div id="arrays">
+            <input type="number" id="arrayInput"></input><br>
+            <div id="arrayStuff">
+                <button id="addBtn">Add</button>
+                <button id="showBtn">Show</button>
+                <button id="totalBtn">Total</button>
+                <button id="clearBtn">Clear</button>
+                <br><br>
+                <div id="arrayMessage">Message Area</div>
             </div>
-            <button id="calculateBtn">Calculate</button><br>
-            <input type="text" id="answerField">
         </div>
     </div>
 
-    <div class="bgimg-2 w3-display-container w3-opacity-min" id="idTax">
-        <div class="w3-display-middle">
-            <span class="w3-xxlarge w3-text-white w3-wide">CANADIAN TAXES</span>
+        <!--------------------CALCULATOR HTML TAGS------------------------------>
+        <div class="bgimg-2 w3-display-container w3-opacity-min" id="idCalc">
+            <div class="w3-display-middle">
+                <span class="w3-xxlarge w3-text-white w3-wide">CALCULATOR</span>
+            </div>
         </div>
-    </div>
 
-    <div class="w3-content w3-container w3-padding-64 w3-center">
-        <div id="taxTable">
-            Please enter your income: <input type="text" id="salaryInput"><br>
-            <button id="taxBtn">Get Net Salary</button><br>
-            You will be taxed:<input type="text" id="taxAmountField"><br>
+        <div class="w3-content w3-container w3-padding-64 w3-center">
+            <div id="calculator">
+                First number: <input type="text" id="value1"></input><br>
+                Second number: <input type="text" id="value2"></input><br>
+                <div class="radioButtons">
+                    Select operator:
+                    <label for="plusRadio">+</label><input type="radio" id="plusRadio" name="operator">
+                    <label for="minusRadio">-</label></label><input type="radio" id="minusRadio" name="operator">
+                    <label for="multiplyRadio">x</label><input type="radio" id="multiplyRadio" name="operator">
+                    <label for="divideRadio">/</label><input type="radio" id="divideRadio" name="operator"><br>
+                </div>
+                <button id="calculateBtn">Calculate</button><br>
+                <input type="text" id="answerField">
+            </div>
         </div>
-    </div>
 
-    <div class="bgimg-2 w3-display-container w3-opacity-min">
-        <div class="w3-display-middle">
-            <span class="w3-xxlarge w3-text-white w3-wide">SIZE</span>
+        <!--------------------TAX CALCULATOR HTML TAGS-------------------------->
+        <div class="bgimg-2 w3-display-container w3-opacity-min" id="idTax">
+            <div class="w3-display-middle">
+                <span class="w3-xxlarge w3-text-white w3-wide">CANADIAN TAXES</span>
+            </div>
         </div>
-    </div>
 
-    <div class="w3-content w3-container w3-padding-64 w3-center" id="idSize">
-        Did you know that =>
-        <input id="idNumber" type="number"> is a <span id="idNumberSize">unknown</span> number?
-        <p id="idNumberSizexx"></p>
-    </div>
-
-    <!-- Footer -->
-    <footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
-        <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
-        <div class="w3-xlarge w3-section">
-            <i class="fa fa-facebook-official w3-hover-opacity"></i>
-            <i class="fa fa-instagram w3-hover-opacity"></i>
-            <i class="fa fa-snapchat w3-hover-opacity"></i>
-            <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-            <i class="fa fa-twitter w3-hover-opacity"></i>
-            <i class="fa fa-linkedin w3-hover-opacity"></i>
+        <div class="w3-content w3-container w3-padding-64 w3-center">
+            <div id="taxTable">
+                Please enter your income: <input type="text" id="salaryInput"><br>
+                <button id="taxBtn">Get Tax</button><br>
+                You will be taxed:<input type="text" id="taxAmountField"><br>
+            </div>
         </div>
-        <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank"
-                class="w3-hover-text-green">w3.css</a></p>
-    </footer>
 
-    <script type="module" src="./scripts/main.js"></script>
+        <div class="bgimg-2 w3-display-container w3-opacity-min">
+            <div class="w3-display-middle">
+                <span class="w3-xxlarge w3-text-white w3-wide">SIZE</span>
+            </div>
+        </div>
 
-    <script>
-        // Change style of navbar on scroll
-        window.onscroll = function () {
-            myFunction()
-        };
+        <div class="w3-content w3-container w3-padding-64 w3-center" id="idSize">
+            Did you know that =>
+            <input id="idNumber" type="number"> is a <span id="idNumberSize">unknown</span> number?
+            <p id="idNumberSizexx"></p>
+        </div>
 
-        function myFunction() {
-            var navbar = document.getElementById("myNavbar");
-            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-                navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
-            } else {
-                navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+        <!-- Footer -->
+        <footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
+            <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+            <div class="w3-xlarge w3-section">
+                <i class="fa fa-facebook-official w3-hover-opacity"></i>
+                <i class="fa fa-instagram w3-hover-opacity"></i>
+                <i class="fa fa-snapchat w3-hover-opacity"></i>
+                <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+                <i class="fa fa-twitter w3-hover-opacity"></i>
+                <i class="fa fa-linkedin w3-hover-opacity"></i>
+            </div>
+            <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank"
+                    class="w3-hover-text-green">w3.css</a></p>
+        </footer>
+
+        <script type="module" src="./scripts/main.js"></script>
+
+        <script>
+            // Change style of navbar on scroll
+            window.onscroll = function () {
+                myFunction()
+            };
+
+            function myFunction() {
+                var navbar = document.getElementById("myNavbar");
+                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                    navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
+                } else {
+                    navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+                }
             }
-        }
 
-        // Used to toggle the menu on small screens when clicking on the menu button
-        function toggleFunction() {
-            var x = document.getElementById("navDemo");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
+            // Used to toggle the menu on small screens when clicking on the menu button
+            function toggleFunction() {
+                var x = document.getElementById("navDemo");
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className += " w3-show";
+                } else {
+                    x.className = x.className.replace(" w3-show", "");
+                }
             }
-        }
-    </script>
+        </script>
 
 </body>
 
