@@ -2,8 +2,20 @@ import functions from './functions.js';
 import calculatorFunctions from './calculator.js'
 import taxFunc from './taxes.js'
 import arraysFunc from './arrays.js'
+import dictionaryFunc from './diction.js';
 
-// Add the event listeners
+//WORKING WITH DICTIONARIES----------------------------------------
+// const provInput = document.getElementById("provInput");
+const myListValue = document.getElementById("myList");
+const lookupBtn = document.getElementById("lookupBtn");
+const lookupMessage = document.getElementById("dictionMessage");
+
+lookupBtn.addEventListener("click", function() {
+    // lookupMessage.textContent = dictionaryFunc.provinceLookup(provInput.value);
+    // provInput.value = '';
+    lookupMessage.textContent = dictionaryFunc.getProvince(myListValue.value);
+});
+
 //WORKING WITH ARRAYS----------------------------------------------
 const inputNum = document.getElementById("arrayInput");
 const addBtn = document.getElementById("addBtn");
@@ -12,20 +24,20 @@ const totalBtn = document.getElementById("totalBtn");
 const clearBtn = document.getElementById("clearBtn");
 const output = document.getElementById("arrayMessage");
 
-addBtn.addEventListener("click", function(){
+addBtn.addEventListener("click", function() {
     output.textContent = arraysFunc.addItem(inputNum.value);
     inputNum.value = '';
 });
 
-showBtn.addEventListener("click", function(){
+showBtn.addEventListener("click", function() {
     output.textContent = arraysFunc.showArray();
 })
 
-totalBtn.addEventListener("click", function(){
+totalBtn.addEventListener("click", function() {
     output.textContent = arraysFunc.totalOfArray();
 })
 
-clearBtn.addEventListener("click", function(){
+clearBtn.addEventListener("click", function() {
     output.textContent = arraysFunc.clearArray();
 })
 
@@ -36,7 +48,7 @@ const onPressTax = document.getElementById("taxBtn");
 const salary = document.getElementById("salaryInput");
 const taxAmount = document.getElementById("taxAmountField");
 
-onPressTax.addEventListener("click", function(){
+onPressTax.addEventListener("click", function() {
     taxAmount.value = taxFunc.getTaxAmount(salary.value);
 });
 
@@ -51,23 +63,23 @@ const multiplyChecked = document.getElementById("multiplyRadio");
 const divideChecked = document.getElementById("divideRadio");
 const updateResult = document.getElementById("answerField");
 
-onPress.addEventListener("click", function(){
-    switch(input1.value+input2.value!=undefined){
+onPress.addEventListener("click", function() {
+    switch (input1.value + input2.value != undefined) {
         case plusChecked.checked:
             updateResult.value = calculatorFunctions.add(input1.value, input2.value);
-        break;
+            break;
         case minusChecked.checked:
             updateResult.value = calculatorFunctions.subtract(input1.value, input2.value);
-        break;
+            break;
         case multiplyChecked.checked:
             updateResult.value = calculatorFunctions.multiply(input1.value, input2.value);
-        break;
+            break;
         case divideChecked.checked:
             updateResult.value = calculatorFunctions.divide(input1.value, input2.value);
-        break;
+            break;
         default:
             updateResult.value = calculatorFunctions.empty();
-    } 
+    }
 });
 
 //Size

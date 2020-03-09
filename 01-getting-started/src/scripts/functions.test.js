@@ -1,11 +1,5 @@
 import functions from './functions'
 
-//TAXES TEST---------------------------------------------
-// test('Check that the income tax is working', () => {
-//     expect(taxFunc.getTaxAmount(48535)).toBe(41254.75);
-//     expect(taxFunc.getTaxAmount(50000)).toBe(42419.425);
-// });
-
 //SIZE----------------------------------------------------
 test('Check the sizes', () => {
     expect(functions.size(-1)).toBe("small"); // Consider the edge cases
@@ -19,8 +13,8 @@ test('Check the sizes', () => {
 });
 
 test('Does that add function work?', () => {
-    expect(functions.add(1,2)).toBe(3);
-    expect(functions.add(101,202)).toBe(303);
+    expect(functions.add(1, 2)).toBe(3);
+    expect(functions.add(101, 202)).toBe(303);
 });
 
 //Is Even 
@@ -28,4 +22,3 @@ test('Is Even test', () => {
     expect(functions.isEven(2)).toBe(true);
     expect(functions.isEven(3)).toBe(false);
 });
-
