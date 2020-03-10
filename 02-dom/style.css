@@ -1,0 +1,15 @@
+body{
+    background-color: lightcyan;
+}
+
+#domBox{
+    width: 300px;
+    margin: auto;
+    text-align: center;
+    background-color: rgb(248, 220, 224);
+    border: solid;
+}
+
+#olList{
+    list-style-position: inside;
+}

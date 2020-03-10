@@ -1,6 +1,6 @@
 import functions from './daily.js'
 
 test('Check that convert temp function works', () => {
-    expect(daily.convertTemp()).toBe(true);
-    //expect(daily.convertTemp(0)).toBe(32);
+    expect(functions.convertToFahrenheit(60)).toBe(140);
+    expect(functions.convertToFahrenheit(0)).toBe(32);
 });
