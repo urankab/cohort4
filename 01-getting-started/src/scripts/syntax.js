@@ -19,9 +19,7 @@ const syntax = {
 
     //Undefined: Defines input as undefined
     isUndefined: (z) => {
-        if (z != undefined) {
-            return z === undefined;
-        } else return z === undefined;
+        return z === undefined;
     },
 
     /*Array, Push, Shift, update list: Remove first item in array, add item to end
@@ -89,23 +87,16 @@ const syntax = {
             for (i = 0; i < arr.length; i++)
                 if (arr[i] == 1)
                     arr[i] = 1010;
-                    return arr;
+            return arr;
         }
     },
 
     //For In: Add 5 to the first number in the array
     forIn: (arr, i) => {
-        for (i in arr){
-            return arr[i]+5;
+        for (i in arr) {
+            return arr[i] + 5;
         }
     },
-
-    forIn: (arr, i) => {
-        for (i in arr){
-            return arr[i]+5;
-        }
-    }
-
 }
 
 

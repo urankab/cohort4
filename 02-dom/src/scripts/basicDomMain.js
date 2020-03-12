@@ -1,5 +1,6 @@
-import domStuff from './script.js'
+import domStuff from './basicDom.js'
 
+//BASIC DOM-----------------------------------------------------
 const showBtn = document.getElementById("showBtn");
 const addBtn = document.getElementById("addBtn");
 const deleteBtn = document.getElementById("deleteBtn");
