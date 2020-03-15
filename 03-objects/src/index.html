@@ -4,17 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,700&display=swap" rel="stylesheet">
+
     <title>Banking</title>
-    <h1>Bank of Canada</h1>
+    <header>
+        <h1>Banking with Uranka</h1>
+    </header>
 </head>
 
 <body>
-    <div id=box1>
-
+    <div class="grid-container">
+        <!-- <div class="box head">
+            <h1>Bank of Uranka</h1>
+        </div> -->
+        <div class="box box1">
+            <h3>Accounts</h3>
+            <select id="accounts">
+        </select>
+            <button id="depositBtn" class="w3-button w3-black w3-round-xlarge">Deposit</button>
+            <button id="withdrawBtn" class="w3-button w3-black w3-round-xlarge">Withdraw</button>
+            <div id="messageArea1">Account info will show here</div>
+        </div>
+        <div class="box box2">
+            <h3>Edit Account</h3>
+            <button id="addBtn">Add</button><button id="deleteBtn">Delete</button><br>
+            <br>
+            <select id="accounts"></select>
+        </div>
     </div>
-    <div id=box2>
-
-    </div>
+    <script type="module" src="./scripts/index.js"></script>
 </body>
+<footer>Made by Uranka</footer>
 
 </html>
