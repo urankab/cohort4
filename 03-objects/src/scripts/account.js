@@ -106,5 +106,4 @@ class AccountController {
 }
 
 
-
 export { Account, AccountController };

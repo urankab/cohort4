@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./style.css">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,700&display=swap" rel="stylesheet">
-
     <title>Banking</title>
     <header>
         <h1>Banking with Uranka</h1>
@@ -14,27 +13,48 @@
 </head>
 
 <body>
+    <div class="fullscreen-bg">
+        <video loop muted autoplay poster class="fullscreen-bg__video">
+            <source src="./images/vid2.mov" type="video/mp4">
+        </video>
+    </div>
     <div class="grid-container">
-        <!-- <div class="box head">
-            <h1>Bank of Uranka</h1>
-        </div> -->
         <div class="box box1">
-            <h3>Accounts</h3>
-            <select id="accounts">
-        </select>
-            <button id="depositBtn" class="w3-button w3-black w3-round-xlarge">Deposit</button>
-            <button id="withdrawBtn" class="w3-button w3-black w3-round-xlarge">Withdraw</button>
-            <div id="messageArea1">Account info will show here</div>
+            <h3 class="boxTextTop">Accounts</h3>
+            <select class="accounts glow-on-account">
+                <option class="option glow-on-account">Pick Account</option>
+            </select><br>
+            <input id="numInput1" class="input" type="number">
+            <button class="glow-on-hover" id="depositBtn">Deposit</button>
+            <button class="glow-on-hover" id="withdrawBtn">Withdraw</button>
+
+            <p class="boxTextBot" id=messageArea1>Account info will show here</p>
         </div>
         <div class="box box2">
-            <h3>Edit Account</h3>
-            <button id="addBtn">Add</button><button id="deleteBtn">Delete</button><br>
-            <br>
-            <select id="accounts"></select>
+            <h3 class="boxTextTop">Edit Account</h3>
+            <select class="accounts glow-on-account">
+                <option class="option glow-on-account">Pick Account</option>
+            </select><br>
+            <input id="textInput" class="input" type="text">
+            <input id="numInput2" class="input" type="number">
+            <button class="glow-on-hover" id="addBtn">Add</button>
+            <button class="glow-on-hover" id="deleteBtn">Delete</button>
+            <button class="glow-on-hover" id="renameBtn">Rename</button>
+            <p class="boxTextBot" id=messageArea2>Account info will show here</p>
+        </div>
+        <div class="box box3">
+            <h3 class="boxTextTop">Bank Account Analyzer</h3>
+            <button class="glow-on-hover" id="highBtn">Highest Balance Account</button>
+            <button class="glow-on-hover" id="lowBtn">Lowest Balance Account</button>
+            <button class="glow-on-hover" id="totalBtn">Total of All Accounts</button>
+            <button class="glow-on-hover" id="showBtn">Show All Accounts</button>
+            <ol id="olList">
+                <li>List of Accounts</li>
+            </ol>
         </div>
     </div>
     <script type="module" src="./scripts/index.js"></script>
 </body>
-<footer>Made by Uranka</footer>
+<footer>Made by The Best</footer>
 
 </html>
