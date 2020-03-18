@@ -1,6 +1,7 @@
 import { Account, AccountController } from './account.js'
 
 //Box1
+const container = document.getElementsByClassName("grid-container")
 const dptBtn = document.getElementById("depositBtn")
 const wdrawBtn = document.getElementById("withdrawBtn")
 const numI1 = document.getElementById("numInput1")
@@ -23,39 +24,52 @@ const showAll = document.getElementById("showBtn")
 const message3 = document.getElementById("messageArea3")
 const list = document.getElementById("olList")
 
-//Create starter account with 100 init balance
-const userAccounts = new AccountController();
-userAccounts.addAccount("Car", 100);
+let setAccount = new Account("Uranka", 100) //Account
 
-addBtn.addEventListener("click", function() {
-    userAccounts.addAccount(accNameInput.value, initBalInput.value)
+let addSetAccount = document.createElement("OPTION");
+addSetAccount.appendChild(document.createTextNode("Testing"))
+accList.appendChild(addSetAccount)
 
-})
 
-showAll.addEventListener("click", function() {
-    message3.textContent = userAccounts;
-})
+//let newAccDiv = document.createElement("DIV");
+// newAccDiv.classList.add("box")
+
+console.log(setAccount);
+
+let userAccs = new AccountController();
 
 document.body.addEventListener("click", e => {
-    // console.log(e.target.textContent);
-    // console.log(e.target.nodeName);
-    // console.log(e.target);
-    if (e.target.nodeName === 'BUTTON') {
+    //console.log(e.target.textContent); //NAME OF BUTTON
+    // console.log(e.target.nodeName); //BUTTON
+    // console.log(e.target); //BUTTON STUFF
 
+    if (e.target.nodeName === 'BUTTON') {
         if (e.target.textContent === 'Add') {
-            //console.log(e.target.parentElement)
-            let createAccount = document.createElement("OPTION")
-            let accountName = document.createTextNode(accNameInput);
-            let list = document.
+            let newAccount = document.createElement("OPTTION");
+            userAccs.addAccount(accNameInput, initBalInput);
+            let newAccDiv = document.createElement("DIV")
+            newAccDiv.appendChild(newAccount);
+
+
+            // userAccs.addAccount(accNameInput.value, initBalInput.value)
+            // userAccs = document.createElement('option')
+            // userAccs.appendChild(document.createTextNode("testing"))
+            // accList.appendChild(userAccs);
+
+
+
+            // let createAccount = document.createElement("OPTION")
+            // let accountName = document.createTextNode(accNameInput);
+            // let list = document.
             message2.textContent = 'Added'
         } else if (e.target.textContent === "Show All Accounts") {
-            let node = document.createElement("LI")
-            let textnode = document.createTextNode(accNameInput)
-            let textBal = document.createTextNode(initBalInput)
-            list.appendChild(textnode, textBal)
-                // cards.addAfter(e.target.parentElement, "Card " + counter++);
+            console.log(e.target);
+            // let node = document.createElement("LI")
+            // let textnode = document.createTextNode(accNameInput)
+            // let textBal = document.createTextNode(initBalInput)
+            // list.appendChild(textnode, textBal)
         } else if (e.target.textContent === "Delete") {
-            userAccounts.removeAccount(e.target.parentElement);
+            // userAccs.removeAccount(e.target.parentElement);
         }
     }
 });

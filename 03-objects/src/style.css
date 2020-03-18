@@ -1,12 +1,14 @@
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1em;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* grid-gap: 1em; */
 }
 
-.innerStuff {
-    display: grid;
-}
+
+/* 
+.input {
+    color: white;
+} */
 
 header {
     background-image: url(https://cemhri.org/wp-content/uploads/2018/04/Home-Four-Banner-Background-Image.png);
@@ -50,6 +52,7 @@ header {
 
 .box {
     background-color: rgb(33, 25, 49);
+    display: grid;
     border-radius: 10px;
     padding: 8px;
     margin: 5px;
@@ -72,9 +75,10 @@ header {
 }
 
 .accounts {
-    padding: 5px;
-    margin-bottom: 10px;
+    text-align: center;
+    margin: 10px;
     font-family: 'Merriweather', Arial, Helvetica, sans-serif;
+    font-size: 20px;
     border: 0px;
     outline: 0px;
 }
