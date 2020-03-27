@@ -47,7 +47,9 @@ header {
     box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
 }
 
-.box {
+.box1,
+.box2,
+.box3 {
     background-color: rgb(33, 25, 49);
     border-radius: 10px;
     padding: 8px;
@@ -60,7 +62,8 @@ header {
     display: grid;
 }
 
-.box2 {
+
+/* .box2 {
     background-color: rgb(33, 25, 49);
     border-radius: 10px;
     padding: 8px;
@@ -84,10 +87,10 @@ header {
     -webkit-box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
     -moz-box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
     box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
-}
+} */
 
 .label {
-    width: auto;
+    /* width: auto; */
     padding: 5px;
     margin: 5px auto;
     font-family: 'Merriweather', Arial, Helvetica, sans-serif;

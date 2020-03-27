@@ -1,4 +1,4 @@
-import { Account, AccountController } from "./account.js";
+import { Account, AccountController } from "./account2.js";
 
 const account1 = new Account('checkingAcc', 25);
 
@@ -59,24 +59,28 @@ test('Test getting total of all acc balance works', () => {
     expect(accController.totalBalance()).toBe(1500);
 })
 
-test('Test getting HIGHEST of all accounts works', () => {
-    accController.addAccount("Doggy Business", 3000);
-    accController.addAccount("Video Games", 300);
-    //We have House, Kids, Doggy Business, Video Games accounts so far
-    expect(accController.highestAccount()).toBe("Doggy Business: $3000");
-})
-
-test('Test getting LOWEST of all accounts works', () => {
-    expect(accController.lowestAccount()).toBe("Video Games: $300");
-})
-
-test('Test show all bank accounts is working', () => {
-    expect(accController.showAllAccounts()).toContain({ accountName: "Video Games", balance: 300 });
-})
-
 test('Test deposit, withdrawal, showBalance', () => {
     accController.accArray[0].deposit(15);
     expect(accController.accArray[0].showBalance()).toEqual("House: $" + 515);
     accController.accArray[1].withdraw(100);
     expect(accController.accArray[1].showBalance()).toEqual("Kids: $" + 900);
 })
+
+test('Test getting HIGHEST of all accounts works', () => {
+    accController.addAccount("Doggy Business", 3000);
+    accController.addAccount("Video Games", 300);
+    //We have House, Kids, Doggy Business, Video Games accounts so far
+    expect(accController.highestAccount()).toBe("Highest Acc: Doggy Business: $3000");
+})
+
+test('Test getting LOWEST of all accounts works', () => {
+    expect(accController.lowestAccount()).toBe("Lowest Acc: Video Games: $300");
+})
+
+//FIX LATER
+// test('Test showAll', () => {
+//     expect(accController.showAll()).toEqual('House,515' + '\n' +
+//         'Kids,900' + '\n' +
+//         'Doggy Business,3000' + '\n' +
+//         'Video Games,300');
+// })

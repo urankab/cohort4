@@ -1,4 +1,4 @@
-import { Account, AccountController } from './account2.js'
+import { Account, AccountController } from './account3.js'
 
 //Box1
 const container = document.getElementsByClassName("grid-container") //CONTAINER
@@ -8,7 +8,7 @@ const delBtn = document.getElementById("deleteBtn") //DELETE BTN
 const reBtn = document.getElementById("renameBtn") //RENAME BTN     
 const numInput = document.getElementById("numInput") //NUM INPUT TO ADD/WITHDRAW
 const renameInput = document.getElementById("renameInput") //RENAME INPUT
-const dropDownList = document.getElementById("account1") //DROPDOWN LIST
+const dropDownList = document.getElementsByClassName("accountList") //DROPDOWN LIST
 const message1 = document.getElementById("messageArea1") //MESSAGE AREA
 
 //Box 2
@@ -31,9 +31,9 @@ const message3 = document.getElementById("messageArea3") //MESSAGE AREA
 // addToList.appendChild(document.createTextNode(userAccounts.showBalance()))
 // accList1[0].appendChild(addToList)
 
-//let accounts = new Account();
+let accounts = new Account();
 let accountManager = new AccountController();
-//let accListArray = [];
+let accListArray = [];
 
 document.body.addEventListener("click", e => {
     //console.log(e.target);
@@ -48,48 +48,41 @@ document.body.addEventListener("click", e => {
             message1.textContent = `Withdrawled ${depAmount} from ${accountName}`
         } else if (e.target.textContent === "Delete") { //NOT DONE YET
 
+        } else if (e.target.textContent === "Delete") {
+
         } else if (e.target.textContent === "Rename") {
 
         } else if (e.target.textContent === "Add") {
             if (accNameInput.value && initBalInput.value != "") {
                 accountManager.addAccount(accountName, startingBalance)
-                    //accListArray.push(accountManager)
-                console.log(accountManager)
-                console.log(accountManager.accArray.length)
+                accListArray.push(accountManager)
+                    // console.log(accountManager)
                 message2.textContent = `Created ${accountName} with $${startingBalance}`
                 accNameInput.value = '';
                 initBalInput.value = '';
-                //Add To DropDown
-                // let addToList = document.createElement("option");
-                // for (let i = 0; i < accListArray.length; i++) {
-                //     console.log(accListArray[0])
-                //     addToList.appendChild(document.createTextNode(accListArray[i].showBalance()));
-                //     dropDownList[0].appendChild(addToList)
-                // }
-                //console.log(addToList)
             } else {
                 message2.textContent = 'Please enter some values'
             }
 
         } else if (e.target.textContent === "Highest Account") {
-            if (accountManager.accArray.length > 0) {
-                //for (let i = 0; i < accountManager.accArray.length; i++) {
-                message3.textContent = accountManager.highestAccount(accountManager);
+            if (accListArray.length > 0) {
+                console.log(accountManager)
+                message3.textContent = accountManager.highestAccount();
             }
         } else if (e.target.textContent === "Lowest Account") {
-            if (accountManager.accArray.length > 0) {
-                message3.textContent = accountManager.accArray.lowestAccount();
+            if (accListArray.length > 0) {
+                message3.textContent = accountManager.lowestAccount();
             }
         } else if (e.target.textContent === "Total Balance") {
-            if (accountManager.accArray.length > 0) {
-                message3.textContent = accountManager.accArray.totalBalance();
+            if (accListArray.length > 0) {
+                message3.textContent = accountManager.totalBalance();
             }
         } else if (e.target.textContent === "Show All Accounts") {
-            if (accountManager.accArray.length > 0) {
+            if (accListArray.length > 0) {
                 for (let i = 0; i < accListArray.length; i++) {
-                    message3.textContent = accountManager.accArray.showAll();
+                    message3.textContent = accountManager.showAll();
                 }
-            } else if (accountManager.accArray.length <= 0) {
+            } else if (accListArray.length <= 0) {
                 message3.textContent = "There are no accounts"
             }
         }

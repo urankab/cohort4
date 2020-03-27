@@ -1,4 +1,4 @@
-import { Account, AccountController } from "./account.js";
+import { Account, AccountController } from "../scripts/account3.js";
 
 const account1 = new Account('checkingAcc', 25);
 

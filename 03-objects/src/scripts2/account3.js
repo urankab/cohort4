@@ -26,8 +26,7 @@ class Account {
 
 class AccountController {
     constructor() {
-        //super(accountName, balance)
-        this.accArray = [] //Create array for new accs
+        this.accArray = [];
     }
 
     // addAccount(accountName, balance) {
@@ -38,6 +37,22 @@ class AccountController {
     addAccount(accountName, balance) {
         let newAccount = new Account(accountName, balance); //New Account
         this.accArray.push(newAccount); //Push to array
+        this.createCard(this.accArray);
+    }
+
+    createCard(accountName, balance) {
+        let newAccountCard = document.createElement("div")
+        newAccountCard.classList.add("box1")
+        newAccountCard.appendChild(document.createTextNode(`${accountName}: ${balance}`))
+        const breakLine = document.createElement('br')
+        newAccountCard.appendChild(breakLine)
+        const dltBtn = document.createElement('button')
+        dltBtn.appendChild(document.createTextNode("Delete"))
+        newAccountCard.appendChild(dltBtn)
+        const renameBtn = document.createElement('button')
+        renameBtn.appendChild(document.createTextNode("Rename"))
+        newAccountCard.appendChild(renameBtn)
+        return newAccountCard;
     }
 
     removeAccount(accountName) {
@@ -59,8 +74,7 @@ class AccountController {
     totalBalance() {
         let total = 0;
         for (let i = 0; i < this.accArray.length; i++) {
-            let temp = this.accArray[i].balance; //Hold onto balances in arrays thru iteration
-            total += temp; //add them together
+            total += this.accArray[i].balance; //Hold onto balances in arrays thru iteration
         }
         return total;
     }
@@ -82,11 +96,11 @@ class AccountController {
             // if (high < current) {
             //     console.log(current)
             //     high = current;
-            //     highestAcc = high;
+            //     highestBal = high;
             //     highestName = currentName;
             // }
         }
-        return `${highestName}: $${highestBal}`
+        return `Highest Acc: ${ highestName }: $${ highestBal }`
     }
 
     lowestAccount() {
@@ -95,21 +109,27 @@ class AccountController {
         for (let i = this.accArray.length - 1; i >= 0; i--) {
             let currentName = this.accArray[i].accountName;
             let currentBal = this.accArray[i].balance;
+            console.log(currentName)
             if (currentBal < lowest) {
                 lowestName = currentName;
                 lowest = currentBal;
             }
         }
-        return `${lowestName}: $${lowest}`
+        return `Lowest Acc: ${ lowestName }: $${ lowest }`
     }
 
-    showAllAccounts() {
-        let showAll;
+    showAll() {
+        let string = ''
         for (let i = 0; i < this.accArray.length; i++) {
-            return showAll += this.accArray; //Put all the accounts into a string to return
+            string += `${Object.values(this.accArray[i])}\n`;
         }
+        return string;
     }
 }
 
-
 export { Account, AccountController };
+
+// Account { accountName: 'House', balance: 515 },
+// Account { accountName: 'Kids', balance: 900 },
+// Account { accountName: 'Doggy Business', balance: 3000 },
+// Account { accountName: 'Video Games', balance: 300 }
