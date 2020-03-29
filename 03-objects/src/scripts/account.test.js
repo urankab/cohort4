@@ -18,14 +18,14 @@ test('Test show balance method', () => {
     expect(account1.showBalance()).toBe("checkingAcc: $5");
 })
 
+//-------- ACCOUNT CONTROLLER ------------------------------
+
+const accController = new AccountController();
+
 test('Test AccountController constructor works', () => {
     const acc = new AccountController();
     expect(acc.accArray).toEqual([]);
 })
-
-//-------- ACCOUNT CONTROLLER ------------------------------
-
-const accController = new AccountController();
 
 test('Test that adding an account works', () => {
     accController.addAccount("Vacation", 100);
@@ -56,22 +56,7 @@ test('Test getting total of all acc balance works', () => {
     expect(accController.accArray).toEqual +
         ([{ accountName: "House", balance: 500 }, { accountName: 'Kids', balance: 1000 }])
         //We have House: $500 and Kids: $1000 so far
-    expect(accController.totalBalance()).toBe(1500);
-})
-
-test('Test getting HIGHEST of all accounts works', () => {
-    accController.addAccount("Doggy Business", 3000);
-    accController.addAccount("Video Games", 300);
-    //We have House, Kids, Doggy Business, Video Games accounts so far
-    expect(accController.highestAccount()).toBe("Doggy Business: $3000");
-})
-
-test('Test getting LOWEST of all accounts works', () => {
-    expect(accController.lowestAccount()).toBe("Video Games: $300");
-})
-
-test('Test show all bank accounts is working', () => {
-    expect(accController.showAllAccounts()).toContain({ accountName: "Video Games", balance: 300 });
+    expect(accController.totalBalance()).toBe('Total: $' + 1500);
 })
 
 test('Test deposit, withdrawal, showBalance', () => {
@@ -79,4 +64,20 @@ test('Test deposit, withdrawal, showBalance', () => {
     expect(accController.accArray[0].showBalance()).toEqual("House: $" + 515);
     accController.accArray[1].withdraw(100);
     expect(accController.accArray[1].showBalance()).toEqual("Kids: $" + 900);
+})
+
+test('Test getting HIGHEST of all accounts works', () => {
+    accController.addAccount("Doggy Business", 3000);
+    accController.addAccount("Video Games", 300);
+    //We have House, Kids, Doggy Business, Video Games accounts so far
+    expect(accController.highestAccount()).toBe("Highest Acc: Doggy Business: $3000");
+})
+
+test('Test getting LOWEST of all accounts works', () => {
+    expect(accController.lowestAccount()).toBe("Lowest Acc: Video Games: $300");
+})
+
+//FIX LATER
+test('Test showAll', () => {
+    expect(accController.showAll()).toEqual('House,515Kids,900Doggy Business,3000Video Games,300');
 })

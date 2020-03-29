@@ -13,30 +13,12 @@
 </head>
 
 <body>
-    <div class="fullscreen-bg">
-        <video loop muted autoplay poster class="fullscreen-bg__video">
-            <source src="./images/vid2.mov" type="video/mp4">
-        </video>
-    </div>
+
     <div class="grid-container">
+        <!-- <div class="header">
+            <h1>Banking with Uranka</h1>
+        </div> -->
         <div class="box">
-            <h3 class="boxTextTop">Accounts</h3>
-            <select class="accountList glow-on-account" id="account1">
-                <option class="option glow-on-account">Pick Account</option>
-            </select>
-            <p class="label">Amount:</p>
-            <!-- <p class="input">Name:</p>
-            <input type=text id="accName" class="input"> -->
-            <input id="numInput" class="input" type="number">
-            <button class="btn glow-on-hover" id="depositBtn">Deposit</button>
-            <button class="btn glow-on-hover" id="withdrawBtn">Withdraw</button>
-            <button class="btn glow-on-hover" id="deleteBtn ">Delete</button><br>
-            <p class="label">New Name:</p>
-            <input id="renameInput" class="input" type="text">
-            <button class="glow-on-hover " id="renameBtn ">Rename</button>
-            <p class="boxTextBot " id=messageArea1>...</p>
-        </div>
-        <div class="box2">
             <h3 class="boxTextTop">Create an Account</h3>
             <p class="label">Name:</p>
             <input id="newAccNameInput" class="input" type="text">
@@ -44,6 +26,24 @@
             <input id="initBalInput" class="input" type="number">
             <button class="btn glow-on-hover" id="addBtn ">Add</button>
             <p class="boxTextBot" id=messageArea2>...</p>
+        </div>
+        <div class="box2">
+            <h3 class="boxTextTop">Edit an Account</h3>
+            <select class="accountList" value="" id="account1">
+                <option id="option">Pick Account</option>
+            </select>
+            <p class="label">Amount:</p>
+            <!-- <p class="input">Name:</p>
+            <input type=text id="accName" class="input"> -->
+            <input id="numInput" class="input" type="number">
+            <button class="btn glow-on-hover" id="showBalanceBtn">Show Balance</button>
+            <button class="btn glow-on-hover" id="depositBtn">Deposit</button>
+            <button class="btn glow-on-hover" id="withdrawBtn">Withdraw</button>
+            <button class="btn glow-on-hover" id="deleteBtn ">Delete</button><br>
+            <p class="label">New Name:</p>
+            <input id="renameInput" class="input" type="text">
+            <button class="glow-on-hover " id="renameBtn ">Rename</button>
+            <p class="boxTextBot " id=messageArea1>...</p>
         </div>
         <div class="box3">
             <h3 class="boxTextTop">Bank Account Analyzer</h3>
@@ -57,8 +57,12 @@
             </ol> -->
         </div>
     </div>
+    <div class="fullscreen-bg">
+        <video loop muted autoplay poster class="fullscreen-bg__video">
+            <source src="./images/vid2.mov" type="video/mp4">
+        </video>
+    </div>
     <script type="module" src="./scripts/index.js"></script>
 </body>
-<!-- <footer>Made by The Best</footer> -->
 
 </html>

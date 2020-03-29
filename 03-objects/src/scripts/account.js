@@ -1,19 +1,23 @@
 class Account {
     constructor(accountName, balance) {
         this.accountName = accountName;
-        this.balance = balance;
+        this.balance = Number(balance);
     }
 
     deposit(valueIn) {
-        this.balance += valueIn;
+        this.balance += Number(valueIn);
     }
 
     withdraw(valueOut) {
-        this.balance -= valueOut;
+        this.balance -= Number(valueOut);
     }
 
     showBalance() {
         return `${this.accountName}: $${this.balance}`;
+    }
+
+    showName() {
+        return this.accountName;
     }
 }
 
@@ -26,23 +30,26 @@ class Account {
 
 class AccountController {
     constructor() {
-        //super(accountName, balance)
-        this.accArray = [] //Create array for new accs
+        this.accArray = [];
     }
 
-    // addAccount(accountName, balance) {
-    //     let newAccount = new Account(accountName, balance); //New Account
-    //     this.accArray.push(newAccount); //Push to array
-    // }
-
     addAccount(accountName, balance) {
-        let newAccount = new Account(accountName, balance); //New Account
-        this.accArray.push(newAccount); //Push to array
+        // let newAccount = new Account(accountName, balance); //New Account
+        this.accArray.push(new Account(accountName, balance)); //Push to array
+    }
+
+    checkName(accountName) { //Check that you don't add acc with same name
+        for (let i = 0; i < this.accArray.length; i++) {
+            if (accountName == this.accArray[i].accountName) {
+                console.log(this.accArray[i].accountName)
+                return true;
+            }
+        }
     }
 
     removeAccount(accountName) {
         for (let i = 0; i < this.accArray.length; i++) {
-            if (accountName = this.accArray[i].accountName) {
+            if (accountName == this.accArray[i].accountName) {
                 this.accArray.splice(i, 1)
             }
         }
@@ -59,19 +66,18 @@ class AccountController {
     totalBalance() {
         let total = 0;
         for (let i = 0; i < this.accArray.length; i++) {
-            let temp = this.accArray[i].balance; //Hold onto balances in arrays thru iteration
-            total += temp; //add them together
+            total += Number(this.accArray[i].balance); //Hold onto balances in arrays thru iteration
         }
-        return total;
+        return `Total: $${total}`;
     }
 
     highestAccount() {
         let highestBal = 0; //Initialize
         let highestName; //Initialize
         for (let i = 0; i < this.accArray.length; i++) {
-            let currentName = this.accArray[i].accountName; //Iterating through the acc names
             if (this.accArray[i].balance > highestBal) {
-                highestBal = this.accArray[i].balance;
+                let currentName = this.accArray[i].accountName;
+                highestBal = Number(this.accArray[i].balance);
                 highestName = currentName;
             }
 
@@ -82,11 +88,11 @@ class AccountController {
             // if (high < current) {
             //     console.log(current)
             //     high = current;
-            //     highestAcc = high;
+            //     highestBal = high;
             //     highestName = currentName;
             // }
         }
-        return `${highestName}: $${highestBal}`
+        return `Highest Acc: ${highestName}: $${highestBal}`
     }
 
     lowestAccount() {
@@ -94,22 +100,28 @@ class AccountController {
         let lowestName;
         for (let i = this.accArray.length - 1; i >= 0; i--) {
             let currentName = this.accArray[i].accountName;
-            let currentBal = this.accArray[i].balance;
+            let currentBal = Number(this.accArray[i].balance);
             if (currentBal < lowest) {
                 lowestName = currentName;
                 lowest = currentBal;
             }
         }
-        return `${lowestName}: $${lowest}`
+        return `Lowest Acc: ${ lowestName }: $${ lowest }`
     }
 
-    showAllAccounts() {
-        let showAll;
+    showAll() {
+        let string = ''
         for (let i = 0; i < this.accArray.length; i++) {
-            return showAll += this.accArray; //Put all the accounts into a string to return
+            string += `  ${Object.values(this.accArray[i])}  `;
         }
+        return string;
     }
 }
 
 
 export { Account, AccountController };
+
+// Account { accountName: 'House', balance: 515 },
+// Account { accountName: 'Kids', balance: 900 },
+// Account { accountName: 'Doggy Business', balance: 3000 },
+// Account { accountName: 'Video Games', balance: 300 }
