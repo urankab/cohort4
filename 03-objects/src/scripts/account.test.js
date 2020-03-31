@@ -1,5 +1,7 @@
 import { Account, AccountController } from "./account.js";
 
+//-------- ACCOUNT CLASS ------------------------------
+
 const account1 = new Account('checkingAcc', 25);
 
 test('Does the constructor set up work?', () => {
@@ -18,7 +20,7 @@ test('Test show balance method', () => {
     expect(account1.showBalance()).toBe("checkingAcc: $5");
 })
 
-//-------- ACCOUNT CONTROLLER ------------------------------
+//-------- ACCOUNT CONTROLLER CLASS ------------------------------
 
 const accController = new AccountController();
 
@@ -77,7 +79,12 @@ test('Test getting LOWEST of all accounts works', () => {
     expect(accController.lowestAccount()).toBe("Lowest Acc: Video Games: $300");
 })
 
-//FIX LATER
 test('Test showAll', () => {
-    expect(accController.showAll()).toEqual('House,515Kids,900Doggy Business,3000Video Games,300');
+    expect(accController.showAll()).toEqual(' House,515  Kids,900  Doggy Business,3000  Video Games,300 ');
 })
+
+test('Test that checkName() works', () => {
+    expect(accController.checkName("House")).toBe(true);
+})
+
+import { Account, AccountController } from "./account.js";

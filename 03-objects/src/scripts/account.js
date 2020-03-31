@@ -112,7 +112,7 @@ class AccountController {
     showAll() {
         let string = ''
         for (let i = 0; i < this.accArray.length; i++) {
-            string += `  ${Object.values(this.accArray[i])}  `;
+            string += ` ${Object.values(this.accArray[i])} `;
         }
         return string;
     }
