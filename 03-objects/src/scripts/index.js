@@ -1,33 +1,19 @@
 import { Account, AccountController } from './account.js'
 
 //Box1
-const container = document.getElementsByClassName("grid-container") //CONTAINER
-const showBalanceBtn = document.getElementById("showBalanceBtn") //WITIHDRAW BTN
-const dptBtn = document.getElementById("depositBtn") //DEPOSIT BTN
-const wdrawBtn = document.getElementById("withdrawBtn") //WITIHDRAW BTN
-const delBtn = document.getElementById("deleteBtn") //DELETE BTN
-const reBtn = document.getElementById("renameBtn") //RENAME BTN     
 const numInput = document.getElementById("numInput") //NUM INPUT TO ADD/WITHDRAW
 const renameInput = document.getElementById("renameInput") //RENAME INPUT
 const dropDownList = document.getElementById("account1") //DROPDOWN LIST
-const option = document.getElementById("option")
 const message1 = document.getElementById("messageArea1") //MESSAGE AREA
 
 //Box 2
 const accNameInput = document.getElementById("newAccNameInput") //ACC NAME INPUT
 const initBalInput = document.getElementById("initBalInput") //INIT BALANCE INPUT
-const addBtn = document.getElementById("addBtn") //ADD BUTN
 const message2 = document.getElementById("messageArea2") //MESSAGE AREA
 
 //Box 3
-const hBtn = document.getElementById("highBtn") //HIGH
-const lBtn = document.getElementById("lowBtn") //LOW
-const tBtn = document.getElementById("totalBtn") //TOTAL
-const showAll = document.getElementById("showBtn") //SHOW ALL ACCS
-    //const list = document.getElementById("olList") //DISPLAY
 const message3 = document.getElementById("messageArea3") //MESSAGE AREA
 
-let accounts = new Account();
 let accountManager = new AccountController();
 
 document.body.addEventListener("click", e => {
@@ -64,10 +50,7 @@ document.body.addEventListener("click", e => {
                     //console.log(i, dropDownList.value, accountManager.accArray[i].accountName)
                     accountManager.removeAccount(accountManager.accArray[i].accountName)
                     console.log(accountManager)
-                        //dropDownList.remove.selectedIndex;
-                        //dropDownList.removeChild(dropDownList.children[1])
-
-                    //console.log(dropDownList.selectedIndex)
+                        //console.log(dropDownList.selectedIndex)
                     message1.textContent = "Removed account"
                 }
             }
@@ -85,7 +68,6 @@ document.body.addEventListener("click", e => {
                         //dropDownList.appendChild(reAddToList)
                     dropDownList.remove(dropDownList.selectedIndex) //Removes old name from list
                     renameInput.value = ''
-                        //console.log(accountManager.accArray[i].accountName)
                 }
             }
         } else if (e.target.textContent === "Add") {
@@ -123,7 +105,7 @@ document.body.addEventListener("click", e => {
             }
         } else if (e.target.textContent === "Show All Accounts") {
             if (accountManager.accArray.length > 0) {
-                message3.textContent = accountManager.showAll();
+                message3.textContent = accountManager.showAllNames();
             } else if (accountManager.accArray.length < 1) {
                 message3.textContent = "There are no accounts"
             }

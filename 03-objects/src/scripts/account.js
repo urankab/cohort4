@@ -34,7 +34,6 @@ class AccountController {
     }
 
     addAccount(accountName, balance) {
-        // let newAccount = new Account(accountName, balance); //New Account
         this.accArray.push(new Account(accountName, balance)); //Push to array
     }
 
@@ -110,14 +109,18 @@ class AccountController {
     }
 
     showAll() {
-        let string = ''
-        for (let i = 0; i < this.accArray.length; i++) {
-            string += ` ${Object.values(this.accArray[i])} `;
-        }
-        return string;
+        return this.accArray.map((f) => ` ${f.accountName}: ${f.balance} `);
     }
-}
 
+    //OLD
+    // showAll() {
+    //     let string = ''
+    //     for (let i = 0; i < this.accArray.length; i++) {
+    //         string += ` ${Object.values(this.accArray[i])} `;
+    //     }
+    //     return string;
+    // }
+}
 
 export { Account, AccountController };
 

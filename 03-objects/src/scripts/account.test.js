@@ -79,12 +79,10 @@ test('Test getting LOWEST of all accounts works', () => {
     expect(accController.lowestAccount()).toBe("Lowest Acc: Video Games: $300");
 })
 
-test('Test showAll', () => {
-    expect(accController.showAll()).toEqual(' House,515  Kids,900  Doggy Business,3000  Video Games,300 ');
-})
-
 test('Test that checkName() works', () => {
     expect(accController.checkName("House")).toBe(true);
 })
 
-import { Account, AccountController } from "./account.js";
+test('Test that showAll() works', () => {
+    expect(accController.showAll()).toEqual([" House: 515 ", " Kids: 900 ", " Doggy Business: 3000 ", " Video Games: 300 "]);
+})
