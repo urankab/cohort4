@@ -84,5 +84,5 @@ test('Test that checkName() works', () => {
 })
 
 test('Test that showAll() works', () => {
-    expect(accController.showAll()).toEqual([" House: 515 ", " Kids: 900 ", " Doggy Business: 3000 ", " Video Games: 300 "]);
+    expect(accController.showAll()).toEqual([" House: $515 ", " Kids: $900 ", " Doggy Business: $3000 ", " Video Games: $300 "]);
 })

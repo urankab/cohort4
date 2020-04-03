@@ -109,7 +109,7 @@ class AccountController {
     }
 
     showAll() {
-        return this.accArray.map((f) => ` ${f.accountName}: ${f.balance} `);
+        return this.accArray.map((f) => ` ${f.accountName}: $${f.balance} `);
     }
 
     //OLD
