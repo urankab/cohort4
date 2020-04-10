@@ -1,0 +1,34 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./cities.css">
+    <title>Cities and Community</title>
+</head>
+
+<body>
+    <div id="page">
+        <div class="leftContainer" id="leftContainer">
+            <h1 class="header">Cities</h1>
+        </div>
+        <div class="rightContainer">
+            <h1 class="header">Create a City</h1>
+            <label for="name">Name:</label><input class="input" type="text" id="name" size="20"><br>
+            <label for="latitude">Latitude:</label><input class="input" type="number" id="latitude" size="20"><br>
+            <label for="longitude">Longitude:</label><input class="input" type="number" id="longitude" size="20"><br>
+            <label for="population">Population:</label><input class="input" type="number" id="population" size="20"><br>
+            <button class="otherButtons">Create</button>
+        </div>
+        <div class="centerContainer">
+            <h1 class="header">Anaylzer</h1>
+            <p id="messageArea">...</p>
+            <button class="otherButtons">Get Most Northern City</button>
+            <button class="otherButtons">Get Most Southern City</button>
+            <button class="otherButtons">Total Population</button>
+        </div>
+    </div>
+    <script type="module" src="./scripts/citiesMain.js"></script>
+</body>
+
+</html>

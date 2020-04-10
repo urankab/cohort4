@@ -1,16 +1,16 @@
 import { City, Community } from "./cities.js";
 
-const city1 = new City('Calgary', '51.0447 N', '114.0719 W', 1360000);
+const city1 = new City('Calgary', 51.0447, 114.0719, 1360000);
 
 test('Check the constructor works', () => {
     expect(city1.name).toBe('Calgary');
-    expect(city1.latitude).toBe('51.0447 N');
-    expect(city1.longitude).toBe('114.0719 W');
+    expect(city1.latitude).toBe(51.0447);
+    expect(city1.longitude).toBe(114.0719);
     expect(city1.population).toBe(1360000);
 })
 
 test('Check that show() works', () => {
-    expect(city1.show()).toBe('Calgary: Latitude: 51.0447 N Longitude: 114.0719 W Population: 1360000');
+    expect(city1.show()).toBe('Calgary: Latitude: 51.0447 Longitude: 114.0719 Population: 1360000');
 })
 
 test('Check that movedIn() and movedOut() works ', () => {
@@ -21,7 +21,7 @@ test('Check that movedIn() and movedOut() works ', () => {
 })
 
 test('Check that howBig() works', () => {
-    let city2 = new City('City', '1', '1', 0)
+    let city2 = new City('City', 1, 1, 0)
     expect(city2.howBig()).toBe('No Population')
     city2.movedIn(100);
     expect(city2.howBig()).toBe('Hamlet: 1-100')
@@ -57,4 +57,11 @@ test('Test that the Community methods works', () => {
     expect(community.getMostNorthern()).toEqual('Most Northern City: Test4 at 90 latitude')
     expect(community.getMostSouthern()).toBe('Most Southern City: Test3 at -7 latitude')
     expect(community.getPopulation()).toBe('Total Population: 2150000')
+})
+
+//---DOM TESTING--------------------------------------
+
+test('Test that createCard() works', () => {
+    community.createCity('Doggy', 1, 2, 12)
+    community.createCard()
 })

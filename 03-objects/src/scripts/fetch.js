@@ -1,6 +1,6 @@
 const functions = {
 
-    url: 'https://jsonplaceholder.typicode.com/',
+    url: 'https://jsonplaceholder.typicode.com/users',
     //url: 'https://uinames.com/api/?amount=10',
 
     getFirstName(data) {
@@ -38,7 +38,6 @@ const functions = {
 
     async getUsers() {
         try {
-            python
             const response = await fetch(functions.url);
             const data = await response.json();
             return data;
@@ -65,7 +64,7 @@ const me = {
 const sMe = JSON.stringify(me);
 console.log(sMe);
 
-async function postData(url = 'http://127.0.0.1:5000', data = { me }) {
+async function postData(url = 'https://jsonplaceholder.typicode.com/users', data = { sMe }) {
     // Default options are marked with *
     const response = await fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -79,12 +78,14 @@ async function postData(url = 'http://127.0.0.1:5000', data = { me }) {
         redirect: 'follow', // manual, *follow, error
         referrer: 'no-referrer', // no-referrer, *client
         body: JSON.stringify(data) // body data type must match "Content-Type" header
+
     });
     return await response.json(); // parses JSON response into native JavaScript objects
+
 }
 
 functions.showDelayProblem();
-functions.showDelaySolution()
+functions.showDelaySolution();
 functions.getUsers();
 functions.workWithData();
 console.log(postData());
