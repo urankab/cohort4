@@ -1,5 +1,7 @@
 import { Account, AccountController } from './account.js'
 
+//test
+
 //Box1
 const numInput = document.getElementById("numInput") //NUM INPUT TO ADD/WITHDRAW
 const renameInput = document.getElementById("renameInput") //RENAME INPUT
