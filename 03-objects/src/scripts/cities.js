@@ -45,62 +45,68 @@ class Community {
         this.cityArray = [];
     }
 
-    // createCard(city) {
-    //     let newCard = document.createElement('div')
-    //     newCard.classList.add('card')
-    //     let cityNameText = document.createTextNode(city.name)
-    //         // cityNameText.setAttribute('style', 'font-size: 15px')
-    //     let cityLatText = document.createTextNode(city.latitude)
-    //     let cityLongText = document.createTextNode(city.longitude)
-    //     let sphereText = document.createTextNode(this.whichSphere(city.name))
-    //     let cityPopText = document.createTextNode(city.population)
-    //     let bl = document.createElement('br')
-    //     let bl2 = document.createElement('br')
-    //     let bl3 = document.createElement('br')
-    //     let bl4 = document.createElement('br')
-    //     let bl5 = document.createElement('br')
-    //     let bl6 = document.createElement('br')
-    //     newCard.appendChild(cityNameText)
-    //     newCard.appendChild(bl)
-    //     newCard.appendChild(document.createTextNode('Latitude: '))
-    //     newCard.appendChild(cityLatText)
-    //     newCard.appendChild(bl2)
-    //     newCard.appendChild(document.createTextNode('Longitude: '))
-    //     newCard.appendChild(cityLongText)
-    //     newCard.appendChild(bl3)
-    //     newCard.appendChild(document.createTextNode('Sphere: '))
-    //     newCard.appendChild(sphereText)
-    //     newCard.appendChild(bl4)
-    //     newCard.appendChild(document.createTextNode('Population: '))
-    //     newCard.appendChild(cityPopText)
-    //     newCard.appendChild(bl5)
-    //     let input = document.createElement('input')
-    //     input.setAttribute('type', 'number')
-    //     let inBtn = document.createElement('button')
-    //     inBtn.appendChild(document.createTextNode('Moved In'))
-    //     inBtn.setAttribute('class', 'cardBtn')
-    //     let outBtn = document.createElement('button')
-    //     outBtn.appendChild(document.createTextNode('Moved Out'))
-    //     outBtn.setAttribute('class', 'cardBtn')
-    //     let deleteBtn = document.createElement('button')
-    //     deleteBtn.appendChild(document.createTextNode('Delete'))
-    //     deleteBtn.setAttribute('class', 'cardBtn')
-    //     newCard.appendChild(input)
-    //     newCard.appendChild(inBtn)
-    //     newCard.appendChild(outBtn)
-    //     newCard.appendChild(deleteBtn)
-    //     return newCard;
-    // }
-
-    createCard() {
+    createCard(city) {
         let newCard = document.createElement('div')
         newCard.classList.add('card')
-        let info = document.createTextNode(this.cityArray[i].show());
+        let cityNameText = document.createTextNode(city.name)
+        let cityLatText = document.createTextNode(city.latitude)
+        let cityLongText = document.createTextNode(city.longitude)
+        let sphereText = document.createTextNode(this.whichSphere(city.name))
+        let cityPopText = document.createTextNode(city.population)
+        let bl = document.createElement('br')
+        let bl2 = document.createElement('br')
+        let bl3 = document.createElement('br')
+        let bl4 = document.createElement('br')
+        let bl5 = document.createElement('br')
+        let bl6 = document.createElement('br')
+        newCard.appendChild(cityNameText)
+        newCard.appendChild(bl)
+        newCard.appendChild(document.createTextNode('Latitude: '))
+        newCard.appendChild(cityLatText)
+        newCard.appendChild(bl2)
+        newCard.appendChild(document.createTextNode('Longitude: '))
+        newCard.appendChild(cityLongText)
+        newCard.appendChild(bl3)
+        newCard.appendChild(document.createTextNode('Sphere: '))
+        newCard.appendChild(sphereText)
+        newCard.appendChild(bl4)
+        newCard.appendChild(document.createTextNode('Population: '))
+        newCard.appendChild(cityPopText)
+        newCard.appendChild(bl5)
+        let input = document.createElement('input')
+        input.setAttribute('type', 'number')
+        let inBtn = document.createElement('button')
+        inBtn.appendChild(document.createTextNode('Moved In'))
+        inBtn.setAttribute('class', 'cardBtn')
+        let outBtn = document.createElement('button')
+        outBtn.appendChild(document.createTextNode('Moved Out'))
+        outBtn.setAttribute('class', 'cardBtn')
+        let deleteBtn = document.createElement('button')
+        deleteBtn.appendChild(document.createTextNode('Delete'))
+        deleteBtn.setAttribute('class', 'cardBtn')
+        newCard.appendChild(input)
+        newCard.appendChild(inBtn)
+        newCard.appendChild(outBtn)
+        newCard.appendChild(deleteBtn)
+        return newCard;
+    }
+
+    // createCard() {
+    //     let newCard = document.createElement('div')
+    //     newCard.classList.add('card')
+    //     let info = document.createTextNode(this.cityArray[i].show());
+    // }
+
+    checkName(name) { //Check that you don't add acc with same name
+        for (let i = 0; i < this.cityArray.length; i++) {
+            if (name == this.cityArray[i].name) {
+                return true;
+            }
+        }
     }
 
     createCity(name, latitude, longitude, population) {
         this.cityArray.push(new City(name, latitude, longitude, population));
-        this.createCard();
     }
 
     deleteCity(name) {

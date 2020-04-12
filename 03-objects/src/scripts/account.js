@@ -19,22 +19,17 @@ class Account {
     showName() {
         return this.accountName;
     }
-}
 
-// We need the ability to have multiple accounts for the same person
-// We need the ability to add and remove accounts
-// We need the ability to name our accounts things like: saves, car fund, checking...
-// We need the ability to get the total of our accounts
-// We need the ability to know our highest value account (well, I want that so you can practice with logic)
-// We need the ability to know our lowest value account (same as above)
+}
 
 class AccountController {
     constructor() {
         this.accArray = [];
+
     }
 
     addAccount(accountName, balance) {
-        this.accArray.push(new Account(accountName, balance)); //Push to array
+        this.accArray.push(new Account(accountName, balance)); //Create a key, push to array
     }
 
     checkName(accountName) { //Check that you don't add acc with same name

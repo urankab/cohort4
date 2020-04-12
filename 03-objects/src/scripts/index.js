@@ -1,8 +1,5 @@
 import { Account, AccountController } from './account.js'
 
-
-//test12
-
 //Box1
 const numInput = document.getElementById("numInput") //NUM INPUT TO ADD/WITHDRAW
 const renameInput = document.getElementById("renameInput") //RENAME INPUT
@@ -20,7 +17,6 @@ const message3 = document.getElementById("messageArea3") //MESSAGE AREA
 let accountManager = new AccountController();
 
 document.body.addEventListener("click", e => {
-    //console.log(e.target)
     if (e.target.nodeName === 'BUTTON') {
         if (e.target.textContent === "Add") {
             if (accNameInput.value && initBalInput.value != "") {
@@ -57,7 +53,7 @@ document.body.addEventListener("click", e => {
                 if ((dropDownList.value).includes(accountManager.accArray[i].accountName)) {
                     accountManager.accArray[i].deposit(numInput.value)
                     console.log(accountManager.accArray[i].balance)
-                    message2.textContent = `Added ${numInput.value} to ${accountManager.accArray[i].accountName}`
+                    message2.textContent = `Added $${numInput.value} to ${accountManager.accArray[i].accountName}`
                     numInput.value = ''
                 }
             }
@@ -67,7 +63,7 @@ document.body.addEventListener("click", e => {
             for (let i = 0; i < accountManager.accArray.length; i++) {
                 if ((dropDownList.value).includes(accountManager.accArray[i].accountName)) {
                     accountManager.accArray[i].withdraw(numInput.value)
-                    message2.textContent = `Withdrawed ${numInput.value} from ${accountManager.accArray[i].accountName}`
+                    message2.textContent = `Withdrawed $${numInput.value} from ${accountManager.accArray[i].accountName}`
                     numInput.value = ''
                 }
             }

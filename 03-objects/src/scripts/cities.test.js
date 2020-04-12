@@ -1,8 +1,7 @@
 import { City, Community } from "./cities.js";
 
-const city1 = new City('Calgary', 51.0447, 114.0719, 1360000);
-
 test('Check the constructor works', () => {
+    const city1 = new City('Calgary', 51.0447, 114.0719, 1360000);
     expect(city1.name).toBe('Calgary');
     expect(city1.latitude).toBe(51.0447);
     expect(city1.longitude).toBe(114.0719);
@@ -10,10 +9,12 @@ test('Check the constructor works', () => {
 })
 
 test('Check that show() works', () => {
+    const city1 = new City('Calgary', 51.0447, 114.0719, 1360000);
     expect(city1.show()).toBe('Calgary: Latitude: 51.0447 Longitude: 114.0719 Population: 1360000');
 })
 
 test('Check that movedIn() and movedOut() works ', () => {
+    const city1 = new City('Calgary', 51.0447, 114.0719, 1360000);
     city1.movedIn(2000);
     expect(city1.population).toBe(1362000);
     city1.movedOut(1000);
@@ -36,13 +37,13 @@ test('Check that howBig() works', () => {
 })
 
 //-------- COMMUNITY CLASS ------------------------------
-const community = new Community();
-
 test('Test AccountController constructor works', () => {
+    const community = new Community();
     expect(community.cityArray).toEqual([]);
 })
 
 test('Test that the Community methods works', () => {
+    const community = new Community();
     community.createCity('Paris', 48.8566, 2.3522, 2148000)
     community.createCity('Test2', 50, 5, 21)
     community.createCity('Test3', -7, 1, 1000)
@@ -51,17 +52,24 @@ test('Test that the Community methods works', () => {
     expect(community.cityArray[1].name).toEqual('Test2')
     community.deleteCity('Test2');
     expect(community.cityArray).not.toContain('Test2')
-        //console.log(community.cityArray)
     expect(community.whichSphere(community.cityArray[0].name)).toBe('Northern Hemisphere')
     expect(community.whichSphere('Paris')).toBe('Northern Hemisphere')
+    expect(community.whichSphere('Test3')).toBe('Southern Hemisphere')
     expect(community.getMostNorthern()).toEqual('Most Northern City: Test4 at 90 latitude')
     expect(community.getMostSouthern()).toBe('Most Southern City: Test3 at -7 latitude')
     expect(community.getPopulation()).toBe('Total Population: 2150000')
+    community.createCity('Paris', 1, 1, 1)
+    expect(community.checkName('Paris')).toBe(true)
 })
 
 //---DOM TESTING--------------------------------------
 
 test('Test that createCard() works', () => {
-    community.createCity('Doggy', 1, 2, 12)
-    community.createCard()
+    const com = new Community();
+    const div = document.createElement('div')
+    com.createCity('Test', 1, 1, 1)
+    div.append(com.createCard(com.cityArray[com.cityArray.length - 1]))
+    expect(div.children.length).toBe(1)
+    expect(div.children[0].getAttribute('class')).toBe('card')
+    expect(div.children[0].textContent).toContain('Test')
 })
