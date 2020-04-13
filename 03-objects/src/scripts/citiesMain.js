@@ -15,8 +15,8 @@ document.body.addEventListener("click", e => {
     const key = el.getAttribute('key')
 
     if (todo === 'create') {
-        if (com.checkName(newCity.value)) {
-            messageArea.textContent = "City name already exists"
+        if (com.checkName(newCity.value, newLat.value, newLong.value, newPop.value)) {
+            messageArea.textContent = com.checkName(newCity.value, newLat.value, newLong.value, newPop.value);
         } else {
             com.createCity(newCity.value, newLat.value, newLong.value, newPop.value)
             console.log(com.cityArray)

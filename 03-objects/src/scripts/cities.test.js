@@ -42,6 +42,24 @@ test('Test AccountController constructor works', () => {
     expect(community.cityArray).toEqual([]);
 })
 
+test('Test key generation', () => {
+    const com = new Community();
+    const city = com.createCity('Test', 1, 5, 100)
+    const city2 = com.createCity('Test2', 10, 10, 10)
+    com.createCity('Hugs', 1, 1, 12)
+    expect(city).toBe('k1')
+    expect(city2).toBe('k2')
+
+    //const test = com.getKey(city)
+    //expect(test).toBeTruthy();
+    // expect(com.getKey(city)).toBe('k1')
+
+    console.log(com.cityArray);
+    expect(com.cityArray[0].key).toBe('k1')
+    expect(com.cityArray[0].name).toBe('Test')
+    expect(com.cityArray[2].key).toBe('k3')
+})
+
 test('Test that the Community methods works', () => {
     const community = new Community();
     community.createCity('Paris', 48.8566, 2.3522, 2148000)
@@ -59,7 +77,7 @@ test('Test that the Community methods works', () => {
     expect(community.getMostSouthern()).toBe('Most Southern City: Test3 at -7 latitude')
     expect(community.getPopulation()).toBe('Total Population: 2150000')
     community.createCity('Paris', 1, 1, 1)
-    expect(community.checkName('Paris')).toBe(true)
+    expect(community.checkName('Paris')).toBe('City already exists')
 })
 
 //---DOM TESTING--------------------------------------
