@@ -1,9 +1,10 @@
 class City {
-    constructor(name, latitude, longitude, population) {
+    constructor(name, latitude, longitude, population, key) {
         this.name = name;
         this.latitude = Number(latitude);
         this.longitude = Number(longitude);
         this.population = Number(population);
+        this.key = key;
     }
 
     show() {
@@ -40,9 +41,45 @@ class City {
     }
 }
 
+let counter = 1;
+
 class Community {
     constructor() {
         this.cityArray = [];
+        //this.counter = 1;
+    }
+
+    checkName(name, latitude, longitude, population) { //Check that you don't add acc with same name
+        if (name != '' && latitude != '' && longitude != '' && population != '') {
+            for (let i = 0; i < this.cityArray.length; i++) {
+                if (name == this.cityArray[i].name) {
+                    return "City already exists";
+                }
+            }
+        } else return "Please enter data in the field(s)";
+    }
+
+    nextKey() {
+        return `k${counter++}`;
+    }
+
+    // getKey(key) {
+    //     return this.cityArray[key]
+    // }
+
+    // getKey(name) {
+    //     for (let i = 0; i < this.cityArray.length; i++) {
+    //         if (name == this.cityArray[i].name)
+    //             return `k${this.cityArray[i][key]}`
+    //     }
+    // }
+
+    createCity(name, latitude, longitude, population) {
+        //this.cityArray.push(new City(name, latitude, longitude, population));
+        const key = this.nextKey();
+        this.cityArray.push(new City(name, latitude, longitude, population, key));
+        //this.cityArray[key] = city;
+        return key;
     }
 
     createCard(city) {
@@ -96,18 +133,6 @@ class Community {
     //     newCard.classList.add('card')
     //     let info = document.createTextNode(this.cityArray[i].show());
     // }
-
-    checkName(name) { //Check that you don't add acc with same name
-        for (let i = 0; i < this.cityArray.length; i++) {
-            if (name == this.cityArray[i].name) {
-                return true;
-            }
-        }
-    }
-
-    createCity(name, latitude, longitude, population) {
-        this.cityArray.push(new City(name, latitude, longitude, population));
-    }
 
     deleteCity(name) {
         for (let i = 0; i < this.cityArray.length; i++) {
