@@ -3,7 +3,7 @@ class City {
         this.name = name;
         this.latitude = Number(latitude);
         this.longitude = Number(longitude);
-        this.population = Number(population);
+        this.population = population;
         this.key = key;
     }
 
@@ -12,11 +12,13 @@ class City {
     }
 
     movedIn(num) {
-        this.population += num;
+        this.population += Number(num);
+        return this.population;
     }
 
     movedOut(num) {
         this.population -= num;
+        return this.population;
     }
 
     howBig() {
@@ -41,61 +43,68 @@ class City {
     }
 }
 
-let counter = 1;
-
 class Community {
     constructor() {
         this.cityArray = [];
-        //this.counter = 1;
+        this.counter = 1;
     }
 
-    checkName(name, latitude, longitude, population) { //Check that you don't add acc with same name
-        if (name != '' && latitude != '' && longitude != '' && population != '') {
-            for (let i = 0; i < this.cityArray.length; i++) {
-                if (name == this.cityArray[i].name) {
-                    return "City already exists";
-                }
-            }
-        } else return "Please enter data in the field(s)";
-    }
-
-    nextKey() {
-        return `k${counter++}`;
-    }
-
-    // getKey(key) {
-    //     return this.cityArray[key]
+    // checkName(name, latitude, longitude, population) { //Check that you don't add acc with same name
+    //     if (name != '' && latitude != '' && longitude != '' && population != '') {
+    //         for (let i = 0; i < this.cityArray.length; i++) {
+    //             if (name == this.cityArray[i].name) {
+    //                 return "City already exists";
+    //             }
+    //         }
+    //     } else return "Please enter data in the field(s)";
     // }
 
-    // getKey(name) {
+    nextKey() {
+        return `k${this.counter++}`;
+    }
+
+    // getKey() {
     //     for (let i = 0; i < this.cityArray.length; i++) {
     //         if (name == this.cityArray[i].name)
-    //             return `k${this.cityArray[i][key]}`
+    //             return this.cityArray[i].key
     //     }
     // }
 
+    getNameFromKey(key) {
+        for (let i = 0; i < this.cityArray.length; i++) {
+            if (key == this.cityArray[i].key)
+                return this.cityArray[i].name
+        }
+    }
+
     createCity(name, latitude, longitude, population) {
-        //this.cityArray.push(new City(name, latitude, longitude, population));
         const key = this.nextKey();
         this.cityArray.push(new City(name, latitude, longitude, population, key));
-        //this.cityArray[key] = city;
-        return key;
+
+        return `Created ${name} card with key: ${key}`;
+
     }
 
     createCard(city) {
+        let container = document.createElement('div')
         let newCard = document.createElement('div')
-        newCard.classList.add('card')
+        container.appendChild(newCard)
+        newCard.setAttribute('class', 'card')
+
         let cityNameText = document.createTextNode(city.name)
         let cityLatText = document.createTextNode(city.latitude)
         let cityLongText = document.createTextNode(city.longitude)
         let sphereText = document.createTextNode(this.whichSphere(city.name))
+        let howBigText = document.createTextNode(city.howBig())
         let cityPopText = document.createTextNode(city.population)
+
         let bl = document.createElement('br')
         let bl2 = document.createElement('br')
         let bl3 = document.createElement('br')
         let bl4 = document.createElement('br')
         let bl5 = document.createElement('br')
         let bl6 = document.createElement('br')
+
         newCard.appendChild(cityNameText)
         newCard.appendChild(bl)
         newCard.appendChild(document.createTextNode('Latitude: '))
@@ -110,28 +119,58 @@ class Community {
         newCard.appendChild(document.createTextNode('Population: '))
         newCard.appendChild(cityPopText)
         newCard.appendChild(bl5)
+        newCard.appendChild(document.createTextNode('How Big? '))
+        newCard.appendChild(howBigText)
+        newCard.appendChild(bl6)
+
+
         let input = document.createElement('input')
         input.setAttribute('type', 'number')
+
         let inBtn = document.createElement('button')
         inBtn.appendChild(document.createTextNode('Moved In'))
         inBtn.setAttribute('class', 'cardBtn')
+
+        inBtn.addEventListener('click', () => {
+            if (input.value != '') {
+                city.movedIn(Number(input.value))
+                cityPopText.textContent = city.population;
+                howBigText.textContent = city.howBig()
+            } else {
+                messageArea2.textContent = 'Please enter a number'
+            }
+        })
+
         let outBtn = document.createElement('button')
         outBtn.appendChild(document.createTextNode('Moved Out'))
         outBtn.setAttribute('class', 'cardBtn')
+
         let deleteBtn = document.createElement('button')
         deleteBtn.appendChild(document.createTextNode('Delete'))
         deleteBtn.setAttribute('class', 'cardBtn')
+
+        let messageArea2 = document.createElement('p')
+
         newCard.appendChild(input)
         newCard.appendChild(inBtn)
         newCard.appendChild(outBtn)
         newCard.appendChild(deleteBtn)
+        newCard.appendChild(messageArea2)
+
         return newCard;
     }
 
-    // createCard() {
+    // createCard(city) {
+
     //     let newCard = document.createElement('div')
-    //     newCard.classList.add('card')
-    //     let info = document.createTextNode(this.cityArray[i].show());
+    //         //container.appendChild(newCard)
+    //     newCard.setAttribute('class', 'card')
+
+    //     let info = document.createTextNode(city.show());
+    //     newCard.append(info)
+
+    //     //     let cityNameText = document.createTextNode(city.name)
+    //     //     let cityLatText = document.createTextNode(city.latitude)
     // }
 
     deleteCity(name) {

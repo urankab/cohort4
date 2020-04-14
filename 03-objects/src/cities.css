@@ -1,19 +1,29 @@
-#page {
+.wrapper {
     display: grid;
-    /* grid-template-areas: "left right""center"; */
     grid-template-columns: auto auto;
-    grid-template-rows: auto;
+    grid-template-rows: auto auto;
     grid-gap: 10px;
 }
 
 .leftContainer {
     background-color: lightpink;
     grid-area: 1;
-    display: flex;
-    flex-direction: column;
-    max-height: 600px;
+    /* max-height: 750px; */
     overflow-y: scroll;
     border-radius: 15px;
+}
+
+#title {
+    text-align: center;
+    background-color: rgb(253, 213, 219);
+    max-width: 300px;
+    border-radius: 15px;
+    margin: 10px auto;
+}
+
+.cardDiv {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .rightContainer {
@@ -21,13 +31,16 @@
     grid-area: 1;
     padding: 15px;
     border-radius: 15px;
+    max-width: auto;
 }
 
 .centerContainer {
     background-color: rgb(240, 240, 240);
-    grid-area: 2/1/span 1/span 2;
+    /* grid-area: 2/1/span 1/span 2; */
     padding: 15px;
+    max-width: 300px;
     border-radius: 15px;
+    margin: 15px auto;
 }
 
 .header {
@@ -64,8 +77,9 @@ p {
     background-color: rgb(253, 213, 219);
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.32);
     padding: 10px;
-    margin: 18px;
+    margin: 10px;
     font-size: 15px;
+    max-width: 200px;
 }
 
 .cardBtn {}

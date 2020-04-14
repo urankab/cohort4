@@ -8,9 +8,13 @@
 </head>
 
 <body>
-    <div id="page">
+    <div class="wrapper">
         <div class="leftContainer" id="leftContainer">
-            <h1 class="header">Cities</h1>
+            <div class="title">
+                <h1 id="title">Cities</h1>
+            </div>
+            <div class="cardDiv" id="cardDiv">
+            </div>
         </div>
         <div class="rightContainer">
             <h1 class="header">Create a City</h1>
@@ -18,17 +22,18 @@
             <label for="latitude">Latitude:</label><input class="input" type="number" id="latitude" size="20"><br>
             <label for="longitude">Longitude:</label><input class="input" type="number" id="longitude" size="20"><br>
             <label for="population">Population:</label><input class="input" type="number" id="population" size="20"><br>
-            <button todo="create" class="otherButtons">Create</button>
-        </div>
-        <div class="centerContainer">
-            <h1 class="header">Anaylzer</h1>
+            <button todo="create" id="createBtn" class="otherButtons">Create</button>
             <p id="messageArea">...</p>
-            <button todo="getNorth" class="otherButtons">Get Most Northern City</button>
-            <button todo="getSouth" class="otherButtons">Get Most Southern City</button>
-            <button todo="getTotal" class="otherButtons">Total Population</button>
+            <div class="centerContainer">
+                <h1 class="header">Anaylzer</h1>
+                <!-- <p id="messageArea2">...</p>
+                <button todo="getNorth" class="otherButtons">Get Most Northern City</button>
+                <button todo="getSouth" class="otherButtons">Get Most Southern City</button>
+                <button todo="getTotal" class="otherButtons">Total Population</button> -->
+            </div>
         </div>
     </div>
-    <script type="module" src="./scripts/citiesMain.js"></script>
+    <script type="module" src="./scripts-cities/citiesMain.js"></script>
 </body>
 
 </html>
