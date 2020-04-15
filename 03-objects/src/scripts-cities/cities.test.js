@@ -65,16 +65,14 @@ test('Test that the Community methods works', () => {
     community.createCity('Test4', 90, 1, 1000)
     expect(community.cityArray[0].name).toEqual('Paris')
     expect(community.cityArray[1].name).toEqual('Test2')
-    community.deleteCity('Test2');
-    expect(community.cityArray).not.toContain('Test2')
+    community.deleteCity('k2');
+    expect(community.cityArray[1].name).not.toBe('Test2')
     expect(community.whichSphere(community.cityArray[0].name)).toBe('Northern Hemisphere')
     expect(community.whichSphere('Paris')).toBe('Northern Hemisphere')
     expect(community.whichSphere('Test3')).toBe('Southern Hemisphere')
-    expect(community.getMostNorthern()).toEqual('Most Northern City: Test4 at 90 latitude')
-    expect(community.getMostSouthern()).toBe('Most Southern City: Test3 at -7 latitude')
+    expect(community.getMostNorthern()).toEqual('Most Northern: Test4,90,1,1000,k4')
+    expect(community.getMostSouthern()).toEqual('Most Southern: Test3,-7,1,1000,k3')
     expect(community.getPopulation()).toBe('Total Population: 2150000')
-    community.createCity('Paris', 1, 1, 1)
-        // expect(community.checkName('Paris')).toBe('City already exists')
 })
 
 //---DOM TESTING--------------------------------------
@@ -83,10 +81,15 @@ test('Test that createCard() works', () => {
     const com = new Community();
     const div = document.createElement('div')
     com.createCity('Test', 1, 1, 1)
-    div.append(com.createCard(com.cityArray[com.cityArray.length - 1]))
-    expect(div.children.length).toBe(1)
-    expect(div.children[0].getAttribute('class')).toBe('card')
-    expect(div.children[0].textContent).toContain('Test')
+    com.createCity('Hey', 1, 1, 1)
+    const el = com.createCard(com.cityArray[0])
+    const el2 = com.createCard(com.cityArray[1])
+    expect(el).toBeTruthy();
+    // div.appendChild(el)
+    // div.appendChild(el2)
+    // expect(div.children.length).toBe(2)
+    // expect(div.children[0].getAttribute('class')).toBe('card')
+    // expect(div.children[0].textContent).toContain('Test')
+    // expect(div.children[1].textContent.substr(0, 15)).toBe('HeyLatitude: 1L')
 
-    //console.log(com.cityArray);
 })

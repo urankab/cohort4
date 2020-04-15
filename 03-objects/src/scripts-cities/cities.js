@@ -3,7 +3,7 @@ class City {
         this.name = name;
         this.latitude = Number(latitude);
         this.longitude = Number(longitude);
-        this.population = population;
+        this.population = Number(population);
         this.key = key;
     }
 
@@ -13,11 +13,15 @@ class City {
 
     movedIn(num) {
         this.population += Number(num);
-        return this.population;
+
     }
 
     movedOut(num) {
-        this.population -= num;
+        this.population -= Number(num);
+
+    }
+
+    showPop() {
         return this.population;
     }
 
@@ -49,26 +53,9 @@ class Community {
         this.counter = 1;
     }
 
-    // checkName(name, latitude, longitude, population) { //Check that you don't add acc with same name
-    //     if (name != '' && latitude != '' && longitude != '' && population != '') {
-    //         for (let i = 0; i < this.cityArray.length; i++) {
-    //             if (name == this.cityArray[i].name) {
-    //                 return "City already exists";
-    //             }
-    //         }
-    //     } else return "Please enter data in the field(s)";
-    // }
-
     nextKey() {
         return `k${this.counter++}`;
     }
-
-    // getKey() {
-    //     for (let i = 0; i < this.cityArray.length; i++) {
-    //         if (name == this.cityArray[i].name)
-    //             return this.cityArray[i].key
-    //     }
-    // }
 
     getNameFromKey(key) {
         for (let i = 0; i < this.cityArray.length; i++) {
@@ -77,65 +64,84 @@ class Community {
         }
     }
 
+    getObjectFromKey() {
+        for (let i = 0; i < this.cityArray.length; i++) {
+            if (key == this.cityArray[i].key)
+                return this.cityArray;
+        }
+    }
+
     createCity(name, latitude, longitude, population) {
         const key = this.nextKey();
         this.cityArray.push(new City(name, latitude, longitude, population, key));
-
-        return `Created ${name} card with key: ${key}`;
-
+        return `Created ${name} city with key: ${key}`;
     }
 
     createCard(city) {
-        let container = document.createElement('div')
         let newCard = document.createElement('div')
-        container.appendChild(newCard)
         newCard.setAttribute('class', 'card')
+        newCard.setAttribute('id', 'card')
+        newCard.setAttribute('key', city.key)
 
-        let cityNameText = document.createTextNode(city.name)
-        let cityLatText = document.createTextNode(city.latitude)
-        let cityLongText = document.createTextNode(city.longitude)
-        let sphereText = document.createTextNode(this.whichSphere(city.name))
-        let howBigText = document.createTextNode(city.howBig())
-        let cityPopText = document.createTextNode(city.population)
+        let cityNameText = document.createElement('h3')
+        cityNameText.setAttribute('class', 'noSpace')
+        cityNameText.textContent = city.name;
+        newCard.append(cityNameText)
 
-        let bl = document.createElement('br')
-        let bl2 = document.createElement('br')
-        let bl3 = document.createElement('br')
-        let bl4 = document.createElement('br')
-        let bl5 = document.createElement('br')
-        let bl6 = document.createElement('br')
+        let keyText = document.createElement('h5')
+        keyText.textContent = city.key;
+        newCard.append(keyText)
 
-        newCard.appendChild(cityNameText)
-        newCard.appendChild(bl)
-        newCard.appendChild(document.createTextNode('Latitude: '))
-        newCard.appendChild(cityLatText)
-        newCard.appendChild(bl2)
-        newCard.appendChild(document.createTextNode('Longitude: '))
-        newCard.appendChild(cityLongText)
-        newCard.appendChild(bl3)
-        newCard.appendChild(document.createTextNode('Sphere: '))
-        newCard.appendChild(sphereText)
-        newCard.appendChild(bl4)
-        newCard.appendChild(document.createTextNode('Population: '))
-        newCard.appendChild(cityPopText)
-        newCard.appendChild(bl5)
-        newCard.appendChild(document.createTextNode('How Big? '))
-        newCard.appendChild(howBigText)
-        newCard.appendChild(bl6)
+        let cityLatText = document.createElement('p')
+        cityLatText.setAttribute('class', 'noSpace')
+        cityLatText.textContent = `Latitude: ${city.latitude} `;
+        newCard.append(cityLatText)
 
+
+        let cityLongText = document.createElement('p')
+        cityLongText.setAttribute('class', 'noSpace')
+        cityLongText.textContent = `Longitude: ${city.longitude}`;
+        newCard.append(cityLongText)
+
+
+        let cityPopText = document.createElement('p')
+        cityPopText.setAttribute('class', 'noSpace')
+        cityPopText.setAttribute('id', 'cityPopText')
+        cityPopText.textContent = `Population: ${city.population}`;
+        newCard.append(cityPopText)
+
+        let howBigText = document.createElement('p')
+        howBigText.setAttribute('class', 'noSpace')
+        howBigText.setAttribute('id', 'howBigText')
+        howBigText.textContent = city.howBig();
+        newCard.append(howBigText)
+
+        let sphereText = document.createElement('p')
+        sphereText.setAttribute('class', 'noSpace')
+        sphereText.textContent = this.whichSphere(city.name);
+        newCard.append(sphereText)
 
         let input = document.createElement('input')
+        input.setAttribute('id', 'input')
         input.setAttribute('type', 'number')
+
+        let messageArea2 = document.createElement('p')
+        messageArea2.setAttribute('id', 'messageArea2')
 
         let inBtn = document.createElement('button')
         inBtn.appendChild(document.createTextNode('Moved In'))
         inBtn.setAttribute('class', 'cardBtn')
+        inBtn.setAttribute('id', 'movedIn')
 
         inBtn.addEventListener('click', () => {
             if (input.value != '') {
-                city.movedIn(Number(input.value))
-                cityPopText.textContent = city.population;
+                city.movedIn(input.value)
+                cityPopText.textContent = `Population: ${city.showPop()}`;
                 howBigText.textContent = city.howBig()
+                input.value = ''
+                this.updateAnalyzer(); //Updates stuff when changing populations
+                console.log(this.cityArray);
+
             } else {
                 messageArea2.textContent = 'Please enter a number'
             }
@@ -144,12 +150,28 @@ class Community {
         let outBtn = document.createElement('button')
         outBtn.appendChild(document.createTextNode('Moved Out'))
         outBtn.setAttribute('class', 'cardBtn')
+        outBtn.setAttribute('id', 'movedOut')
+
+        outBtn.addEventListener('click', () => {
+            if (input.value != '') {
+                city.movedOut(input.value)
+                cityPopText.textContent = `Population: ${city.showPop()}`;
+                howBigText.textContent = city.howBig()
+                input.value = ''
+                this.updateAnalyzer(); //Updates stuff when changing populations
+            } else {
+                messageArea2.textContent = 'Please enter a number'
+            }
+        })
 
         let deleteBtn = document.createElement('button')
         deleteBtn.appendChild(document.createTextNode('Delete'))
         deleteBtn.setAttribute('class', 'cardBtn')
 
-        let messageArea2 = document.createElement('p')
+        deleteBtn.addEventListener('click', () => {
+            this.deleteCity(city.key)
+            deleteBtn.parentElement.remove();
+        })
 
         newCard.appendChild(input)
         newCard.appendChild(inBtn)
@@ -157,29 +179,37 @@ class Community {
         newCard.appendChild(deleteBtn)
         newCard.appendChild(messageArea2)
 
+        this.updateAnalyzer(); //Updates stuff when adding new cities
         return newCard;
     }
 
-    // createCard(city) {
+    updateAnalyzer() {
+        if (this.cityArray.length > 0) {
+            let centerDiv = document.getElementById('data')
+            let mostNorth = document.createElement('p')
+            mostNorth.textContent = this.getMostNorthern();
+            centerDiv.appendChild(mostNorth)
 
-    //     let newCard = document.createElement('div')
-    //         //container.appendChild(newCard)
-    //     newCard.setAttribute('class', 'card')
+            let mostSouth = document.createElement('p')
+            mostSouth.setAttribute('class', 'data')
+            mostSouth.textContent = this.getMostSouthern();
+            centerDiv.appendChild(mostSouth)
 
-    //     let info = document.createTextNode(city.show());
-    //     newCard.append(info)
+            let totalPop = document.createElement('p')
+            totalPop.setAttribute('class', 'data')
+            totalPop.textContent = this.getPopulation();
+            centerDiv.appendChild(totalPop)
+        }
+    }
 
-    //     //     let cityNameText = document.createTextNode(city.name)
-    //     //     let cityLatText = document.createTextNode(city.latitude)
-    // }
-
-    deleteCity(name) {
+    deleteCity(key) {
         for (let i = 0; i < this.cityArray.length; i++) {
-            if (name == this.cityArray[i].name) {
+            if (key == this.cityArray[i].key) {
                 this.cityArray.splice(i, 1)
             }
         }
     }
+
 
     whichSphere(name) {
         for (let i = 0; i < this.cityArray.length; i++) {
@@ -198,33 +228,22 @@ class Community {
     }
 
     getMostNorthern() {
-        let highestLat = 0;
-        let highestName = ''
-        for (let i = 0; i < this.cityArray.length; i++) {
-            if (this.cityArray[i].latitude > highestLat) {
-                highestName = this.cityArray[i].name;
-                highestLat = this.cityArray[i].latitude;
-            }
-        }
-        return `Most Northern City: ${highestName} at ${highestLat} latitude`
+        let n = Math.max.apply(Math, this.cityArray.map(function(o) {
+            return o.latitude;
+        }));
+        return `Most Northern: ${Object.values(this.cityArray.find(o => o.latitude === n))}`
     }
 
     getMostSouthern() {
-        let lowestLat = 0;
-        let lowestName = ''
-        for (let i = 0; i < this.cityArray.length; i++) {
-            if (this.cityArray[i].latitude < lowestLat) {
-                lowestName = this.cityArray[i].name;
-                lowestLat = this.cityArray[i].latitude;
-            }
-        }
-        return `Most Southern City: ${lowestName} at ${lowestLat} latitude`
+        return `Most Southern: ${Object.values(this.cityArray.reduce(function(prev, current) {
+            return (prev.latitude < current.latitude) ? prev : current
+        }))}`;
     }
 
     getPopulation() {
         let total = 0;
         for (let i = 0; i < this.cityArray.length; i++) {
-            total += Number(this.cityArray[i].population); //Hold onto balances in arrays thru iteration
+            total += Number(this.cityArray[i].population);
         }
         return `Total Population: ${total}`;
     }
