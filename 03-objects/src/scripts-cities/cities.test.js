@@ -85,11 +85,10 @@ test('Test that createCard() works', () => {
     const el = com.createCard(com.cityArray[0])
     const el2 = com.createCard(com.cityArray[1])
     expect(el).toBeTruthy();
-    // div.appendChild(el)
-    // div.appendChild(el2)
-    // expect(div.children.length).toBe(2)
-    // expect(div.children[0].getAttribute('class')).toBe('card')
-    // expect(div.children[0].textContent).toContain('Test')
-    // expect(div.children[1].textContent.substr(0, 15)).toBe('HeyLatitude: 1L')
-
+    div.appendChild(el)
+    div.appendChild(el2)
+    expect(div.children.length).toBe(2)
+    expect(div.children[0].getAttribute('class')).toBe('card')
+    expect(div.children[0].textContent).toContain('Test')
+    expect(div.children[1].textContent.substr(0, 15)).toBe('HeyLatitude: 1L')
 })

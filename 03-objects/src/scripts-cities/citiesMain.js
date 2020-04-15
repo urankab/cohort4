@@ -8,15 +8,14 @@ const newPop = document.getElementById('population')
 const cardDiv = document.getElementById('cardDiv')
 const messageArea = document.getElementById('messageArea')
 const createBtn = document.getElementById('createBtn')
-const data = document.getElementById('data')
+
 
 createBtn.addEventListener('click', () => {
     if (newCity.value && newLat.value && newLong.value != '') {
-        document.getElementById('data').textContent = '';
+
         let createdCity = ''
         createdCity = com.createCity(newCity.value, newLat.value, newLong.value, newPop.value)
 
-        console.log(com.cityArray[com.cityArray.length - 1])
         cardDiv.appendChild(com.createCard(com.cityArray[com.cityArray.length - 1]))
         messageArea.textContent = createdCity;
         clearFields();
@@ -24,16 +23,6 @@ createBtn.addEventListener('click', () => {
         missingFields();
     }
 })
-
-document.body.addEventListener("click", e => {
-    if (e.target.nodeName === 'BUTTON') {
-        if (e.textContent === 'Moved In' || 'Moved Out') {
-            document.getElementById('data').textContent = '';
-            com.updateAnalyzer();
-            console.log(com.cityArray)
-        }
-    }
-});
 
 function clearFields() {
     newCity.value = '';

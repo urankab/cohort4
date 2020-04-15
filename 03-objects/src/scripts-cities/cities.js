@@ -133,13 +133,24 @@ class Community {
         inBtn.setAttribute('class', 'cardBtn')
         inBtn.setAttribute('id', 'movedIn')
 
+        let northText = document.getElementById('mostNorthP')
+        let southText = document.getElementById('mostSouthP')
+        let tPopText = document.getElementById('totalPP')
+
+        northText.textContent = this.getMostNorthern();
+        southText.textContent = this.getMostSouthern();
+        tPopText.textContent = this.getPopulation();
+
         inBtn.addEventListener('click', () => {
             if (input.value != '') {
                 city.movedIn(input.value)
                 cityPopText.textContent = `Population: ${city.showPop()}`;
                 howBigText.textContent = city.howBig()
                 input.value = ''
-                this.updateAnalyzer(); //Updates stuff when changing populations
+                    //this.updateAnalyzer(); //Updates stuff when changing populations
+                northText.textContent = this.getMostNorthern();
+                southText.textContent = this.getMostSouthern();
+                tPopText.textContent = this.getPopulation();
                 console.log(this.cityArray);
 
             } else {
@@ -158,7 +169,11 @@ class Community {
                 cityPopText.textContent = `Population: ${city.showPop()}`;
                 howBigText.textContent = city.howBig()
                 input.value = ''
-                this.updateAnalyzer(); //Updates stuff when changing populations
+                    //this.updateAnalyzer(); //Updates stuff when changing populations
+                northText.textContent = this.getMostNorthern();
+                southText.textContent = this.getMostSouthern();
+                tPopText.textContent = this.getPopulation();
+                console.log(this.cityArray);
             } else {
                 messageArea2.textContent = 'Please enter a number'
             }
@@ -170,6 +185,11 @@ class Community {
 
         deleteBtn.addEventListener('click', () => {
             this.deleteCity(city.key)
+            let msg = document.getElementById('messageArea')
+            msg.textContent = `Deleted ${city.name}`
+            northText.textContent = this.getMostNorthern();
+            southText.textContent = this.getMostSouthern();
+            tPopText.textContent = this.getPopulation();
             deleteBtn.parentElement.remove();
         })
 
@@ -178,29 +198,28 @@ class Community {
         newCard.appendChild(outBtn)
         newCard.appendChild(deleteBtn)
         newCard.appendChild(messageArea2)
-
-        this.updateAnalyzer(); //Updates stuff when adding new cities
+            // this.updateAnalyzer(); //Updates stuff when adding new cities
         return newCard;
     }
 
-    updateAnalyzer() {
-        if (this.cityArray.length > 0) {
-            let centerDiv = document.getElementById('data')
-            let mostNorth = document.createElement('p')
-            mostNorth.textContent = this.getMostNorthern();
-            centerDiv.appendChild(mostNorth)
+    // updateAnalyzer() {
+    //     if (this.cityArray.length > 0) {
+    //         let centerDiv = document.getElementById('data')
+    //         let mostNorth = document.createElement('p')
+    //         mostNorth.textContent = this.getMostNorthern();
+    //         centerDiv.appendChild(mostNorth)
 
-            let mostSouth = document.createElement('p')
-            mostSouth.setAttribute('class', 'data')
-            mostSouth.textContent = this.getMostSouthern();
-            centerDiv.appendChild(mostSouth)
+    //         let mostSouth = document.createElement('p')
+    //         mostSouth.setAttribute('class', 'data')
+    //         mostSouth.textContent = this.getMostSouthern();
+    //         centerDiv.appendChild(mostSouth)
 
-            let totalPop = document.createElement('p')
-            totalPop.setAttribute('class', 'data')
-            totalPop.textContent = this.getPopulation();
-            centerDiv.appendChild(totalPop)
-        }
-    }
+    //         let totalPop = document.createElement('p')
+    //         totalPop.setAttribute('class', 'data')
+    //         totalPop.textContent = this.getPopulation();
+    //         centerDiv.appendChild(totalPop)
+    //     }
+    // }
 
     deleteCity(key) {
         for (let i = 0; i < this.cityArray.length; i++) {
@@ -228,19 +247,24 @@ class Community {
     }
 
     getMostNorthern() {
-        let n = Math.max.apply(Math, this.cityArray.map(function(o) {
-            return o.latitude;
-        }));
-        return `Most Northern: ${Object.values(this.cityArray.find(o => o.latitude === n))}`
+        if (this.cityArray.length > 0) {
+            let n = Math.max.apply(Math, this.cityArray.map(function(o) {
+                return o.latitude;
+            }));
+            return `Most Northern: ${Object.values(this.cityArray.find(o => o.latitude === n))}`
+        }
     }
 
     getMostSouthern() {
-        return `Most Southern: ${Object.values(this.cityArray.reduce(function(prev, current) {
+        if (this.cityArray.length > 0) {
+            return `Most Southern: ${Object.values(this.cityArray.reduce(function(prev, current) {
             return (prev.latitude < current.latitude) ? prev : current
         }))}`;
+        }
     }
 
     getPopulation() {
+
         let total = 0;
         for (let i = 0; i < this.cityArray.length; i++) {
             total += Number(this.cityArray[i].population);
