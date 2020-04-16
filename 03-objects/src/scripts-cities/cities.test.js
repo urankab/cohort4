@@ -103,6 +103,8 @@ test('Test that createCard() works', () => {
 
     newCard.appendChild(com.createCard(com.cityArray[0]))
     newCard.setAttribute('class', 'card')
+    let msg = document.createElement('p')
+    newCard.appendChild(msg)
 
     expect(newCard).toBeTruthy();
 
@@ -129,19 +131,12 @@ test('Test that createCard() works', () => {
     let input = document.createElement('text')
     let movedOutBtn = document.createElement('button')
     let movedInBtn = document.createElement('button')
+    let deleteBtn = document.createElement('button')
+
     newCard.appendChild(input)
     newCard.appendChild(movedInBtn)
     newCard.appendChild(movedOutBtn)
-
-    input.value = 5;
-
-    //movedInBtn.addEventListener('click', () => {
-    com.cityArray[0].movedIn(input.value)
-    cityPopText.textContent = `Population: ${com.cityArray[0].population}`;
-    //})
-
-    //expect(movedInBtn.onclick).toBe(expect(cityPopText.textContent).toBe('Population: 6'))
-    expect(cityPopText.textContent).toBe('Population: 6')
+    newCard.appendChild(deleteBtn)
 
     let dataDiv = document.createElement('div')
     let n = document.createElement('p')
@@ -156,11 +151,53 @@ test('Test that createCard() works', () => {
     s.setAttribute('id', 'mostSouthP')
     p.setAttribute('id', 'totalPP')
 
+    movedInBtn.addEventListener('click', () => {
+        input.value = 1000;
+        com.cityArray[0].movedIn(input.value)
+        cityPopText.textContent = `Population: ${com.cityArray[0].showPop()}`;
+        howBigText.textContent = com.cityArray[0].howBig()
+        n.textContent = com.getMostNorthern();
+        s.textContent = com.getMostSouthern();
+        p.textContent = com.getPopulation();
+    })
+
+    movedOutBtn.addEventListener('click', () => {
+        input.value = 2;
+        com.cityArray[0].movedOut(input.value)
+        cityPopText.textContent = `Population: ${com.cityArray[0].showPop()}`;
+        howBigText.textContent = com.cityArray[0].howBig()
+        n.textContent = com.getMostNorthern();
+        s.textContent = com.getMostSouthern();
+        p.textContent = com.getPopulation();
+    })
+
+    deleteBtn.addEventListener('click', () => {
+        msg.textContent = `Deleted ${com.cityArray[0].name}`
+        com.deleteCity(com.cityArray[0].key)
+        deleteBtn.parentElement.remove();
+        n.textContent = com.getMostNorthern();
+        s.textContent = com.getMostSouthern();
+        p.textContent = com.getPopulation();
+    })
+
+    movedInBtn.click()
+    expect(cityPopText.textContent).toBe('Population: 1001')
+    expect(howBigText.textContent).toBe('Town: 1,000-20,000')
+
+    movedOutBtn.click()
+    expect(cityPopText.textContent).toBe('Population: 999')
+    expect(howBigText.textContent).toBe('Village: 101-999')
+
     n.textContent = com.getMostNorthern();
     s.textContent = com.getMostSouthern();
     p.textContent = com.getPopulation();
 
-    expect(n.textContent).toBe('Most Northern: Test,1,1,1,k1')
-    expect(s.textContent).toBe('Most Southern: Test,1,1,1,k1')
-    expect(p.textContent).toBe('Total Population: 1')
+    expect(n.textContent).toBe('Most Northern: Test,1,1,999,k1')
+    expect(s.textContent).toBe('Most Southern: Test,1,1,999,k1')
+    expect(p.textContent).toBe('Total Population: 999')
+
+    deleteBtn.click()
+    expect(msg.textContent).toBe(`Deleted Test`)
+    expect(container.children.length).toBe(0)
+    expect(com.cityArray).toEqual([])
 })
