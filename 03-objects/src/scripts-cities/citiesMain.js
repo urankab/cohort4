@@ -12,17 +12,25 @@ const createBtn = document.getElementById('createBtn')
 
 createBtn.addEventListener('click', () => {
     if (newCity.value && newLat.value && newLong.value != '') {
-
-        let createdCity = ''
-        createdCity = com.createCity(newCity.value, newLat.value, newLong.value, newPop.value)
-
+        com.createCity(newCity.value, newLat.value, newLong.value, newPop.value)
+        messageArea.textContent = `Created ${newCity.value} card with key: ${com.cityArray[com.cityArray.length - 1].key}`;
         cardDiv.appendChild(com.createCard(com.cityArray[com.cityArray.length - 1]))
-        messageArea.textContent = createdCity;
+        updateAnalzer()
         clearFields();
     } else {
         missingFields();
     }
 })
+
+function updateAnalzer() {
+    let northText = document.getElementById('mostNorthP')
+    let southText = document.getElementById('mostSouthP')
+    let tPopText = document.getElementById('totalPP')
+
+    northText.textContent = com.getMostNorthern();
+    southText.textContent = com.getMostSouthern();
+    tPopText.textContent = com.getPopulation();
+}
 
 function clearFields() {
     newCity.value = '';
