@@ -1,3 +1,5 @@
+import functions from "./citiesFetch.js";
+
 class City {
     constructor(name, latitude, longitude, population, key) {
         this.name = name;
@@ -51,18 +53,27 @@ class Community {
     constructor() {
         this.cityArray = [];
         this.counter = 1;
+        this.url = 'http://127.0.0.1:5000/';
     }
 
     nextKey() {
-        return `k${this.counter++}`;
+        return `${this.counter++}`;
     }
 
-    createCity(name, latitude, longitude, population) {
-        const key = this.nextKey();
+    createCity(name, latitude, longitude, population, key) {
+        //let key = this.nextKey();
         this.cityArray.push(new City(name, latitude, longitude, population, key));
 
+        //await functions.postData(this.url + 'add', { name: name, latitude: latitude, longitude: longitude, population: population, key: key })
         return `Created ${name} city with key: ${key}`;
     }
+
+    // async createCity(name, latitude, longitude, population) {
+    //     let key = this.nextKey();
+    //     this.cityArray.push(new City(name, latitude, longitude, population, key));
+    //     await functions.postData(this.url + 'add', { name: name, latitude: latitude, longitude: longitude, population: population, key: key })
+    //     return `Created ${name} city with key: ${key}`;
+    // }
 
     getNameFromKey(key) {
         for (let i = 0; i < this.cityArray.length; i++) {
@@ -89,8 +100,9 @@ class Community {
         cityNameText.textContent = city.name;
         newCard.append(cityNameText)
 
-        let keyText = document.createElement('h5')
-        keyText.textContent = city.key;
+        let keyText = document.createElement('h4')
+        keyText.setAttribute('class', 'noSpace')
+        keyText.textContent = `key: ${city.key}`;
         newCard.append(keyText)
 
         let cityLatText = document.createElement('p')
@@ -138,16 +150,18 @@ class Community {
         inBtn.setAttribute('class', 'cardBtn')
         inBtn.setAttribute('id', 'movedIn')
 
-        inBtn.addEventListener('click', () => {
+        inBtn.addEventListener('click', async() => {
             if (input.value != '') {
                 city.movedIn(input.value)
+                let updateIn = await functions.postData(this.url + 'update', { name: city.name, latitude: city.latitude, longitude: city.longitude, population: city.population, key: city.key })
                 cityPopText.textContent = `Population: ${city.showPop()}`;
                 howBigText.textContent = city.howBig()
+                messageArea2.textContent = `Added ${input.value} to population`
                 input.value = ''
                 northText.textContent = this.getMostNorthern();
                 southText.textContent = this.getMostSouthern();
                 tPopText.textContent = this.getPopulation();
-                console.log(this.cityArray);
+                //console.log(this.cityArray);
 
             } else {
                 messageArea2.textContent = 'Please enter a number'
@@ -159,11 +173,13 @@ class Community {
         outBtn.setAttribute('class', 'cardBtn')
         outBtn.setAttribute('id', 'movedOut')
 
-        outBtn.addEventListener('click', () => {
+        outBtn.addEventListener('click', async() => {
             if (input.value != '') {
                 city.movedOut(input.value)
+                let updateOut = await functions.postData(this.url + 'update', { name: city.name, latitude: city.latitude, longitude: city.longitude, population: city.population, key: city.key })
                 cityPopText.textContent = `Population: ${city.showPop()}`;
                 howBigText.textContent = city.howBig()
+                messageArea2.textContent = `Removed ${input.value} from population`
                 input.value = ''
                 northText.textContent = this.getMostNorthern();
                 southText.textContent = this.getMostSouthern();
@@ -178,8 +194,9 @@ class Community {
         deleteBtn.appendChild(document.createTextNode('Delete'))
         deleteBtn.setAttribute('class', 'cardBtn')
 
-        deleteBtn.addEventListener('click', () => {
+        deleteBtn.addEventListener('click', async() => {
             this.deleteCity(city.key)
+            let deleteData = await functions.postData(this.url + 'delete', { name: city.name, latitude: city.latitude, longitude: city.longitude, population: city.population, key: city.key })
             let msg = document.getElementById('messageArea')
             msg.textContent = `Deleted ${city.name}`
             northText.textContent = this.getMostNorthern();

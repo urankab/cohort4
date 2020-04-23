@@ -51,51 +51,51 @@ test('Test AccountController constructor works', () => {
 
 test('Test that the Community methods works', () => {
     const community = new Community();
-    community.createCity('Paris', 48.8566, 2.3522, 2148000)
-    community.createCity('Test2', 50, 5, 21)
-    community.createCity('Test3', -7, 1, 1000)
-    community.createCity('Test4', 90, 1, 1000)
-    expect(community.createCity('Jello', 90, 1, 100000)).toBe('Created Jello city with key: k5')
+    community.createCity('Paris', 48.8566, 2.3522, 2148000, '1')
+    community.createCity('Test2', 50, 5, 21, '2')
+    community.createCity('Test3', -7, 1, 1000, '3')
+    community.createCity('Test4', 90, 1, 1000, '4')
+    expect(community.createCity('Jello', 90, 1, 100000, '5')).toBe('Created Jello city with key: 5')
     expect(community.cityArray[0].name).toEqual('Paris')
     expect(community.cityArray[1].name).toEqual('Test2')
     expect(community.cityArray[2].name).toEqual('Test3')
     expect(community.cityArray[3].name).toEqual('Test4')
-    community.deleteCity('k2');
+    community.deleteCity('2');
     expect(community.cityArray[0].name).toBe('Paris')
     expect(community.cityArray[1].name).not.toBe('Test2')
     expect(community.cityArray[1].name).toBe('Test3')
     expect(community.whichSphere(community.cityArray[0].key)).toBe('Northern Hemisphere')
-    expect(community.whichSphere('k4')).toBe('Northern Hemisphere')
-    expect(community.whichSphere('k3')).toBe('Southern Hemisphere')
-    expect(community.getMostNorthern()).toEqual('Most Northern: Test4,90,1,1000,k4')
-    expect(community.getMostSouthern()).toEqual('Most Southern: Test3,-7,1,1000,k3')
+    expect(community.whichSphere('4')).toBe('Northern Hemisphere')
+    expect(community.whichSphere('3')).toBe('Southern Hemisphere')
+    expect(community.getMostNorthern()).toEqual('Most Northern: Test4,90,1,1000,4')
+    expect(community.getMostSouthern()).toEqual('Most Southern: Test3,-7,1,1000,3')
     expect(community.getPopulation()).toBe('Total Population: 2250000')
 })
 
 test('Test key generation, getNameFromKey(), getObjectFromKey()', () => {
     const com = new Community();
-    com.createCity('Test', 1, 5, 100)
-    com.createCity('Test2', 10, 10, 10)
-    com.createCity('Hugs', 1, 1, 12)
+    com.createCity('Test', 1, 5, 100, 1)
+    com.createCity('Test2', 10, 10, 10, 2)
+    com.createCity('Hugs', 1, 1, 12, 3)
 
-    expect(com.getNameFromKey('k1')).toBe('Test')
-    expect(com.getNameFromKey('k2')).toBe('Test2')
-    expect(com.getNameFromKey('k3')).toBe('Hugs')
+    expect(com.getNameFromKey('1')).toBe('Test')
+    expect(com.getNameFromKey('2')).toBe('Test2')
+    expect(com.getNameFromKey('3')).toBe('Hugs')
 
-    expect(com.getObjectFromKey('k1')).toEqual({ "key": "k1", "latitude": 1, "longitude": 5, "name": "Test", "population": 100 })
-    expect(com.getObjectFromKey('k2')).toEqual({ "key": "k2", "latitude": 10, "longitude": 10, "name": "Test2", "population": 10 })
-    expect(com.getObjectFromKey('k3')).toEqual({ "key": "k3", "latitude": 1, "longitude": 1, "name": "Hugs", "population": 12 })
+    expect(com.getObjectFromKey('1')).toEqual({ "key": 1, "latitude": 1, "longitude": 5, "name": "Test", "population": 100 })
+    expect(com.getObjectFromKey('2')).toEqual({ "key": 2, "latitude": 10, "longitude": 10, "name": "Test2", "population": 10 })
+    expect(com.getObjectFromKey('3')).toEqual({ "key": 3, "latitude": 1, "longitude": 1, "name": "Hugs", "population": 12 })
 
-    expect(com.cityArray[0].key).toBe('k1')
-    expect(com.cityArray[1].key).toBe('k2')
-    expect(com.cityArray[2].key).toBe('k3')
+    expect(com.cityArray[0].key).toBe(1)
+    expect(com.cityArray[1].key).toBe(2)
+    expect(com.cityArray[2].key).toBe(3)
 })
 
 //---DOM TESTING--------------------------------------
 
 test('Test that createCard() works', () => {
     const com = new Community();
-    com.createCity('Test', 1, 1, 1)
+    com.createCity('Test', 1, 1, 1, 1)
 
     let container = document.createElement('div')
     let newCard = document.createElement('div')
@@ -103,6 +103,7 @@ test('Test that createCard() works', () => {
 
     newCard.appendChild(com.createCard(com.cityArray[0]))
     newCard.setAttribute('class', 'card')
+    newCard.setAttribute('key', com.cityArray[0].key)
     let msg = document.createElement('p')
     newCard.appendChild(msg)
 
@@ -110,8 +111,9 @@ test('Test that createCard() works', () => {
 
     expect(container.children.length).toBe(1)
     expect(container.children[0].getAttribute('class')).toBe('card')
-    expect(container.children[0].textContent).toContain('Test', 'k1', 'MovedIn')
-    expect(container.children[0].textContent.substr(0, 15)).toBe('Testk1Latitude:')
+    expect(container.children[0].getAttribute('key')).toBe('1')
+    expect(container.children[0].textContent).toContain('Test', '1', 'MovedIn')
+    expect(container.children[0].textContent.substr(0, 15)).toBe('Testkey: 1Latit')
 
     let cityPopText = document.createElement('p')
     newCard.append(cityPopText)
@@ -192,8 +194,8 @@ test('Test that createCard() works', () => {
     s.textContent = com.getMostSouthern();
     p.textContent = com.getPopulation();
 
-    expect(n.textContent).toBe('Most Northern: Test,1,1,999,k1')
-    expect(s.textContent).toBe('Most Southern: Test,1,1,999,k1')
+    expect(n.textContent).toBe('Most Northern: Test,1,1,999,1')
+    expect(s.textContent).toBe('Most Southern: Test,1,1,999,1')
     expect(p.textContent).toBe('Total Population: 999')
 
     deleteBtn.click()

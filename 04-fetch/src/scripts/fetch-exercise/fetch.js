@@ -1,5 +1,5 @@
+export default functions;
 const functions = {
-
     url: 'https://jsonplaceholder.typicode.com/users',
     //url: 'https://uinames.com/api/?amount=10',
 
@@ -84,8 +84,8 @@ async function postData(url = 'https://jsonplaceholder.typicode.com/users', data
 
 }
 
-functions.showDelayProblem();
-functions.showDelaySolution();
-functions.getUsers();
-functions.workWithData();
+// functions.showDelayProblem();
+// functions.showDelaySolution();
+// functions.getUsers();
+// functions.workWithData();
 console.log(postData());

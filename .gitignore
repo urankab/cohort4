@@ -36,3 +36,4 @@ __pycache__
 javascript/github/repositories.js
 javascript/github/pictures
 .vscode
+node_modules
