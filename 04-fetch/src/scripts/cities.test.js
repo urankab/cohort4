@@ -22,11 +22,6 @@ test('Check that movedIn() and movedOut() works - changes population', () => {
     expect(city1.population).toBe(1361000);
 })
 
-test('Check that showPop() works - show population', () => {
-    const city1 = new City('Calgary', 51.0447, 114.0719, 1360000, 'k1');
-    expect(city1.showPop()).toBe(1360000)
-})
-
 test('Check that howBig() works', () => {
     let city2 = new City('City', 1, 1, 0, 'k1')
     expect(city2.howBig()).toBe('No Population')
@@ -51,44 +46,25 @@ test('Test AccountController constructor works', () => {
 
 test('Test that the Community methods works', () => {
     const community = new Community();
-    community.createCity('Paris', 48.8566, 2.3522, 2148000, '1')
-    community.createCity('Test2', 50, 5, 21, '2')
-    community.createCity('Test3', -7, 1, 1000, '3')
-    community.createCity('Test4', 90, 1, 1000, '4')
-    expect(community.createCity('Jello', 90, 1, 100000, '5')).toBe('Created Jello city with key: 5')
+    community.createCity('Paris', 48.8566, 2.3522, 2148000, 1)
+    community.createCity('Test2', 50, 5, 21, 2)
+    community.createCity('Test3', -7, 1, 1000, 3)
+    community.createCity('Test4', 90, 1, 1000, 4)
+    expect(community.createCity('Jello', 90, 1, 100000, 5)).toBe('Created Jello city with key: 5')
     expect(community.cityArray[0].name).toEqual('Paris')
     expect(community.cityArray[1].name).toEqual('Test2')
     expect(community.cityArray[2].name).toEqual('Test3')
     expect(community.cityArray[3].name).toEqual('Test4')
-    community.deleteCity('2');
+    community.deleteCity(2);
     expect(community.cityArray[0].name).toBe('Paris')
     expect(community.cityArray[1].name).not.toBe('Test2')
     expect(community.cityArray[1].name).toBe('Test3')
     expect(community.whichSphere(community.cityArray[0].key)).toBe('Northern Hemisphere')
-    expect(community.whichSphere('4')).toBe('Northern Hemisphere')
-    expect(community.whichSphere('3')).toBe('Southern Hemisphere')
+    expect(community.whichSphere(4)).toBe('Northern Hemisphere')
+    expect(community.whichSphere(3)).toBe('Southern Hemisphere')
     expect(community.getMostNorthern()).toEqual('Most Northern: Test4,90,1,1000,4')
     expect(community.getMostSouthern()).toEqual('Most Southern: Test3,-7,1,1000,3')
     expect(community.getPopulation()).toBe('Total Population: 2250000')
-})
-
-test('Test key generation, getNameFromKey(), getObjectFromKey()', () => {
-    const com = new Community();
-    com.createCity('Test', 1, 5, 100, 1)
-    com.createCity('Test2', 10, 10, 10, 2)
-    com.createCity('Hugs', 1, 1, 12, 3)
-
-    expect(com.getNameFromKey('1')).toBe('Test')
-    expect(com.getNameFromKey('2')).toBe('Test2')
-    expect(com.getNameFromKey('3')).toBe('Hugs')
-
-    expect(com.getObjectFromKey('1')).toEqual({ "key": 1, "latitude": 1, "longitude": 5, "name": "Test", "population": 100 })
-    expect(com.getObjectFromKey('2')).toEqual({ "key": 2, "latitude": 10, "longitude": 10, "name": "Test2", "population": 10 })
-    expect(com.getObjectFromKey('3')).toEqual({ "key": 3, "latitude": 1, "longitude": 1, "name": "Hugs", "population": 12 })
-
-    expect(com.cityArray[0].key).toBe(1)
-    expect(com.cityArray[1].key).toBe(2)
-    expect(com.cityArray[2].key).toBe(3)
 })
 
 //---DOM TESTING--------------------------------------
@@ -108,7 +84,6 @@ test('Test that createCard() works', () => {
     newCard.appendChild(msg)
 
     expect(newCard).toBeTruthy();
-
     expect(container.children.length).toBe(1)
     expect(container.children[0].getAttribute('class')).toBe('card')
     expect(container.children[0].getAttribute('key')).toBe('1')
@@ -156,7 +131,7 @@ test('Test that createCard() works', () => {
     movedInBtn.addEventListener('click', () => {
         input.value = 1000;
         com.cityArray[0].movedIn(input.value)
-        cityPopText.textContent = `Population: ${com.cityArray[0].showPop()}`;
+        cityPopText.textContent = `Population: ${com.cityArray[0].population}`;
         howBigText.textContent = com.cityArray[0].howBig()
         n.textContent = com.getMostNorthern();
         s.textContent = com.getMostSouthern();
@@ -166,7 +141,7 @@ test('Test that createCard() works', () => {
     movedOutBtn.addEventListener('click', () => {
         input.value = 2;
         com.cityArray[0].movedOut(input.value)
-        cityPopText.textContent = `Population: ${com.cityArray[0].showPop()}`;
+        cityPopText.textContent = `Population: ${com.cityArray[0].population}`;
         howBigText.textContent = com.cityArray[0].howBig()
         n.textContent = com.getMostNorthern();
         s.textContent = com.getMostSouthern();

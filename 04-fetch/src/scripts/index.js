@@ -9,37 +9,24 @@ const newPop = document.getElementById('population')
 const cardDiv = document.getElementById('cardDiv')
 const messageArea = document.getElementById('messageArea')
 const url = 'http://127.0.0.1:5000/';
-let keyNum = 0;
+let nextKey = 0;
 
-
-// async function loadStuff() {
-//     let data = await functions.postData(url + 'all')
-//     for (let i = 0; i < data.length; i++) {
-//         com.cityArray.push(new City(data[i].name, data[i].latitude, data[i].longitude, data[i].population, data[i].key));
-//         //com.createCity(data[i].name, data[i].latitude, data[i].longitude, data[i].population, data[i].key)
-//         cardDiv.appendChild(com.createCard(com.cityArray[com.cityArray.length - 1]))
-//         keyNum = com.cityArray[com.cityArray.length - 1].key + 1
-//     }
-// }
-
-// loadStuff();
-
-//Load old stuff
 window.addEventListener('load', async() => {
     let data = await functions.postData(url + 'all')
     for (let i = 0; i < data.length; i++) {
-        com.cityArray.push(new City(data[i].name, data[i].latitude, data[i].longitude, data[i].population, data[i].key));
-        //com.createCity(data[i].name, data[i].latitude, data[i].longitude, data[i].population, data[i].key)
+        com.createCity(data[i].name, data[i].latitude, data[i].longitude, data[i].population, data[i].key)
         cardDiv.appendChild(com.createCard(com.cityArray[com.cityArray.length - 1]))
-        keyNum = com.cityArray[com.cityArray.length - 1].key + 1
+        updateAnalzer();
+        nextKey = com.cityArray[com.cityArray.length - 1].key
+        nextKey++;
     }
 })
 
 createBtn.addEventListener('click', async() => {
     if (newCity.value && newLat.value && newLong.value != '') {
-        com.createCity(newCity.value, newLat.value, newLong.value, newPop.value, keyNum)
-        await functions.postData(url + 'add', { name: newCity.value, latitude: newLat.value, longitude: newLong.value, population: newPop.value, key: keyNum })
-        keyNum++;
+        com.createCity(newCity.value, newLat.value, newLong.value, newPop.value, nextKey)
+        await functions.postData(url + 'add', { name: newCity.value, latitude: newLat.value, longitude: newLong.value, population: newPop.value, key: nextKey })
+        nextKey++;
         messageArea.textContent = `Created ${newCity.value} card with key: ${com.cityArray[com.cityArray.length - 1].key}`;
         cardDiv.appendChild(com.createCard(com.cityArray[com.cityArray.length - 1]))
         updateAnalzer()

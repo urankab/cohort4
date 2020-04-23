@@ -23,10 +23,6 @@ class City {
 
     }
 
-    showPop() {
-        return this.population;
-    }
-
     howBig() {
         if (this.population == 0) {
             return "No Population"
@@ -56,37 +52,9 @@ class Community {
         this.url = 'http://127.0.0.1:5000/';
     }
 
-    nextKey() {
-        return `${this.counter++}`;
-    }
-
     createCity(name, latitude, longitude, population, key) {
-        //let key = this.nextKey();
         this.cityArray.push(new City(name, latitude, longitude, population, key));
-
-        //await functions.postData(this.url + 'add', { name: name, latitude: latitude, longitude: longitude, population: population, key: key })
         return `Created ${name} city with key: ${key}`;
-    }
-
-    // async createCity(name, latitude, longitude, population) {
-    //     let key = this.nextKey();
-    //     this.cityArray.push(new City(name, latitude, longitude, population, key));
-    //     await functions.postData(this.url + 'add', { name: name, latitude: latitude, longitude: longitude, population: population, key: key })
-    //     return `Created ${name} city with key: ${key}`;
-    // }
-
-    getNameFromKey(key) {
-        for (let i = 0; i < this.cityArray.length; i++) {
-            if (key == this.cityArray[i].key)
-                return this.cityArray[i].name
-        }
-    }
-
-    getObjectFromKey(key) {
-        for (let i = 0; i < this.cityArray.length; i++) {
-            if (key == this.cityArray[i].key)
-                return this.cityArray[i];
-        }
     }
 
     createCard(city) {
@@ -154,7 +122,7 @@ class Community {
             if (input.value != '') {
                 city.movedIn(input.value)
                 let updateIn = await functions.postData(this.url + 'update', { name: city.name, latitude: city.latitude, longitude: city.longitude, population: city.population, key: city.key })
-                cityPopText.textContent = `Population: ${city.showPop()}`;
+                cityPopText.textContent = `Population: ${city.population}`;
                 howBigText.textContent = city.howBig()
                 messageArea2.textContent = `Added ${input.value} to population`
                 input.value = ''
@@ -177,7 +145,7 @@ class Community {
             if (input.value != '') {
                 city.movedOut(input.value)
                 let updateOut = await functions.postData(this.url + 'update', { name: city.name, latitude: city.latitude, longitude: city.longitude, population: city.population, key: city.key })
-                cityPopText.textContent = `Population: ${city.showPop()}`;
+                cityPopText.textContent = `Population: ${city.population}`;
                 howBigText.textContent = city.howBig()
                 messageArea2.textContent = `Removed ${input.value} from population`
                 input.value = ''
