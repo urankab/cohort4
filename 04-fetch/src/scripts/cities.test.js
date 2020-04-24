@@ -38,12 +38,6 @@ test('Check that howBig() works', () => {
 })
 
 //-------- COMMUNITY CLASS ------------------------------
-test('Test AccountController constructor works', () => {
-    const com = new Community();
-    expect(com.cityArray).toEqual([]);
-    expect(com.counter).toEqual(1);
-})
-
 test('Test that the Community methods works', () => {
     const community = new Community();
     community.createCity('Paris', 48.8566, 2.3522, 2148000, 1)
@@ -65,6 +59,27 @@ test('Test that the Community methods works', () => {
     expect(community.getMostNorthern()).toEqual('Most Northern: Test4,90,1,1000,4')
     expect(community.getMostSouthern()).toEqual('Most Southern: Test3,-7,1,1000,3')
     expect(community.getPopulation()).toBe('Total Population: 2250000')
+})
+
+//This works because both variables are referencing the same object, = to each other
+test('Test myFav = myCity works', () => {
+    const myCity = new City('FavCity', 20, 30, 100, 1)
+    const myFav = myCity;
+    console.log(myCity.population);
+    console.log(myFav.population);
+    expect(myCity.population).toEqual(myFav.population)
+
+    myCity.movedIn(10)
+    console.log(myCity.population);
+    console.log(myFav.population);
+    expect(myCity.population).toEqual(110)
+    expect(myFav.population).toEqual(110)
+
+    myFav.movedIn(20)
+    console.log(myCity.population);
+    console.log(myFav.population);
+    expect(myCity.population).toEqual(130)
+    expect(myFav.population).toEqual(130)
 })
 
 //---DOM TESTING--------------------------------------
@@ -176,5 +191,4 @@ test('Test that createCard() works', () => {
     deleteBtn.click()
     expect(msg.textContent).toBe(`Deleted Test`)
     expect(container.children.length).toBe(0)
-    expect(com.cityArray).toEqual([])
 })

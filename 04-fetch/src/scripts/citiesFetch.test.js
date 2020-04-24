@@ -64,11 +64,11 @@ test('test that the fetch works?', async() => {
     expect(data[0].latitude).toBe(53.55);
     expect(data[0].longitude).toBe(-113.49);
     expect(data[0].population).toBe(150);
+    //Add Edmonton to array so we can work with it further
     com.createCity(data[0].name, data[0].latitude, data[0].longitude, data[0].population, data[0].key);
 
     //ADDING ANOTHER CITY
     com.createCity('Calgary', 12, 1, 1000, 1)
-    console.log(com.cityArray);
     expect(com.cityArray[1].name).toBe('Calgary')
 
     data = await functions.postData(url + 'add', { name: com.cityArray[1].name, latitude: com.cityArray[1].latitude, longitude: com.cityArray[1].longitude, population: com.cityArray[1].population, key: com.cityArray[1].key })
@@ -130,29 +130,34 @@ test('test that the fetch works?', async() => {
     s.setAttribute('id', 'mostSouthP')
     p.setAttribute('id', 'totalPP')
 
-    movedInBtn.addEventListener('click', async() => {
-        input.value = 1000;
-        com.cityArray[1].movedIn(input.value)
-        data = await functions.postData(url + 'update', { name: com.cityArray[1].name, latitude: com.cityArray[1].latitude, longitude: com.cityArray[1].longitude, population: com.cityArray[1].population, key: com.cityArray[1].key })
-        expect(data.status).toEqual(200);
-        cityPopText.textContent = `Population: ${com.cityArray[1].population}`;
-        howBigText.textContent = com.cityArray[1].howBig()
-        n.textContent = com.getMostNorthern();
-        s.textContent = com.getMostSouthern();
-        p.textContent = com.getPopulation();
-    })
+    com.cityArray[1].movedIn(1000)
+    data = await functions.postData(url + 'update', { name: com.cityArray[1].name, latitude: com.cityArray[1].latitude, longitude: com.cityArray[1].longitude, population: com.cityArray[1].population, key: com.cityArray[1].key })
+    cityPopText.textContent = `Population: ${com.cityArray[1].population}`;
+    howBigText.textContent = com.cityArray[1].howBig()
+    n.textContent = com.getMostNorthern();
+    s.textContent = com.getMostSouthern();
+    p.textContent = com.getPopulation();
 
-    movedOutBtn.addEventListener('click', async() => {
-        input.value = 2;
-        com.cityArray[1].movedOut(input.value)
-        data = await functions.postData(url + 'update', { name: com.cityArray[1].name, latitude: com.cityArray[1].latitude, longitude: com.cityArray[1].longitude, population: com.cityArray[1].population, key: com.cityArray[1].key })
-        expect(data.status).toEqual(200);
-        cityPopText.textContent = `Population: ${com.cityArray[1].population}`;
-        howBigText.textContent = com.cityArray[1].howBig()
-        n.textContent = com.getMostNorthern();
-        s.textContent = com.getMostSouthern();
-        p.textContent = com.getPopulation();
-    })
+    data = await functions.postData(url + 'all');
+    expect(data.status).toEqual(200);
+    expect(data[1].population).toBe(2000);
+    expect(cityPopText.textContent).toBe('Population: 2000')
+    expect(howBigText.textContent).toBe('Town: 1,000-20,000')
+
+    com.cityArray[1].movedOut(1001)
+    data = await functions.postData(url + 'update', { name: com.cityArray[1].name, latitude: com.cityArray[1].latitude, longitude: com.cityArray[1].longitude, population: com.cityArray[1].population, key: com.cityArray[1].key })
+    cityPopText.textContent = `Population: ${com.cityArray[1].population}`;
+    howBigText.textContent = com.cityArray[1].howBig()
+    n.textContent = com.getMostNorthern();
+    s.textContent = com.getMostSouthern();
+    p.textContent = com.getPopulation();
+
+    data = await functions.postData(url + 'all');
+    expect(data.status).toEqual(200);
+    expect(data[1].population).toBe(999);
+    expect(cityPopText.textContent).toBe('Population: 999')
+    expect(howBigText.textContent).toBe('Village: 101-999')
+
 
     deleteBtn.addEventListener('click', async() => {
         msg.textContent = `Deleted ${com.cityArray[1].name}`
@@ -165,25 +170,16 @@ test('test that the fetch works?', async() => {
         p.textContent = com.getPopulation();
     })
 
-    movedInBtn.click()
-    expect(cityPopText.textContent).toBe('Population: 2000')
-    console.log(cityPopText.textContent);
-    expect(howBigText.textContent).toBe('Town: 1,000-20,000')
-
-    movedOutBtn.click()
-    expect(cityPopText.textContent).toBe('Population: 1998')
-    expect(howBigText.textContent).toBe('Village: 101-999')
-
     n.textContent = com.getMostNorthern();
     s.textContent = com.getMostSouthern();
     p.textContent = com.getPopulation();
 
-    expect(n.textContent).toBe('Most Northern: Test,1,1,999,1')
-    expect(s.textContent).toBe('Most Southern: Test,1,1,999,1')
-    expect(p.textContent).toBe('Total Population: 999')
+    expect(n.textContent).toBe('Most Northern: Edmonton,53.55,-113.49,150,2')
+    expect(s.textContent).toBe('Most Southern: Calgary,12,1,999,1')
+    expect(p.textContent).toBe('Total Population: 1149')
 
-    // deleteBtn.click()
-    // expect(msg.textContent).toBe(`Deleted Test`)
-    // expect(container.children.length).toBe(0)
-    // expect(com.cityArray).toEqual([])
+    deleteBtn.click()
+    data = await functions.postData(url + 'all');
+    expect(msg.textContent).toBe(`Deleted Calgary`)
+    expect(data.length).toEqual(1)
 })
