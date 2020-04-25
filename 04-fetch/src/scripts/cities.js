@@ -58,55 +58,69 @@ class Community {
 
     createCard(city) {
         let newCard = document.createElement('div')
-        newCard.setAttribute('class', 'card')
+        newCard.setAttribute('class', 'card bg-light mb-3')
         newCard.setAttribute('id', 'card')
         newCard.setAttribute('key', city.key)
 
         let cityNameText = document.createElement('h3')
-        cityNameText.setAttribute('class', 'noSpace')
+        cityNameText.setAttribute('class', 'card-header')
+        cityNameText.setAttribute('id', 'cardHead')
         cityNameText.textContent = city.name;
         newCard.append(cityNameText)
 
-        let keyText = document.createElement('h4')
-        keyText.setAttribute('class', 'noSpace')
-        keyText.textContent = `key: ${city.key}`;
-        newCard.append(keyText)
+        let innerDiv = document.createElement('div')
+        newCard.appendChild(innerDiv)
+        innerDiv.setAttribute('class', 'card-body')
+        innerDiv.setAttribute('id', 'card-body')
 
         let cityLatText = document.createElement('p')
         cityLatText.setAttribute('class', 'noSpace')
         cityLatText.textContent = `Latitude: ${city.latitude} `;
-        newCard.append(cityLatText)
-
+        innerDiv.append(cityLatText)
 
         let cityLongText = document.createElement('p')
         cityLongText.setAttribute('class', 'noSpace')
         cityLongText.textContent = `Longitude: ${city.longitude}`;
-        newCard.append(cityLongText)
-
+        innerDiv.append(cityLongText)
 
         let cityPopText = document.createElement('p')
         cityPopText.setAttribute('class', 'noSpace')
         cityPopText.setAttribute('id', 'cityPopText')
         cityPopText.textContent = `Population: ${city.population}`;
-        newCard.append(cityPopText)
+        innerDiv.append(cityPopText)
 
         let howBigText = document.createElement('p')
         howBigText.setAttribute('class', 'noSpace')
         howBigText.setAttribute('id', 'howBigText')
         howBigText.textContent = city.howBig();
-        newCard.append(howBigText)
+        innerDiv.append(howBigText)
 
         let sphereText = document.createElement('p')
         sphereText.setAttribute('class', 'noSpace')
         sphereText.textContent = this.whichSphere(city.key);
-        newCard.append(sphereText)
+        innerDiv.append(sphereText)
 
-        let input = document.createElement('input')
-        input.setAttribute('id', 'input')
-        input.setAttribute('type', 'number')
+        let inputGroup = document.createElement('div')
+        inputGroup.setAttribute('class', 'input-group mb-3 noSpace')
+        innerDiv.appendChild(inputGroup)
+
+        let prepend = document.createElement('div')
+        prepend.setAttribute('class', 'input-group-prepend')
+        inputGroup.appendChild(prepend)
+
+        let spanTxt = document.createElement('span')
+        spanTxt.setAttribute('class', 'input-group-text')
+        spanTxt.textContent = 'In/Out #:'
+        prepend.appendChild(spanTxt)
+
+        let inputNum = document.createElement('input')
+        inputNum.setAttribute('class', 'form-control')
+        inputGroup.appendChild(inputNum)
 
         let messageArea2 = document.createElement('p')
+        messageArea2.setAttribute('class', 'noSpace')
         messageArea2.setAttribute('id', 'messageArea2')
+        innerDiv.appendChild(messageArea2)
 
         let northText = document.getElementById('mostNorthP')
         let southText = document.getElementById('mostSouthP')
@@ -114,17 +128,18 @@ class Community {
 
         let inBtn = document.createElement('button')
         inBtn.appendChild(document.createTextNode('Moved In'))
-        inBtn.setAttribute('class', 'cardBtn')
+        inBtn.setAttribute('class', 'btn btn-secondary')
         inBtn.setAttribute('id', 'movedIn')
+        cityPopText.setAttribute('id', 'noSpace')
 
         inBtn.addEventListener('click', async() => {
-            if (input.value != '') {
-                city.movedIn(input.value)
+            if (inputNum.value != '') {
+                city.movedIn(inputNum.value)
                 await functions.postData(this.url + 'update', { name: city.name, latitude: city.latitude, longitude: city.longitude, population: city.population, key: city.key })
                 cityPopText.textContent = `Population: ${city.population}`;
                 howBigText.textContent = city.howBig()
-                messageArea2.textContent = `Added ${input.value} to population`
-                input.value = ''
+                messageArea2.textContent = `Added ${inputNum.value} to population`
+                inputNum.value = ''
                 northText.textContent = this.getMostNorthern();
                 southText.textContent = this.getMostSouthern();
                 tPopText.textContent = this.getPopulation();
@@ -135,17 +150,17 @@ class Community {
 
         let outBtn = document.createElement('button')
         outBtn.appendChild(document.createTextNode('Moved Out'))
-        outBtn.setAttribute('class', 'cardBtn')
+        outBtn.setAttribute('class', 'btn btn-secondary')
         outBtn.setAttribute('id', 'movedOut')
 
         outBtn.addEventListener('click', async() => {
-            if (input.value != '') {
-                city.movedOut(input.value)
+            if (inputNum.value != '') {
+                city.movedOut(inputNum.value)
                 await functions.postData(this.url + 'update', { name: city.name, latitude: city.latitude, longitude: city.longitude, population: city.population, key: city.key })
                 cityPopText.textContent = `Population: ${city.population}`;
                 howBigText.textContent = city.howBig()
-                messageArea2.textContent = `Removed ${input.value} from population`
-                input.value = ''
+                messageArea2.textContent = `Removed ${inputNum.value} from population`
+                inputNum.value = ''
                 northText.textContent = this.getMostNorthern();
                 southText.textContent = this.getMostSouthern();
                 tPopText.textContent = this.getPopulation();
@@ -157,7 +172,7 @@ class Community {
 
         let deleteBtn = document.createElement('button')
         deleteBtn.appendChild(document.createTextNode('Delete'))
-        deleteBtn.setAttribute('class', 'cardBtn')
+        deleteBtn.setAttribute('class', 'btn btn-secondary')
 
         deleteBtn.addEventListener('click', async() => {
             this.deleteCity(city.key)
@@ -167,15 +182,17 @@ class Community {
             northText.textContent = this.getMostNorthern();
             southText.textContent = this.getMostSouthern();
             tPopText.textContent = this.getPopulation();
-            deleteBtn.parentElement.remove();
-            console.log(this.cityArray);
+            innerDiv.parentElement.remove();
         })
 
-        newCard.appendChild(input)
-        newCard.appendChild(inBtn)
-        newCard.appendChild(outBtn)
-        newCard.appendChild(deleteBtn)
-        newCard.appendChild(messageArea2)
+        let bDiv = document.createElement('div')
+        bDiv.setAttribute('class', 'btn-group')
+        bDiv.setAttribute('id', 'cardBtns')
+        bDiv.appendChild(inBtn)
+        bDiv.appendChild(outBtn)
+        bDiv.appendChild(deleteBtn)
+        innerDiv.appendChild(bDiv)
+
         return newCard;
     }
 

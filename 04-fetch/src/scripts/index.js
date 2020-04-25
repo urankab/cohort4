@@ -17,6 +17,7 @@ window.addEventListener('load', async() => {
         com.createCity(data[i].name, data[i].latitude, data[i].longitude, data[i].population, data[i].key)
         cardDiv.appendChild(com.createCard(com.cityArray[com.cityArray.length - 1]))
         updateAnalzer();
+        clearFields();
         nextKey = com.cityArray[com.cityArray.length - 1].key
         nextKey++;
     }
@@ -27,7 +28,7 @@ createBtn.addEventListener('click', async() => {
         com.createCity(newCity.value, newLat.value, newLong.value, newPop.value, nextKey)
         await functions.postData(url + 'add', { name: newCity.value, latitude: newLat.value, longitude: newLong.value, population: newPop.value, key: nextKey })
         nextKey++;
-        messageArea.textContent = `Created ${newCity.value} card with key: ${com.cityArray[com.cityArray.length - 1].key}`;
+        messageArea.textContent = `Created ${newCity.value} ; key: ${com.cityArray[com.cityArray.length - 1].key}`;
         cardDiv.appendChild(com.createCard(com.cityArray[com.cityArray.length - 1]))
         updateAnalzer()
         clearFields();

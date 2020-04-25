@@ -103,7 +103,7 @@ test('Test that createCard() works', () => {
     expect(container.children[0].getAttribute('class')).toBe('card')
     expect(container.children[0].getAttribute('key')).toBe('1')
     expect(container.children[0].textContent).toContain('Test', '1', 'MovedIn')
-    expect(container.children[0].textContent.substr(0, 15)).toBe('Testkey: 1Latit')
+    expect(container.children[0].textContent.substr(0, 15)).toBe('TestLatitude: 1')
 
     let cityPopText = document.createElement('p')
     newCard.append(cityPopText)
