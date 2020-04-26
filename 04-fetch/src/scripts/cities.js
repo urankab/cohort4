@@ -118,7 +118,6 @@ class Community {
         inputGroup.appendChild(inputNum)
 
         let messageArea2 = document.createElement('p')
-        messageArea2.setAttribute('class', 'noSpace')
         messageArea2.setAttribute('id', 'messageArea2')
         innerDiv.appendChild(messageArea2)
 
@@ -133,7 +132,7 @@ class Community {
         cityPopText.setAttribute('id', 'noSpace')
 
         inBtn.addEventListener('click', async() => {
-            if (inputNum.value != '') {
+            if (inputNum.value != '' && inputNum.value > 0) {
                 city.movedIn(inputNum.value)
                 await functions.postData(this.url + 'update', { name: city.name, latitude: city.latitude, longitude: city.longitude, population: city.population, key: city.key })
                 cityPopText.textContent = `Population: ${city.population}`;
@@ -143,8 +142,11 @@ class Community {
                 northText.textContent = this.getMostNorthern();
                 southText.textContent = this.getMostSouthern();
                 tPopText.textContent = this.getPopulation();
-            } else {
+            }
+            if (inputNum.value == '') {
                 messageArea2.textContent = 'Please enter a number'
+            } else if (inputNum.value < 1) {
+                messageArea2.textContent = 'Please enter a number larger than 0'
             }
         })
 
@@ -154,7 +156,7 @@ class Community {
         outBtn.setAttribute('id', 'movedOut')
 
         outBtn.addEventListener('click', async() => {
-            if (inputNum.value != '') {
+            if (inputNum.value != '' && inputNum.value > 0) {
                 city.movedOut(inputNum.value)
                 await functions.postData(this.url + 'update', { name: city.name, latitude: city.latitude, longitude: city.longitude, population: city.population, key: city.key })
                 cityPopText.textContent = `Population: ${city.population}`;
@@ -165,8 +167,10 @@ class Community {
                 southText.textContent = this.getMostSouthern();
                 tPopText.textContent = this.getPopulation();
                 console.log(this.cityArray);
-            } else {
+            } else if (inputNum.value == '') {
                 messageArea2.textContent = 'Please enter a number'
+            } else {
+                messageArea2.textContent = 'Please enter a number larger than 0'
             }
         })
 
