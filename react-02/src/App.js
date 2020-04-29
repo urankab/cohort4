@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Icons from './components/IconComponent'
-import pizzaLogo from './components/pizza.svg';
-import kebabLogo from './components/kebab.svg';
-import chickenLogo from './components/fried-chicken.svg';
-import noodleLogo from './components/noodles.svg';
-import tacoLogo from './components/taco.svg';
+import pizzaLogo from './components/svgs/pizza.svg';
+import kebabLogo from './components/svgs/kebab.svg';
+import chickenLogo from './components/svgs/fried-chicken.svg';
+import noodleLogo from './components/svgs/noodles.svg';
+import tacoLogo from './components/svgs/taco.svg';
+import ticLogo from './components/svgs/tic.svg';
 
 class App extends Component {
    constructor() {
@@ -14,7 +15,8 @@ class App extends Component {
       this.link = ''
       this.alt = ''
       this.state = {
-         icon: 'Try pressing an icon!'
+         icon: 'Try pressing an icon!',
+         page: 'home'
       }
    }
 
@@ -47,33 +49,23 @@ class App extends Component {
             this.link = tacoLogo
             this.alt = 'taco'
             break;
+         case 'tictactoe':
+            this.link = ticLogo
+            this.alt = 'tictactoe'
+            break;
          default: alert('?')
       }
    }
 
    render() {
       return (
-         <div className="App">
-            <div>
+         <div>
+            <div className='App'>
+            <h2>{this.state.icon}<img src={this.link} className='clickedLogo' alt={this.alt} /></h2>
                <Icons
                   getIcon={this.iconPressed}
                />
-               <h2>{this.state.icon}<img src={this.link} className='clickedLogo' alt={this.alt}/></h2>
             </div>
-            <header className="App-header">
-               <img src={logo} className="App-logo" alt="logo" />
-               <p>
-                  Edit <code>src/App.js</code> and save to reload.
-         </p>
-               <a
-                  className="App-link"
-                  href="https://reactjs.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-               >
-                  Learn React
-         </a>
-            </header>
          </div>
       );
    }

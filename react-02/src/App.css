@@ -8,16 +8,21 @@
   position: absolute;
 }
 
-.icon{
+.tic{
   height: 100px;
   padding:20px;
 }
 
+.icon{
+  height: 100px;
+  padding:20px;
+  transition: .5s ease;
+  backface-visibility: hidden;
+  opacity: 1;
+}
+
 .icon:hover{
-  height: 120px;
-  background-color: violet;
-  border-radius: 10px;
-  transform: skewX(30deg) ;
+  opacity: 0.3;
 }
 
 .pizza{
@@ -44,12 +49,10 @@
   .pizza{
     animation: pizza-scale infinite 5s linear;
   }
-  .clickedLogo{
+  .clickedLogo, .tic{
     animation: bounce infinite 5s linear;
   }
 }
-
-
 
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 
