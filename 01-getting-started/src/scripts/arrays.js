@@ -9,6 +9,9 @@ const arraysFunc = {
 
     showArray: (displayArray) => {
         displayArray = array.join(', ');
+        // displayArray = array.toString();
+        // let newString = String(array);
+        // return newString;
         return displayArray;
     },
 

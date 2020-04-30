@@ -9,5 +9,6 @@ test('Check that the income tax function works', () => {
     expect(taxFunc.getTaxAmount(170000)).toBe(36777.59);
     expect(taxFunc.getTaxAmount(300000)).toBe(77902.87);
     expect(taxFunc.getTaxAmount("sdfsd")).toBe("Please enter your income");
+    expect(taxFunc.getTaxAmount()).toBe("Please enter your income");
 });
 
