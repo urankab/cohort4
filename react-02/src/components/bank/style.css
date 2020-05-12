@@ -1,0 +1,272 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+header {
+    background-image: url(https://cemhri.org/wp-content/uploads/2018/04/Home-Four-Banner-Background-Image.png);
+    background-size: cover;
+    height: auto;
+    padding: 1px;
+    margin: 10px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.473);
+    font-family: 'Merriweather', Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    -webkit-box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+}
+
+.box {
+    background-color: rgb(33, 25, 49);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    font-family: 'Merriweather', Arial, Helvetica, sans-serif;
+    text-align: center;
+    -webkit-box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    margin-bottom: auto;
+    /* min-width: 300px;
+    max-width: 400px; */
+    width: auto;
+    height: auto;
+    align-self: right;
+}
+
+.box2 {
+    background-color: rgb(33, 25, 49);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    max-height: fit-content;
+    font-family: 'Merriweather', Arial, Helvetica, sans-serif;
+    text-align: center;
+    -webkit-box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    margin-bottom: auto;
+    /* min-width: 300px;
+    max-width: 400px; */
+    /* width: auto;
+    height: auto; */
+    /* align-self: center; */
+}
+
+.box3 {
+    background-color: rgb(33, 25, 49);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    max-height: fit-content;
+    font-family: 'Merriweather', Arial, Helvetica, sans-serif;
+    text-align: center;
+    -webkit-box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    margin-bottom: auto;
+    /* min-width: 300px;
+    max-width: 400px; */
+    /* width: auto;
+    height: auto; */
+    /* align-self: left; */
+}
+
+.boxTextTop {
+    background-image: url(https://cemhri.org/wp-content/uploads/2018/04/Home-Four-Banner-Background-Image.png);
+    background-position: bottom;
+    border-radius: 10px;
+    margin-top: 0px;
+    font-size: 25px;
+    width: auto;
+    padding: 10px;
+    -webkit-box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    box-shadow: 7px 8px 11px -4px rgb(0, 0, 0);
+    grid-area: tophead;
+}
+
+.boxTextBot {
+    background-image: url(https://cemhri.org/wp-content/uploads/2018/04/Home-Four-Banner-Background-Image.png);
+    background-position: bottom;
+    border-radius: 10px;
+    margin-bottom: 0px;
+    width: auto;
+    /* min-width: 300px;
+    max-width: 400px; */
+    padding: 5px;
+    font-size: 25px;
+    color: white;
+    -webkit-box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, 1);
+    grid-area: botmessage;
+}
+
+.label {
+    width: 120px;
+    padding: 5px;
+    margin: 5px auto;
+    font-family: 'Merriweather', Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: #fff;
+    background: #111;
+    border-radius: 10px;
+}
+
+.input {
+    width: auto;
+    padding: 5px;
+    margin: 5px auto;
+    margin-bottom: 10px;
+    font-family: 'Merriweather', Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: #fff;
+    background: #111;
+    border-radius: 10px;
+}
+
+button {
+    font-family: 'Merriweather', Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    text-align: center;
+    margin: 10px auto;
+    min-width: 200px;
+    display: grid;
+}
+
+.accountList {
+    text-align: center;
+    width: 200px;
+    margin: 5px;
+    padding: 5px;
+    font-family: 'Merriweather', Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    color: #fff;
+    background: rgb(21, 16, 31);
+    outline: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+/*------ HOVER ON BUTTON ----------------------------*/
+
+.glow-on-hover {
+    /* width: auto; */
+    height: 30px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: #000
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 400% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+li {
+    color: white;
+}
+
+
+/*------BACKGROUND VIDEO----------------------------*/
+
+.fullscreen-bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+}
+
+.fullscreen-bg__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+@media (min-aspect-ratio: 16/9) {
+    .fullscreen-bg__video {
+        height: auto;
+        width: auto;
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .fullscreen-bg__video {
+        height: auto;
+        width: auto;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    header {
+        font-size: 15px;
+    }
+}

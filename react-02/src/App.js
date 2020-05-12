@@ -15,8 +15,7 @@ class App extends Component {
       this.link = ''
       this.alt = ''
       this.state = {
-         icon: 'Try pressing an icon!',
-         page: 'home'
+         icon: 'Try pressing an icon!'
       }
    }
 
@@ -53,19 +52,18 @@ class App extends Component {
             this.link = ticLogo
             this.alt = 'tictactoe'
             break;
-         default: alert('?')
+         default:
+            alert('?')
       }
    }
 
    render() {
       return (
          <div>
-            <div className='App'>
-            <h2>{this.state.icon}<img src={this.link} className='clickedLogo' alt={this.alt} /></h2>
-               <Icons
-                  getIcon={this.iconPressed}
-               />
-            </div>
+            <div className='App' >
+               <h2 > {this.state.icon} < img src={this.link} className='clickedLogo' /></h2>
+               <Icons getIcon={this.iconPressed} />
+            </div >
          </div>
       );
    }
