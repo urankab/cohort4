@@ -30,22 +30,21 @@ class AccountController {
     }
 
     newKey() {
-        const nextKey = this.counter++;
-        return nextKey;
+        return this.counter++;
     }
 
     getAccountFromKey(key) {
         return this.accArray[key];
     }
 
-    addAccount(accountName, balance, key) {
-        key = this.newKey();
+    addAccount(accountName, balance) {
+        let key = this.newKey();
         this.accArray.push(new Account(accountName, balance, key));
     }
 
     checkName(accountName) {
         for (let i = 0; i < this.accArray.length; i++) {
-            if (accountName == this.accArray[i].accountName) {
+            if (accountName === this.accArray[i].accountName) {
                 console.log(this.accArray[i].accountName)
                 return true;
             }
@@ -54,7 +53,7 @@ class AccountController {
 
     removeAccount(accountName) {
         for (let i = 0; i < this.accArray.length; i++) {
-            if (accountName == this.accArray[i].accountName) {
+            if (accountName === this.accArray[i].accountName) {
                 this.accArray.splice(i, 1)
             }
         }
@@ -62,7 +61,7 @@ class AccountController {
 
     renameAccount(accountName, newName) {
         for (let i = 0; i < this.accArray.length; i++) {
-            if (accountName == this.accArray[i].accountName) {
+            if (accountName === this.accArray[i].accountName) {
                 this.accArray[i].accountName = newName;
             }
         }
@@ -108,5 +107,5 @@ class AccountController {
     }
 }
 
-export default {Account, AccountController}
+export default { Account, AccountController }
 

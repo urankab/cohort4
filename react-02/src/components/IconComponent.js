@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import pizzaLogo from './svgs/pizza.svg';
 import kebabLogo from './svgs/kebab.svg';
 import chickenLogo from './svgs/fried-chicken.svg';
@@ -6,12 +7,11 @@ import noodleLogo from './svgs/noodles.svg';
 import tacoLogo from './svgs/taco.svg';
 import ticLogo from './svgs/tic.svg'
 import logo from '../logo.svg'
-import { Game } from './game/index'
-import {
-   BrowserRouter as Router, Route, Link
-} from "react-router-dom";
+
+import { Game } from './game/TicTacToe'
+
 import Home from './Home'
-import AccountController from './bank/components/AccountController';
+import Accounts from './bank/components/Accounts';
 
 const Icons = ({ getIcon }) => {
    return (
@@ -27,7 +27,7 @@ const Icons = ({ getIcon }) => {
          </div>
          <Route exact path='/' component={Home} />
          <Route exact path='/game' component={Game} />
-         <Route exact path='/bank' component={AccountController} />
+         <Route exact path='/bank' component={Accounts} />
          {/* <Route exact path='/cities' component={Cities} /> */}
       </Router>
    )

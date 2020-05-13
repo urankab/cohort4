@@ -1,65 +1,54 @@
 import React from 'react'
+import funcs from '../business/functions'
 
-function Summary() {
+let acc = new funcs.AccountController();
 
-    function TotalBalance() {
-        return 'hi'
+class Summary extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            total: 0,
+            highest: 0,
+            lowest: 0
+        }
     }
 
-    // let total = 0;
-    // for (let i = 0; i < this.accArray.length; i++) {
-    //     total += Number(this.accArray[i].balance);
-    // }
-    // return `Total: $${total}`;
-
-
-    function HighestAccount() {
-        return 'highest';
+    showTotal = () => {
+        this.setState({
+            total: acc.TotalBalance()
+        })
     }
-    //     let highestBal = 0;
-    //     let highestName;
-    //     for (let i = 0; i < this.accArray.length; i++) {
-    //         if (this.accArray[i].balance > highestBal) {
-    //             let currentName = this.accArray[i].accountName;
-    //             highestBal = Number(this.accArray[i].balance);
-    //             highestName = currentName;
-    //         }
-    //     }
-    //     return `Highest Acc: ${highestName}: $${highestBal}`
-    // }
 
-    function LowestAccount() {
-        return 'lowest';
+    showHighest = () => {
+        this.setState({
+            highest: acc.HighestAccount()
+        })
     }
-    //     let lowest = Number.POSITIVE_INFINITY;
-    //     let lowestName;
-    //     for (let i = this.accArray.length - 1; i >= 0; i--) {
-    //         let currentName = this.accArray[i].accountName;
-    //         let currentBal = Number(this.accArray[i].balance);
-    //         if (currentBal < lowest) {
-    //             lowestName = currentName;
-    //             lowest = currentBal;
-    //         }
-    //     }
-    //     return `Lowest Acc: ${lowestName}: $${lowest}`
-    // }
 
-    // console.log(props.accounts[0].name)
-    return (
-        <div className='box3'>
-            <h2 className='boxHeader'>Summary</h2>
-            <div className='innerDiv' id='box3'>
-                <label htmlFor='total'>Total Balance: </label>
-                <TotalBalance />
-                <br></br>
-                <label htmlFor='highest'>Highest Balance: </label>
-                <HighestAccount />
-                <br></br>
-                <label htmlFor='lowest'>Lowest Balance: </label>
-                <LowestAccount />
+    showLowest = () => {
+        this.setState({
+            lowest: acc.LowestAccount()
+        })
+    }
+
+    render() {
+        return (
+            <div className='box3' >
+                <h2 className='boxHeader'>Summary</h2>
+                <div className='innerDiv' id='box3'>
+                    <label htmlFor='total'>Total Balance: </label>
+                    <p></p>
+                    <br></br>
+                    <label htmlFor='highest'>Highest Balance: </label>
+                    <p></p>
+                    <br></br>
+                    <label htmlFor='lowest'>Lowest Balance: </label>
+                    <p></p>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default Summary;

@@ -1,5 +1,5 @@
 import React from 'react';
-import './tic.css';
+import './TicTacToe.css';
 import { Link } from 'react-router-dom'
 
 function Square(props) {
@@ -23,7 +23,7 @@ class Board extends React.Component {
    render() {
       return (
          <div>
-         <Link to='/'><h4>Go Back</h4></Link>
+            <Link to='/'><h4>Go Back</h4></Link>
             <div className="board-row">
                {this.renderSquare(0)}
                {this.renderSquare(1)}
