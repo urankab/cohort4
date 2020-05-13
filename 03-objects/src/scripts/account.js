@@ -1,7 +1,8 @@
 class Account {
-    constructor(accountName, balance) {
+    constructor(accountName, balance, key) {
         this.accountName = accountName;
         this.balance = Number(balance);
+        this.key = key;
     }
 
     deposit(valueIn) {
@@ -25,17 +26,44 @@ class Account {
 class AccountController {
     constructor() {
         this.accArray = [];
+        this.counter = 1;
+    }
 
+    makeKey() {
+        return this.counter++;
     }
 
     addAccount(accountName, balance) {
-        this.accArray.push(new Account(accountName, balance)); //Create a key, push to array
+        let key = this.makeKey();
+        this.accArray.push(new Account(accountName, balance, key));
     }
 
-    checkName(accountName) { //Check that you don't add acc with same name
+    createItem() {
+        let nameInput = document.getElementById('newAccNameInput')
+        let initBalInput = document.getElementById('initBalInput')
+        let msg1 = document.getElementById('messageArea1')
+        let ddl = document.getElementById('account1')
+        if (nameInput.value && initBalInput.value != 0) {
+            if (this.checkName(nameInput.value)) {
+                msg1.textContent = 'Account name already exists';
+            } else {
+                this.addAccount(nameInput.value, initBalInput.value)
+                msg1.textContent = `Created ${nameInput.value} with $${initBalInput.value}`
+                nameInput.value = ''
+                initBalInput.value = ''
+                let addToList = document.createElement('option')
+                console.log(this.accArray);
+                addToList.appendChild(document.createTextNode(this.accArray[this.accArray.length - 1].showName()))
+                ddl.appendChild(addToList)
+            }
+        } else {
+            msg1.textContent = 'Please enter some values'
+        }
+    }
+
+    checkName(accountName) {
         for (let i = 0; i < this.accArray.length; i++) {
             if (accountName == this.accArray[i].accountName) {
-                console.log(this.accArray[i].accountName)
                 return true;
             }
         }
@@ -60,31 +88,20 @@ class AccountController {
     totalBalance() {
         let total = 0;
         for (let i = 0; i < this.accArray.length; i++) {
-            total += Number(this.accArray[i].balance); //Hold onto balances in arrays thru iteration
+            total += Number(this.accArray[i].balance);
         }
         return `Total: $${total}`;
     }
 
     highestAccount() {
-        let highestBal = 0; //Initialize
-        let highestName; //Initialize
+        let highestBal = 0;
+        let highestName;
         for (let i = 0; i < this.accArray.length; i++) {
             if (this.accArray[i].balance > highestBal) {
                 let currentName = this.accArray[i].accountName;
                 highestBal = Number(this.accArray[i].balance);
                 highestName = currentName;
             }
-
-            //Also works:
-            // let high = this.accArray[0].balance; //Start at index 0
-            // let current = this.accArray[i].balance; //Iterating through the balances of account
-            // let currentName = this.accArray[i].accountName; //Iterating through the names of each acc
-            // if (high < current) {
-            //     console.log(current)
-            //     high = current;
-            //     highestBal = high;
-            //     highestName = currentName;
-            // }
         }
         return `Highest Acc: ${highestName}: $${highestBal}`
     }
@@ -100,26 +117,13 @@ class AccountController {
                 lowest = currentBal;
             }
         }
-        return `Lowest Acc: ${ lowestName }: $${ lowest }`
+        return `Lowest Acc: ${lowestName}: $${lowest}`
     }
 
     showAll() {
         return this.accArray.map((f) => ` ${f.accountName}: $${f.balance} `);
     }
-
-    //OLD
-    // showAll() {
-    //     let string = ''
-    //     for (let i = 0; i < this.accArray.length; i++) {
-    //         string += ` ${Object.values(this.accArray[i])} `;
-    //     }
-    //     return string;
-    // }
 }
 
 export { Account, AccountController };
 
-// Account { accountName: 'House', balance: 515 },
-// Account { accountName: 'Kids', balance: 900 },
-// Account { accountName: 'Doggy Business', balance: 3000 },
-// Account { accountName: 'Video Games', balance: 300 }

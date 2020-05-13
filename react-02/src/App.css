@@ -1,21 +1,21 @@
 .foodLogos{
-  height: 100px;
-  padding:20px;
+  height: 60px;
+  padding:10px;
 }
 
 .clickedLogo{
-  height: 50px;
+  height: 25px;
   position: absolute;
 }
 
 .tic{
-  height: 100px;
-  padding:20px;
+  height: 60px;
+  padding:10px;
 }
 
 .icon{
-  height: 100px;
-  padding:20px;
+  height: 60px;
+  padding:10px;
   transition: .5s ease;
   backface-visibility: hidden;
   opacity: 1;
@@ -26,17 +26,17 @@
 }
 
 .pizza{
-  height: 100px;
-  padding:20px;
+  height: 60px;
+  padding:10px;
 }
 
 .pizza:active{
-  height: 150px;
+  height: 90px;
 }
 
 .chicken{
-  height: 100px;
-  padding:20px;;
+  height: 60px;
+  padding:10px;
 }
 
 @media (prefers-reduced-motion: no-preference) {

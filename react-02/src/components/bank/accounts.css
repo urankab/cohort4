@@ -1,0 +1,59 @@
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 'header header header'
+                        /* 'box1 box2 box3'; */
+}
+
+#header{
+    text-align: center;
+    grid-area: header;
+    background-color: rgb(236, 182, 234);
+    box-shadow: 1px 6px 13px -5px rgba(0, 0, 0, .5);
+    padding: 15px;
+}
+
+.boxHeader{
+    background-color: rgb(236, 182, 234);
+    text-align: center;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+label{
+    font-weight: bold;
+    display: inline-block;
+    width: 140px;
+    text-align: center;
+    margin: 5px;
+}
+
+.input{
+    margin: 5px;
+    width: 160px;
+}
+
+#dropdown{
+    width: 165px;
+    margin: 5px;
+}
+
+.btn{
+    margin: 10px;
+}
+
+.box1, .box2, .box3{
+    /* grid-area: box1; */
+    background-color: rgb(180, 152, 236);
+    border-radius: 10px;
+    /* padding: 10px; */
+    margin: 10px;
+    box-shadow: 7px 8px 11px -4px rgba(0, 0, 0, .5);
+    margin-bottom: auto;
+}
+
+.innerDiv{
+    padding: 10px;
+    padding-top: 0px;
+}
+

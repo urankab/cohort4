@@ -1,43 +1,26 @@
 import { Account, AccountController } from './account.js'
 
 //Box1
-const numInput = document.getElementById("numInput") //NUM INPUT TO ADD/WITHDRAW
-const renameInput = document.getElementById("renameInput") //RENAME INPUT
-const dropDownList = document.getElementById("account1") //DROPDOWN LIST
-const message1 = document.getElementById("messageArea1") //MESSAGE AREA
+const numInput = document.getElementById("numInput") 
+const renameInput = document.getElementById("renameInput") 
+const dropDownList = document.getElementById("account1") 
+const message1 = document.getElementById("messageArea1") 
 
 //Box 2
-const accNameInput = document.getElementById("newAccNameInput") //ACC NAME INPUT
-const initBalInput = document.getElementById("initBalInput") //INIT BALANCE INPUT
-const message2 = document.getElementById("messageArea2") //MESSAGE AREA
+const accNameInput = document.getElementById("newAccNameInput") 
+const initBalInput = document.getElementById("initBalInput") 
+const message2 = document.getElementById("messageArea2") 
 
 //Box 3
-const message3 = document.getElementById("messageArea3") //MESSAGE AREA
+const message3 = document.getElementById("messageArea3") 
 
 let accountManager = new AccountController();
+let account = new Account();
 
 document.body.addEventListener("click", e => {
     if (e.target.nodeName === 'BUTTON') {
         if (e.target.textContent === "Add") {
-            if (accNameInput.value && initBalInput.value != "") {
-                if (accountManager.checkName(accNameInput.value)) {
-                    message1.textContent = "Acc name already exists"
-                } else {
-                    accountManager.addAccount(accNameInput.value, initBalInput.value)
-                    console.log("length " + accountManager.accArray.length)
-                    message1.textContent = `Created ${accNameInput.value} with $${initBalInput.value}`
-                    accNameInput.value = '';
-                    initBalInput.value = '';
-                    //Add To DropDown
-                    let addToList = document.createElement("option");
-                    console.log(accountManager)
-                        //addToList.appendChild(document.createTextNode(`${accountManager.accArray[i].accountName}`))
-                    addToList.appendChild(document.createTextNode(accountManager.accArray[accountManager.accArray.length - 1].showName()))
-                    dropDownList.appendChild(addToList)
-                }
-            } else {
-                message1.textContent = 'Please enter some values'
-            }
+            accountManager.createItem();
         }
 
         if (e.target.textContent === 'Show Balance') {
@@ -72,11 +55,8 @@ document.body.addEventListener("click", e => {
         if (e.target.textContent === "Delete") {
             for (let i = 0; i < accountManager.accArray.length; i++) {
                 if ((dropDownList.value).includes(accountManager.accArray[i].accountName)) {
-                    //For the IF: dropDownList.options[dropDownList.selectedIndex].text also works
-                    //console.log(i, dropDownList.value, accountManager.accArray[i].accountName)
                     accountManager.removeAccount(accountManager.accArray[i].accountName)
                     console.log(accountManager)
-                        //console.log(dropDownList.selectedIndex)
                     message2.textContent = "Removed account"
                 }
             }

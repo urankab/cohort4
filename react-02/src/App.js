@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
 import Icons from './components/IconComponent'
 import pizzaLogo from './components/svgs/pizza.svg';
 import kebabLogo from './components/svgs/kebab.svg';
@@ -9,20 +8,26 @@ import noodleLogo from './components/svgs/noodles.svg';
 import tacoLogo from './components/svgs/taco.svg';
 import ticLogo from './components/svgs/tic.svg';
 
+import './App.css';
+import './components/bank/accounts.css'
+
 class App extends Component {
    constructor() {
       super()
       this.link = ''
       this.alt = ''
       this.state = {
-         icon: 'Try pressing an icon!'
+         msg: 'Try pressing an icon!',
+         img: false
       }
    }
 
    iconPressed = (event) => {
       this.setState({
-         icon: `You pressed ... ${event.target.alt}!`,
+         msg: `You pressed ... ${event.target.alt}!`,
+         img: true
       })
+
       switch (event.target.alt) {
          case 'chicken':
             this.link = chickenLogo
@@ -59,11 +64,13 @@ class App extends Component {
 
    render() {
       return (
-         <div>
-            <div className='App' >
-               <h2 > {this.state.icon} < img src={this.link} className='clickedLogo' /></h2>
-               <Icons getIcon={this.iconPressed} />
-            </div >
+         <div className='App' >
+            <h2> {this.state.msg}
+               {this.state.img ?
+                  (<img src={this.link}
+                     className='clickedLogo' alt='pressedImg' />) : null}
+            </h2>
+            <Icons getIcon={this.iconPressed} />
          </div>
       );
    }

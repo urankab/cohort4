@@ -27,12 +27,12 @@ test('Test add/delete/rename an Account', () => {
     acc.addAccount("Vacation", 100);
     expect(acc.accArray[0].accountName).toBe("Vacation");
     expect(acc.accArray[0].balance).toBe(100);
+    expect(acc.accArray[0].key).toBe(1)
     acc.addAccount("Car", 500);
-    expect(acc.accArray[1]).toEqual({ "accountName": "Car", "balance": 500 });
-    expect(acc.accArray).toEqual([{ accountName: "Vacation", balance: 100 }, { accountName: 'Car', balance: 500 }])
-    acc.removeAccount("Vacation"); //Remove vacation fund account
-    expect(acc.accArray).not.toContain({ accountName: "Vacation", balance: 100 }); //Check that Vacation is not in there
-    expect(acc.accArray[0].accountName).toContain('Car'); //Check Car account is there
+    expect(acc.accArray[1]).toEqual({ "accountName": "Car", "balance": 500 , "key": 2});
+    acc.removeAccount("Vacation"); 
+    expect(acc.accArray).not.toContain({ accountName: "Vacation", balance: 100 }); 
+    expect(acc.accArray[0].accountName).toContain('Car'); 
     expect(acc.accArray.length).toEqual(1);
     acc.renameAccount("Car", "House");
     expect(acc.accArray[0].accountName).toEqual("House")
