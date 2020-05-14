@@ -1,8 +1,8 @@
 import React from 'react'
 import Summary from './Summary.js'
-// import AccountController from '../business/functions'
+import funcs from '../business/functions'
 
-// const acc = new AccountController();
+const acc = new funcs.AccountController();
 
 class Accounts extends React.Component {
 
@@ -13,25 +13,23 @@ class Accounts extends React.Component {
             delMsg: false,
             renameMsg: false,
             name: '',
-            balance: 0,
+            balance: '',
             key: '',
         }
     }
 
-    addAccount = () => {
-        this.setState({
-            name: document.getElementById('name').value,
-            balance: document.getElementById('startBal').value,
-            // key: acc.newKey(),
-            addMsg: true
-        })
+    handleNameInput = (e) => {
+        this.setState({ name: e.target.value })
     }
 
-    deposit = () => {
-        this.setState({
-            balance: document.getElementById('amount').value,
-            msg: true
-        })
+    handleStartBalInput = (e) => {
+        this.setState({ balance: e.target.value })
+    }
+
+    addAccount = () => {
+        acc.addAccount(this.state.name, this.state.balance)
+        console.log('hi')
+        console.log(acc.accArray)
     }
 
     render() {
@@ -42,15 +40,17 @@ class Accounts extends React.Component {
                     <h2 className='boxHeader'>Create an Account</h2>
                     <div className='innerDiv'>
                         <label htmlFor='name'>Account Name: </label>
-                        <input type='text' id='name' className='input'></input>
+                        <input value={this.state.name} onChange={this.handleNameInput}
+                            type='text' id='name' className='input'></input>
+                        <br></br>
                         <label htmlFor='startBal'>Starting Balance: $</label>
-                        <input type='number' id='startBal' className='input'></input>
+                        <input value={this.state.balance} onChange={this.handleStartBalInput}
+                            type='number' id='startBal' className='input'></input>
                         <br></br>
                         <button className='btn' id='createBtn' onClick={this.addAccount}>Create Account</button>
                         {this.state.addMsg ? (<p className='msg' id='createMsg'></p>) : null}
                     </div>
                 </div>
-
                 <div className='box2'>
                     <h2 className='boxHeader'>Edit an Account</h2>
                     <div className='innerDiv'>

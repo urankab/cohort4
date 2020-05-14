@@ -9,8 +9,8 @@ class Summary extends React.Component {
         super(props)
         this.state = {
             total: 0,
-            highest: 0,
-            lowest: 0
+            highest: '',
+            lowest: ''
         }
     }
 
@@ -38,13 +38,13 @@ class Summary extends React.Component {
                 <h2 className='boxHeader'>Summary</h2>
                 <div className='innerDiv' id='box3'>
                     <label htmlFor='total'>Total Balance: </label>
-                    <p></p>
+                    <p className='sumP'>{this.state.total}</p>
                     <br></br>
                     <label htmlFor='highest'>Highest Balance: </label>
-                    <p></p>
+                    <p className='sumP'>{this.state.highest}</p>
                     <br></br>
                     <label htmlFor='lowest'>Lowest Balance: </label>
-                    <p></p>
+                    <p className='sumP'>{this.state.lowest}</p>
                 </div>
             </div>
         )
