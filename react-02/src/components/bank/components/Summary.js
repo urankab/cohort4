@@ -8,27 +8,37 @@ class Summary extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            total: 0,
+            total: '',
             highest: '',
-            lowest: ''
+            lowest: '',
+            all: ''
         }
     }
 
-    showTotal = () => {
+    showTotal = (props) => {
+        if (props.accounts) {
+            console.log(props.accounts)
+            this.setState({
+                total: props.accounts.acc.totalBalance()
+            })
+        }
+    }
+
+    showHighest = (accounts) => {
         this.setState({
-            total: acc.TotalBalance()
+            highest: accounts.acc.highestAccount()
         })
     }
 
-    showHighest = () => {
+    showLowest = (accounts) => {
         this.setState({
-            highest: acc.HighestAccount()
+            lowest: accounts.acc.lowestAccount()
         })
     }
 
-    showLowest = () => {
+    showAll = (accounts) => {
         this.setState({
-            lowest: acc.LowestAccount()
+            all: accounts.acc.showAll()
         })
     }
 
@@ -45,6 +55,9 @@ class Summary extends React.Component {
                     <br></br>
                     <label htmlFor='lowest'>Lowest Balance: </label>
                     <p className='sumP'>{this.state.lowest}</p>
+                    <br></br>
+                    <label htmlFor='all'>All Accounts: </label>
+                    <p className='sumP'>{this.state.all}</p>
                 </div>
             </div>
         )

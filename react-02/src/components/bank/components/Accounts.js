@@ -1,5 +1,6 @@
 import React from 'react'
-import Summary from './Summary.js'
+import Summary from './Summary'
+import EditAccounts from './EditAccounts'
 import funcs from '../business/functions'
 
 const acc = new funcs.AccountController();
@@ -9,12 +10,10 @@ class Accounts extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            addMsg: false,
-            delMsg: false,
-            renameMsg: false,
             name: '',
             balance: '',
             key: '',
+            addMsg: '',
         }
     }
 
@@ -27,10 +26,28 @@ class Accounts extends React.Component {
     }
 
     addAccount = () => {
-        acc.addAccount(this.state.name, this.state.balance)
-        console.log('hi')
-        console.log(acc.accArray)
+        if (this.state.name && this.state.balance !== 0) {
+            if (acc.checkName(this.state.name)) {
+                this.setState({ addMsg: 'Name already exists' })
+            } else {
+                acc.addAccount(this.state.name, this.state.balance)
+                this.setState({ addMsg: `Created ${this.state.name} account` })
+                this.clearInputs();
+                console.log(acc.accArray)
+            }
+        } else {
+            this.setState({ addMsg: 'Please enter some values' })
+        }
     }
+
+    clearInputs = () => {
+        this.setState({ name: '' })
+        this.setState({ balance: '' })
+    }
+
+    // componentDidMount() {
+    //     return this.state.accounts
+    // }
 
     render() {
         return (
@@ -48,32 +65,15 @@ class Accounts extends React.Component {
                             type='number' id='startBal' className='input'></input>
                         <br></br>
                         <button className='btn' id='createBtn' onClick={this.addAccount}>Create Account</button>
-                        {this.state.addMsg ? (<p className='msg' id='createMsg'></p>) : null}
+                        <p className='msg'>{this.state.addMsg}</p>
                     </div>
                 </div>
-                <div className='box2'>
-                    <h2 className='boxHeader'>Edit an Account</h2>
-                    <div className='innerDiv'>
-                        {this.state.msg ? (<p className='msgBox' id='msg2'></p>) : null}
-                        <label htmlFor='dropdown'>Select Account: </label>
-                        <select id='dropdown'>
-                            {/* <option>Hey</option> */}
-                        </select>
-                        <br></br>
-                        <label htmlFor='amount'>Deposit/Withdraw: $</label>
-                        <input type='number' className='input' id='amount'></input>
-                        <br></br>
-                        <button className='btn' id='depositBtn'>Deposit</button>
-                        <button className='btn' id='withdrawBtn'>Withdraw</button>
-                        <br></br>
-                        <label htmlFor='renameField'>New Name: </label>
-                        <input type='text' className='input' id='renameField'></input>
-                        <button className='btn' id='renameBtn'>Change Name</button>
-                        <button className='btn' id='deleteBtn'>Delete Account</button>
-                        {this.state.msg ? (<p className='msgBox' id='msg3'></p>) : null}
-                    </div>
-                </div>
-                <Summary />
+                <EditAccounts
+                    accounts={acc.accArray}
+                />
+                <Summary
+                    accounts={acc.accArray}
+                />
             </div>
         )
     }

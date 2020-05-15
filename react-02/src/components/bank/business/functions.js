@@ -1,12 +1,12 @@
 class Account {
     constructor(accountName, balance, key) {
         this.accountName = accountName;
-        this.balance = Number(balance);
+        this.balance = Number(balance).toFixed(2);
         this.key = key;
     }
 
     deposit(valueIn) {
-        this.balance += Number(valueIn);
+        this.balance = parseInt(this.balance + Number(valueIn))
     }
 
     withdraw(valueOut) {
@@ -45,7 +45,6 @@ class AccountController {
     checkName(accountName) {
         for (let i = 0; i < this.accArray.length; i++) {
             if (accountName === this.accArray[i].accountName) {
-                console.log(this.accArray[i].accountName)
                 return true;
             }
         }

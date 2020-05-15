@@ -64,7 +64,8 @@ label{
     padding-top: 0px;
 }
 
-.sumP {
+.sumP, .msg {
     margin: 5px;
 }
+
 

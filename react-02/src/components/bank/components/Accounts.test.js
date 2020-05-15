@@ -1,9 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { Accounts } from './Accounts'
+import funcs from '../business/functions'
 
-test('Test Accounts key generating', () => {
-    const mockShowOneCallback = jest.fn()
-    const mockOnAddCallback = jest.fn()
+test('Test creatingn an accounts', () => {
+    const mockAddAccountCB = jest.fn()
 
     const accounts = {
         1: { key: 1, name: 'House' },
@@ -11,9 +11,7 @@ test('Test Accounts key generating', () => {
     }
 
     render(<Accounts
-        accounts={accounts}
-        showOne={mockShowOneCallback}
-        onAdd={mockOnAddCallback}
+        name={name}
     />)
-    
+
 })
