@@ -1,63 +1,34 @@
 import React from 'react'
-import funcs from '../business/functions'
-
-let acc = new funcs.AccountController();
 
 class Summary extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            total: '',
-            highest: '',
-            lowest: '',
-            all: ''
+
         }
-    }
-
-    showTotal = (props) => {
-        if (props.accounts) {
-            console.log(props.accounts)
-            this.setState({
-                total: props.accounts.acc.totalBalance()
-            })
-        }
-    }
-
-    showHighest = (accounts) => {
-        this.setState({
-            highest: accounts.acc.highestAccount()
-        })
-    }
-
-    showLowest = (accounts) => {
-        this.setState({
-            lowest: accounts.acc.lowestAccount()
-        })
-    }
-
-    showAll = (accounts) => {
-        this.setState({
-            all: accounts.acc.showAll()
-        })
     }
 
     render() {
         return (
-            <div className='box3' >
+            <div id='box3' >
                 <h2 className='boxHeader'>Summary</h2>
-                <div className='innerDiv' id='box3'>
+                <div className='innerDiv'>
                     <label htmlFor='total'>Total Balance: </label>
-                    <p className='sumP'>{this.state.total}</p>
+                    <br></br>
+                    <p id='total' className='sumP'>{this.props.totalStuff}</p>
                     <br></br>
                     <label htmlFor='highest'>Highest Balance: </label>
-                    <p className='sumP'>{this.state.highest}</p>
+                    <br></br>
+                    <p id='highest' className='sumP'>{this.props.highestStuff}</p>
                     <br></br>
                     <label htmlFor='lowest'>Lowest Balance: </label>
-                    <p className='sumP'>{this.state.lowest}</p>
                     <br></br>
-                    <label htmlFor='all'>All Accounts: </label>
-                    <p className='sumP'>{this.state.all}</p>
+                    <p id='lowest' className='sumP'>{this.props.lowestStuff}</p>
+                    <br></br>
+                    <label id='allAccountsLabel' htmlFor='all'>All Accounts: </label>
+                    <br></br>
+                    <p id='all' className='sumP'>{this.props.showStuff}</p>
                 </div>
             </div>
         )

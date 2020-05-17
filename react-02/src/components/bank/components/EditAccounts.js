@@ -1,8 +1,4 @@
 import React, { useState } from 'react'
-import funcs from '../business/functions'
-
-const accControl = new funcs.AccountController();
-const acc = new funcs.Account();
 
 //Adds the created account from Accounts.js to the dropdown list
 function EditAccounts(props) {
@@ -16,14 +12,17 @@ function EditAccounts(props) {
       })
    }
 
+   //For later to use the dropdown
    const [selected, getSelected] = useState('')
 
+   // handleDepositClick()
+
    return (
-      <div className='box2'>
+      <div id='box2'>
          <h2 className='boxHeader'>Edit an Account</h2>
          <div className='innerDiv'>
             <p className='msg'></p>
-            <label htmlFor='dropdown'>Select Account: </label>
+            <label id='selectLabel' htmlFor='dropdown'>Select Account: </label>
             <select multiple={true}
                onChange={() => getSelected(selected)}
                id='dropdown'>
@@ -49,7 +48,5 @@ function EditAccounts(props) {
       </div>
    )
 }
-
-
 
 export default EditAccounts;

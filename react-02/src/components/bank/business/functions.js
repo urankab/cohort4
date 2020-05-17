@@ -1,16 +1,16 @@
 class Account {
     constructor(accountName, balance, key) {
         this.accountName = accountName;
-        this.balance = Number(balance).toFixed(2);
+        this.balance = balance;
         this.key = key;
     }
 
     deposit(valueIn) {
-        this.balance = parseInt(this.balance + Number(valueIn))
+        this.balance += Number(valueIn)
     }
 
     withdraw(valueOut) {
-        this.balance -= Number(valueOut);
+        this.balance -= Number(valueOut)
     }
 
     showBalance() {
@@ -71,7 +71,7 @@ class AccountController {
         for (let i = 0; i < this.accArray.length; i++) {
             total += Number(this.accArray[i].balance);
         }
-        return `Total: $${total}`;
+        return `$${total}`;
     }
 
     highestAccount() {
@@ -84,7 +84,7 @@ class AccountController {
                 highestName = currentName;
             }
         }
-        return `Highest Acc: ${highestName}: $${highestBal}`
+        return `${highestName} - $${highestBal}`
     }
 
     lowestAccount() {
@@ -98,11 +98,11 @@ class AccountController {
                 lowest = currentBal;
             }
         }
-        return `Lowest Acc: ${lowestName}: $${lowest}`
+        return `${lowestName} - $${lowest}`
     }
 
     showAll() {
-        return this.accArray.map((f) => ` ${f.accountName}: $${f.balance} `);
+        return this.accArray.map((f) => ` ${f.accountName} - $${f.balance} `);
     }
 }
 
