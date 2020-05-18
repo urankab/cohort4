@@ -40,7 +40,6 @@ test('Test creating an accounts', () => {
     ReactTestUtils.Simulate.change(inputName, { name: 'name', value: 'House' })
     ReactTestUtils.Simulate.change(inputBal, { name: 'startBal', value: 100 })
 
-
     click('Create Account')
 
     // expect(mockCreateAccCallback.mock.calls.length).toBe(1)
