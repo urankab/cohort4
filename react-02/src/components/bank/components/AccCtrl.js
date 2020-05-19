@@ -31,8 +31,7 @@ function AccCtrl(props) {
                <br></br>
                <button className='btn' id='createBtn' onClick={props.createAccount}>
                   Create Account</button>
-               <p id='addMsg' label='addmsg' className='msg'>{props.addMsg}</p>
-               <p id='errorMsg' label='errorMsg' className='msg'>{props.errorMsg}</p>
+               <p name='addMsg' id='addMsg' label='addmsg' className='msg'>{props.addMsg}</p>
             </div>
          </div>
 

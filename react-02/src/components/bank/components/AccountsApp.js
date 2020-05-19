@@ -1,7 +1,6 @@
 import React from 'react'
 import AccCtrl from './AccCtrl'
 import funcs from '../business/functions'
-import Summary from './Summary';
 
 const acc = new funcs.AccountController();
 
@@ -14,8 +13,6 @@ class AccountsApp extends React.Component {
          balance: '',
          key: '',
          accounts: acc.accArray,
-
-         // addMsg: '',
          msg: '',
 
          total: '',
@@ -24,6 +21,7 @@ class AccountsApp extends React.Component {
          all: '',
          selected: ''
       }
+      // this.handleCreateButton = this.handleCreateButton.bind(this)
    }
 
    handleNameInput = (e) => {

@@ -1,31 +1,23 @@
 import React from 'react'
-import { fireEvent, screen, render, getByText, waitForElement, userEvent } from '@testing-library/react'
+import { fireEvent, screen, render } from '@testing-library/react'
 import ReactTestUtils from 'react-dom/test-utils';
-
 import AccountsApp from '../AccountsApp'
-import AccountCard from '../AccountCard'
 import funcs from '../../business/functions'
 
-test('Testing error messages - should notify missing fields', () => {
-    const mockSubmit = jest.fn()
-    const accCtrl = new funcs.AccountController()
+test('Testing AccountsApp functions', () => {
+    const mockCreateButton = jest.fn()
 
     render(<AccountsApp
-        handleCreateClick={mockSubmit}
+        handleCreateClick={mockCreateButton}
     />)
 
-    //Expect to fail adding an account since there are no values
     expect(getValue('name')).toBe('')
     expect(getValue('startBal')).toBe('')
 
     click('Create Account')
 
-    expect(getTextContent('errorMsg')).toBe("Please enter an account name")
     screen.getByText(/Please enter an account name/)
 })
-
-
-
 function getValue(name) {
     return document.querySelector(`[name=${name}]`).value
 }

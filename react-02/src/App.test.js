@@ -2,30 +2,26 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('Renders learn react link', () => {
   const { getByText } = render(<App />);
   const linkElement = getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
-  screen.getByText(/try pressing an icon!/i)
-  screen.getByAltText(/taco/i)
 });
 
-// test('test Accounts component', () => {
+test('Test viewing the AccountsApp component', () => {
+  render(<App />);
+  screen.getByText(/try pressing an icon!/i)
+  screen.getByAltText(/taco/i)
 
-//   screen.getByText('/you pressed... kebab/i')
-//   screen.getByText('/banking with uranka/i')
-//   screen.getByText('/create an account/i')
+  clickIcon('taco')
 
-// });
+  screen.getByText(/you pressed ... taco!/i)
+  screen.getByText(/banking with uranka/i)
+  screen.getByText(/create an account/i)
+});
 
-// function click(txt) {
-//   fireEvent.click(
-//     screen.getByText(txt)
-//   );
-// }
-
-// function clickIcon(altTxt) {
-//   fireEvent.click(
-//     screen.get
-//   );
-// }
+function clickIcon(txt) {
+  fireEvent.click(
+    screen.getByAltText(txt)
+  );
+}
