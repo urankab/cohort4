@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 //Adds the created account from Accounts.js to the dropdown list
-function EditAccounts(props) {
+function AccCtrl(props) {
    let list;
    if (props.accounts) {
       list = Object.keys(props.accounts).map(k => {
@@ -49,4 +49,4 @@ function EditAccounts(props) {
    )
 }
 
-export default EditAccounts;
+export default AccCtrl;

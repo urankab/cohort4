@@ -1,8 +1,8 @@
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
-import Accounts from './Summary'
-import Summary from './Summary'
-import funcs from '../business/functions'
+import AccountsApp from '../AccountsApp'
+import Summary from '../Summary'
+import funcs from '../../business/functions'
 
 // test('Test summary', () => {
 //    // const mockTotal = jest.fn()

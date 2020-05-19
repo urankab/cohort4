@@ -1,11 +1,11 @@
 import React from 'react'
-import Summary from './Summary'
-import EditAccounts from './EditAccounts'
+import AccCtrl from './AccCtrl'
 import funcs from '../business/functions'
+import Summary from './Summary';
 
 const acc = new funcs.AccountController();
 
-class Accounts extends React.Component {
+class AccountsApp extends React.Component {
 
    constructor(props) {
       super(props);
@@ -13,13 +13,15 @@ class Accounts extends React.Component {
          name: '',
          balance: '',
          key: '',
+
          addMsg: '',
          errorMsg: '',
-         // account: acc,
+
          total: '',
          highest: '',
          lowest: '',
-         all: ''
+         all: '',
+         selected: ''
       }
    }
 
@@ -31,8 +33,13 @@ class Accounts extends React.Component {
       this.setState({ balance: e.target.value })
    }
 
-   handleCreateClick = () => {
-      if (this.state.name == '') {
+   test() {
+      console.log('test');
+   }
+
+   handleCreateButton = () => {
+      console.log(this.state.name)
+      if (this.state.name === '') {
          this.setState({ addMsg: '' })
          this.setState({ errorMsg: 'Please enter an account name' })
       }
@@ -43,6 +50,7 @@ class Accounts extends React.Component {
       }
 
       else if (this.state.balance <= 0) {
+         this.setState({ addMsg: '' })
          this.setState({ errorMsg: 'Please enter a balance greater than 0' })
       }
 
@@ -56,6 +64,7 @@ class Accounts extends React.Component {
             lowest: acc.lowestAccount(),
             all: acc.showAll()
          })
+         this.clearInputs();
          console.log(acc.accArray)
       }
    }
@@ -69,36 +78,29 @@ class Accounts extends React.Component {
 
    render() {
       return (
-         <div className='container'>
+         <div>
             <h1 id='header'>Banking with Uranka</h1>
-            <div id='box1'>
-               <h2 className='boxHeader'>Create an Account</h2>
-               <div className='innerDiv'>
-                  <label htmlFor='name'>Account Name: </label>
-                  <input name='name' label='name' value={this.state.name} onChange={this.handleNameInput}
-                     type='text' id='name' className='input'></input>
-                  <br></br>
-                  <label htmlFor='startBal'>Starting Balance: $</label>
-                  <input name='startBal' label='balance' value={this.state.balance} onChange={this.handleStartBalInput}
-                     type='number' id='startBal' className='input'></input>
-                  <br></br>
-                  <button className='btn' id='createBtn' onClick={this.handleCreateClick}>Create Account</button>
-                  <p id='addMsg' label='addmsg' className='msg'>{this.state.addMsg}</p>
-                  <p id='errorMsg' label='errorMsg' className='msg'>{this.state.errorMsg}</p>
-               </div>
-            </div>
-            <EditAccounts
+            <AccCtrl
+               addMsg={this.state.addMsg}
+               errorMsg={this.state.errorMsg}
+               total={this.state.total}
+               highest={this.state.highest}
+               lowest={this.state.lowest}
+               all={this.state.all}
+               createAccount={this.handleCreateButton}
+               handleStartName={this.handleNameInput}
+               handleStartBalance={this.handleStartBalInput}
+               selected={this.selected}
+               dummy={this.test}
+
+               // removeAccount={this.handleDelete}
+               // deposit={this.handleDeposit}
+               // withdraw={this.handleWithdraw}
                accounts={acc.accArray}
-            />
-            <Summary
-               totalStuff={this.state.total}
-               highestStuff={this.state.highest}
-               lowestStuff={this.state.lowest}
-               showStuff={this.state.all}
             />
          </div>
       )
    }
 }
 
-export default Accounts;
+export default AccountsApp;

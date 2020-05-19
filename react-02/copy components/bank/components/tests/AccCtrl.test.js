@@ -1,6 +1,6 @@
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
-import EditAccounts from './EditAccounts'
+import AccCtrl from '../AccCtrl'
 
 test('Test dropdown for accounts', () => {
    const mockAccounts = {
@@ -8,7 +8,7 @@ test('Test dropdown for accounts', () => {
       2: { accountName: 'Cats', balance: 1000, key: '1' }
    }
 
-   render(<EditAccounts
+   render(<AccCtrl
       accounts={mockAccounts}
    />)
 
