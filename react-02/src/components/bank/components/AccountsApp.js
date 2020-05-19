@@ -13,9 +13,10 @@ class AccountsApp extends React.Component {
          name: '',
          balance: '',
          key: '',
+         accounts: acc.accArray,
 
-         addMsg: '',
-         errorMsg: '',
+         // addMsg: '',
+         msg: '',
 
          total: '',
          highest: '',
@@ -33,47 +34,39 @@ class AccountsApp extends React.Component {
       this.setState({ balance: e.target.value })
    }
 
-   test() {
-      console.log('test');
-   }
-
    handleCreateButton = () => {
-      console.log(this.state.name)
       if (this.state.name === '') {
-         this.setState({ addMsg: '' })
-         this.setState({ errorMsg: 'Please enter an account name' })
+         this.setState({ msg: 'Please enter an account name' })
       }
 
       else if (acc.checkName(this.state.name)) {
-         this.setState({ addMsg: '' })
-         this.setState({ errorMsg: 'Account name already exists' })
+         this.setState({ msg: 'Account name already exists' })
       }
 
       else if (this.state.balance <= 0) {
-         this.setState({ addMsg: '' })
-         this.setState({ errorMsg: 'Please enter a balance greater than 0' })
+         this.setState({ msg: 'Please enter a balance greater than 0' })
       }
 
       else {
          acc.addAccount(this.state.name, this.state.balance)
          this.setState({
-            addMsg: `Created ${this.state.name} account`,
-            errorMsg: '',
+            msg: `Created ${this.state.name} account`,
             total: acc.totalBalance(),
             highest: acc.highestAccount(),
             lowest: acc.lowestAccount(),
-            all: acc.showAll()
+            all: acc.showAll(),
          })
          this.clearInputs();
-         console.log(acc.accArray)
       }
    }
 
    clearInputs = () => {
       this.setState({
          name: '',
-         balance: '',
+         balance:''
       })
+      document.getElementById('name').value = ''
+      document.getElementById('startBal').value = ''
    }
 
    render() {
@@ -81,22 +74,22 @@ class AccountsApp extends React.Component {
          <div>
             <h1 id='header'>Banking with Uranka</h1>
             <AccCtrl
-               addMsg={this.state.addMsg}
-               errorMsg={this.state.errorMsg}
-               total={this.state.total}
-               highest={this.state.highest}
-               lowest={this.state.lowest}
-               all={this.state.all}
+               addMsg={this.state.msg}
+
+               totalStuff={this.state.total}
+               highestStuff={this.state.highest}
+               lowestStuff={this.state.lowest}
+               showAllAccts={this.state.all}
+               accounts={this.state.accounts}
+
                createAccount={this.handleCreateButton}
                handleStartName={this.handleNameInput}
                handleStartBalance={this.handleStartBalInput}
                selected={this.selected}
-               dummy={this.test}
-
                // removeAccount={this.handleDelete}
                // deposit={this.handleDeposit}
                // withdraw={this.handleWithdraw}
-               accounts={acc.accArray}
+               // accounts={acc.accArray}
             />
          </div>
       )

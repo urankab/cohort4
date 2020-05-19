@@ -9,7 +9,7 @@ import tacoLogo from './components/svgs/taco.svg';
 import ticLogo from './components/svgs/tic.svg';
 
 import './App.css';
-import './components/bank/components/Accounts.css'
+import './components/bank/components/AccountsApp.css'
 
 class App extends Component {
    constructor() {

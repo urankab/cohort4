@@ -16,22 +16,17 @@ function AccCtrl(props) {
       })
    }
 
-   // function createAccount(props) {
-   //    acc.addAccount(props.name, props.balance)
-   //    console.log(acc.accArray)
-   // }
-
    return (
-      <div className='container' >
+      <div className='container'>
          <div id='box1'>
             <h2 className='boxHeader'>Create an Account</h2>
             <div className='innerDiv'>
                <label htmlFor='name'>Account Name: </label>
-               <input name='name' label='name' defaultValue='' onChange={props.handleStartName}
+               <input name='name' label='name' onChange={props.handleStartName}
                   type='text' id='name' className='input'></input>
                <br></br>
                <label htmlFor='startBal'>Starting Balance: $</label>
-               <input name='startBal' label='balance' defaultValue='' onChange={props.handleStartBalance}
+               <input name='startBal' label='balance' onChange={props.handleStartBalance}
                   type='number' id='startBal' className='input'></input>
                <br></br>
                <button className='btn' id='createBtn' onClick={props.createAccount}>
@@ -66,9 +61,11 @@ function AccCtrl(props) {
                <button className='btn' id='deleteBtn'>Delete Account</button>
             </div>
          </div>
-
          <Summary
-            accounts={acc.accArray}
+            totalStuff={props.totalStuff}
+            highestStuff={props.highestStuff}
+            lowestStuff={props.lowestStuff}
+            showAllAccts={props.showAllAccts}
          />
       </div>
    )

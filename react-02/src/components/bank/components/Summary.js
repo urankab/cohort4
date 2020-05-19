@@ -19,7 +19,7 @@ function Summary(props) {
                 <br></br>
                 <label id='allAccountsLabel' htmlFor='all'>All Accounts: </label>
                 <br></br>
-                <p id='all' className='sumP'>{props.showStuff}</p>
+                <p id='all' className='sumP'>{props.showAllAccts}</p>
             </div>
         </div>
     )
