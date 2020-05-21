@@ -3,58 +3,45 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import AccCtrl from '../AccCtrl'
 import funcs from '../../business/functions'
 
-test('Test dropdown for accounts', () => {
-   const mockAccounts = {
-      1: { accountName: 'House', balance: 100, key: '0' },
-      2: { accountName: 'Cats', balance: 1000, key: '1' }
-   }
+test('Test error messages and verification', () => {
+   const mockCreateButton = jest.fn()
+   const mockNameHandle = jest.fn()
+   const mockBalInput = jest.fn()
+
+   const acctCtrl = new funcs.AccountController()
+   const mockAccountsArray = funcs.accArray
+   const mockTotal = acctCtrl.totalBalance()
+   const mockHighest = acctCtrl.highestAccount()
+   const mockLowest = acctCtrl.lowestAccount()
+   const mockShowAll = acctCtrl.showAll()
 
    render(<AccCtrl
-      accounts={mockAccounts}
+      createAccount={mockCreateButton}
+      handleStartName={mockNameHandle}
+      handleStartBalance={mockBalInput}
+      accounts={mockAccountsArray}
+
+      totalStuff={mockTotal}
+      highestStuff={mockHighest}
+      lowestStuff={mockLowest}
+      showAllAccts={mockShowAll}
    />)
 
-   //getByDisplayValue shows selected value of select dropdwon
-   //screen.getByDisplayValue('House - $100')
-   screen.getByText('House - $100')
-   screen.getByText('Cats - $1000')
+   //Should ask for account name value
+   click('Create Account')
 
+   // console.log(mockCreateButton.mock.calls.length)
+
+   // screen.debug()
+
+   expect(mockCreateButton).toHaveBeenCalledTimes(1)
+   expect(mockCreateButton.mock.calls.length).toBe(1)
+
+   screen.getByText('Please enter an account name')
+   // expect(getTextContent('addMsg')).toContain('enter account name')
 })
 
-// test('Test AcctCtrl functionality', () => {
-//    const acc = new funcs.AccountController()
-//    const mockAccounts = funcs.accArray
-//    const mockMsgTxt = ''
-
-//    const mockMsg = jest.fn()
-//    const mockDeposit = jest.fn()
-//    const mockWithdraw = jest.fn()
-//    const mockRename = jest.fn()
-//    const mockDelete = jest.fn()
-
-//    render(<AccCtrl
-//       accounts={mockAccounts}
-//       userMsg={mockMsg}
-//       message={mockMsgTxt}
-
-//       selected={selectedAccount}
-//       deposit={mockDeposit}
-//       withdraw={mockWithdraw}
-//       rename={mockRename}
-//       delete={mockDelete}
-//    />)
-
-//    click('Deposit')
-
-//    console.log(mockDeposit.mock.calls.length)
-
-//    // screen.debug()
-
-//    // expect(mockCreateButton).toHaveBeenCalledTimes(1)
-
-//    // expect(getTextContent('addMsg')).toContain('Deposited')
-// })
-
-//-------------- OLD ADDING ACCOUNTS TEST ----------------------
+//-------------- ADDING ACCOUNTS TEST ----------------------
 
 // test('Test account creation', () => {
 //    const mockCreateButton = jest.fn()
@@ -99,6 +86,23 @@ test('Test dropdown for accounts', () => {
 // })
 
 //-------- DROP DOWN TESTS -----------------------------------
+
+// test('Test dropdown for accounts', () => {
+//    const mockAccounts = {
+//       1: { accountName: 'House', balance: 100, key: '0' },
+//       2: { accountName: 'Cats', balance: 1000, key: '1' }
+//    }
+
+//    render(<AccCtrl
+//       accounts={mockAccounts}
+//    />)
+
+//    //getByDisplayValue shows selected value of select dropdwon
+//    //screen.getByDisplayValue('House - $100')
+//    screen.getByText('House - $100')
+//    screen.getByText('Cats - $1000')
+
+// })
 
 function getValue(name) {
    return document.querySelector(`[name=${name}]`).value

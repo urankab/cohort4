@@ -1,97 +1,68 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import AccCtrl from './AccCtrl'
+import CreateAccount from './CreateAccount'
 import funcs from '../business/functions'
+import Summary from './Summary';
 
-const acc = new funcs.AccountController();
+function AccountsApp() {
+   const acc = new funcs.AccountController();
+   const [accountsCtrl] = useState(acc)
+   const [account] = useState(accountsCtrl.getDefaults())
+   const [message, setMessage] = useState({ text: '' })
+   const [selectedAccount, setSelected] = useState()
+   const [totalBal, setShowTotalBal] = useState()
+   const [highestBal, setHighestBal] = useState()
+   const [lowestBal, setLowestBal] = useState()
+   const [showAllAccts, setShowAllAccts] = useState()
 
-class AccountsApp extends React.Component {
+   // useEffect(() => {
+   //    console.log('useEffect: general')
+   // })
 
-   constructor(props) {
-      super(props);
-      this.state = {
-         name: '',
-         balance: '',
-         key: '',
-         accounts: acc.accArray,
-         msg: '',
+   function addAccount(accToAdd) {
+      accountsCtrl.changeDefaults(accToAdd)
+      console.log(accountsCtrl.accounts)
 
-         total: '',
-         highest: '',
-         lowest: '',
-         all: '',
-         selected: ''
-      }
-      // this.handleCreateButton = this.handleCreateButton.bind(this)
+      setShowTotalBal(accountsCtrl.totalBalance())
+      setHighestBal(accountsCtrl.highestAccount())
+      setLowestBal(accountsCtrl.lowestAccount())
+      setShowAllAccts(accountsCtrl.showAll())
+
+      userMsg()
    }
 
-   handleNameInput = (e) => {
-      this.setState({ name: e.target.value })
+   function userMsg(msg) {
+      setMessage({ text: msg })
    }
 
-   handleStartBalInput = (e) => {
-      this.setState({ balance: e.target.value })
-   }
+   return (
+      <div className='container'>
+         <h1 id='header'>Banking with Uranka</h1>
+         <CreateAccount
+            account={account}
+            add={addAccount}
+            userMsg={userMsg}
+            message={message.text}
+         />
+         <AccCtrl
+            accounts={accountsCtrl.accounts}
+            userMsg={userMsg}
+            message={message.text}
+         // selected={selectedAccount}
+         // deposit={deposit}
+         // withdraw={withDraw}
+         // rename={renameAccount}
+         // delete={deleteAccount}
 
-   handleCreateButton = () => {
-      if (this.state.name === '') {
-         this.setState({ msg: 'Please enter an account name' })
-      }
-
-      else if (acc.checkName(this.state.name)) {
-         this.setState({ msg: 'Account name already exists' })
-      }
-
-      else if (this.state.balance <= 0) {
-         this.setState({ msg: 'Please enter a balance greater than 0' })
-      }
-
-      else {
-         acc.addAccount(this.state.name, this.state.balance)
-         this.setState({
-            msg: `Created ${this.state.name} account`,
-            total: acc.totalBalance(),
-            highest: acc.highestAccount(),
-            lowest: acc.lowestAccount(),
-            all: acc.showAll(),
-         })
-         this.clearInputs();
-      }
-   }
-
-   clearInputs = () => {
-      this.setState({
-         name: '',
-         balance:''
-      })
-      document.getElementById('name').value = ''
-      document.getElementById('startBal').value = ''
-   }
-
-   render() {
-      return (
-         <div>
-            <h1 id='header'>Banking with Uranka</h1>
-            <AccCtrl
-               addMsg={this.state.msg}
-
-               totalStuff={this.state.total}
-               highestStuff={this.state.highest}
-               lowestStuff={this.state.lowest}
-               showAllAccts={this.state.all}
-               accounts={this.state.accounts}
-
-               createAccount={this.handleCreateButton}
-               handleStartName={this.handleNameInput}
-               handleStartBalance={this.handleStartBalInput}
-               selected={this.selected}
-               // removeAccount={this.handleDelete}
-               // deposit={this.handleDeposit}
-               // withdraw={this.handleWithdraw}
-               // accounts={acc.accArray}
-            />
-         </div>
-      )
-   }
+         />
+         <Summary
+            totalStuff={totalBal}
+            highestStuff={highestBal}
+            lowestStuff={lowestBal}
+            showAllAccts={showAllAccts}
+         />
+      </div>
+   )
 }
 
 export default AccountsApp;

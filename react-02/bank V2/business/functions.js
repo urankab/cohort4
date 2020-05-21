@@ -1,17 +1,8 @@
 class Account {
-    static lastKey = 0
-    constructor(obj) {
-        const defaults = { accountName: '', balance: '', key: '' }
-        const data = { ...defaults, ...obj }
-
-        this.accountName = data.accountName;
-        this.balance = data.balance;
-        this.key = data.key;
-    }
-
-    newKey() {
-        Account.lastKey++;
-        this.key = Account.lastKey;
+    constructor(accountName, balance, key) {
+        this.accountName = accountName;
+        this.balance = balance;
+        this.key = key;
     }
 
     deposit(valueIn) {
@@ -29,45 +20,27 @@ class Account {
     showName() {
         return this.accountName;
     }
+
 }
 
 class AccountController {
     constructor() {
         this.accArray = [];
-        this.accounts = {}
-        this.lastKey = 0;
-        // this.counter = 0;
+        this.counter = 0;
     }
 
-    // newKey() {
-    //     return this.counter++;
-    // }
-
-    // getAccountFromKey(key) {
-    //     return this.accArray[key];
-    // }
-
-    // getNewAccount() {
-    //     return new Account({})
-    // }
-
-    getDefaults() {
-        return new Account({})
+    newKey() {
+        return this.counter++;
     }
 
-    get(key) {
-        return this.accounts[key]
+    getAccountFromKey(key) {
+        return this.accArray[key];
     }
 
-    changeDefaults(account) {
-        this.lastKey++
-        account.key = this.lastKey;
-        this.accounts[account.key] = account
+    addAccount(accountName, balance) {
+        let key = this.newKey();
+        this.accArray.push(new Account(accountName, balance, key));
     }
-
-    // addAccount(accountName, balance) {
-    // this.accArray.push(new Account(accountName, balance, key));
-    // }
 
     checkName(accountName) {
         for (let i = 0; i < this.accArray.length; i++) {

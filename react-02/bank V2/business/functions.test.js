@@ -2,34 +2,6 @@
 import funcs from './functions'
 
 //-------- ACCOUNT CLASS ------------------------------
-
-test('Test getDefaults', () => {
-    const acctCtrl = new funcs.AccountController()
-    const a1 = acctCtrl.getDefaults()
-
-    expect(a1.accountName).toBe('')
-    expect(a1.balance).toBe('')
-    expect(a1.key).toBe('')
-})
-
-test('Test updating default values', () => {
-    const acctCtrl = new funcs.AccountController()
-    funcs.Account.lastKey = 0
-
-    let a1, a2;
-
-    a1 = acctCtrl.getDefaults()
-    a1.accountName = 'House'
-
-    acctCtrl.changeDefaults(a1)
-
-    a2 = acctCtrl.get('1')
-    expect(a2.accountName).toBe('House')
-
-    // p2.accountName = 'Hats'
-
-})
-
 test('Test Account Class constructor', () => {
     const account1 = new funcs.Account('checkingAcc', 25);
     expect(account1.accountName).toBe('checkingAcc');
