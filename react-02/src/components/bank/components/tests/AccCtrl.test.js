@@ -4,101 +4,45 @@ import AccCtrl from '../AccCtrl'
 import funcs from '../../business/functions'
 
 test('Test dropdown for accounts', () => {
-   const mockAccounts = {
-      1: { accountName: 'House', balance: 100, key: '0' },
-      2: { accountName: 'Cats', balance: 1000, key: '1' }
-   }
+   const acctCtrl = new funcs.AccountController()
+   const mockAccounts = acctCtrl.accounts
+   const mockUserMsgCallBack = jest.fn()
+
+   acctCtrl.addAccount({ accountName: 'Kitty', balance: 100 })
+   acctCtrl.addAccount({ accountName: 'Doggy', balance: 10 })
+   expect(Object.values(acctCtrl.accounts)[0]).toEqual({ "accountName": "Kitty", "balance": 100, "key": 1 })
+   expect(Object.values(acctCtrl.accounts)[1]).toEqual({ "accountName": "Doggy", "balance": 10, "key": 2 })
 
    render(<AccCtrl
       accounts={mockAccounts}
+      userMsg={mockUserMsgCallBack}
    />)
+
+   screen.getByText('Kitty - $100')
+   screen.getByText('Doggy - $10')
 
    //getByDisplayValue shows selected value of select dropdwon
    //screen.getByDisplayValue('House - $100')
-   screen.getByText('House - $100')
-   screen.getByText('Cats - $1000')
 
 })
 
-// test('Test AcctCtrl functionality', () => {
-//    const acc = new funcs.AccountController()
-//    const mockAccounts = funcs.accArray
-//    const mockMsgTxt = ''
-
-//    const mockMsg = jest.fn()
-//    const mockDeposit = jest.fn()
-//    const mockWithdraw = jest.fn()
-//    const mockRename = jest.fn()
-//    const mockDelete = jest.fn()
+// test('Test dropdown for accounts', () => {
+//    const mockAccounts = {
+//       1: { accountName: 'House', balance: 100, key: '0' },
+//       2: { accountName: 'Cats', balance: 1000, key: '1' }
+//    }
 
 //    render(<AccCtrl
 //       accounts={mockAccounts}
-//       userMsg={mockMsg}
-//       message={mockMsgTxt}
-
-//       selected={selectedAccount}
-//       deposit={mockDeposit}
-//       withdraw={mockWithdraw}
-//       rename={mockRename}
-//       delete={mockDelete}
 //    />)
 
-//    click('Deposit')
+//    screen.getByText('House - $100')
+//    screen.getByText('Cats - $1000')
 
-//    console.log(mockDeposit.mock.calls.length)
-
-//    // screen.debug()
-
-//    // expect(mockCreateButton).toHaveBeenCalledTimes(1)
-
-//    // expect(getTextContent('addMsg')).toContain('Deposited')
-// })
-
-//-------------- OLD ADDING ACCOUNTS TEST ----------------------
-
-// test('Test account creation', () => {
-//    const mockCreateButton = jest.fn()
-//    const mockNameHandle = jest.fn()
-//    const mockBalInput = jest.fn()
-//    // const mockAddedMsg = ''
-
-//    const acctCtrl = new funcs.AccountController()
-//    const mockTotal = acctCtrl.totalBalance()
-//    const mockHighest = acctCtrl.highestAccount()
-//    const mockLowest = acctCtrl.lowestAccount()
-//    const mockShowAll = acctCtrl.showAll()
-
-//    // acctCtrl.addAccount('House', 100)
-//    // const account1 = acctCtrl.accArray[0]
-
-//    render(<AccCtrl
-//       createAccount={mockCreateButton}
-//       handleStartName={mockNameHandle}
-//       handleStartBalance={mockBalInput}
-
-//       // addMsg={mockAddedMsg}
-//       totalStuff={mockTotal}
-//       highestStuff={mockHighest}
-//       lowestStuff={mockLowest}
-//       showAllAccts={mockShowAll}
-//    />)
-
-//    updateValue('name', 'House')
-//    updateValue('startBal', 100)
-
-//    expect(getValue('name')).toBe('House')
-//    expect(getValue('startBal')).toBe('100')
-
-//    click('Create Account')
-
-//    expect(mockCreateButton).toHaveBeenCalledTimes(1)
-//    expect(mockCreateButton.mock.calls.length).toBe(1)
-//    // expect(getTextContent('addMsg')).toContain('Created')
-//    screen.getByText(/created House account/i)
+//    //getByDisplayValue shows selected value of select dropdwon
+//    //screen.getByDisplayValue('House - $100')
 
 // })
-
-//-------- DROP DOWN TESTS -----------------------------------
 
 function getValue(name) {
    return document.querySelector(`[name=${name}]`).value

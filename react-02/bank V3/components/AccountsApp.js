@@ -5,8 +5,8 @@ import funcs from '../business/functions'
 import Summary from './Summary';
 
 function AccountsApp() {
-   const accCtrl = new funcs.AccountController();
-   const [accountsCtrl] = useState(accCtrl)
+   const acc = new funcs.AccountController();
+   const [accountsCtrl] = useState(acc)
    const [account] = useState(accountsCtrl.getDefaults())
    const [message, setMessage] = useState({ text: '' })
    const [selectedAccount, setSelected] = useState()
@@ -15,18 +15,18 @@ function AccountsApp() {
    const [lowestBal, setLowestBal] = useState()
    const [showAllAccts, setShowAllAccts] = useState()
 
-   useEffect(() => {
-      console.log('useEffect: general')
-   })
+   // useEffect(() => {
+   //    console.log('useEffect: general')
+   // })
 
    function addAccount(accToAdd) {
-      accountsCtrl.addAccount(accToAdd)
+      accountsCtrl.changeDefaults(accToAdd)
       console.log(accountsCtrl.accounts)
 
-      // setShowTotalBal(accountsCtrl.totalBalance())
-      // setHighestBal(accountsCtrl.highestAccount())
-      // setLowestBal(accountsCtrl.lowestAccount())
-      // setShowAllAccts(accountsCtrl.showAll())
+      setShowTotalBal(accountsCtrl.totalBalance())
+      setHighestBal(accountsCtrl.highestAccount())
+      setLowestBal(accountsCtrl.lowestAccount())
+      setShowAllAccts(accountsCtrl.showAll())
 
       userMsg()
    }

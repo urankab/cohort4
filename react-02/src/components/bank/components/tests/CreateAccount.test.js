@@ -3,71 +3,93 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import CreateAccount from '../CreateAccount'
 import funcs from '../../business/functions'
 
-test('Test error messages and verification', () => {
-   const accCtrl = new funcs.AccountController()
-   const newAccount = new funcs.Account()
-
-   const mockCreateButton = jest.fn()
-   const mockMsg = jest.fn()
-
+test('Test the Create Account form', () => {
    const acctCtrl = new funcs.AccountController()
-   const mockAccounts = funcs.accArray
-   const mockMsgTxt = ''
+   const account = acctCtrl.getDefaults()
 
-   const mockTotal = acctCtrl.totalBalance()
-   const mockHighest = acctCtrl.highestAccount()
-   const mockLowest = acctCtrl.lowestAccount()
-   const mockShowAll = acctCtrl.showAll()
+   const mockAddCallBack = jest.fn()
+   const mockMsgCallBack = jest.fn()
+   const mockMsgTxtCallBack = ''
 
-   // newAccount.accountName = 'House'
-   // newAccount.balance = 100;
-   // newAccount.key = 0;
-
-   const fakeAcc = accCtrl.getNewAccount()
-   fakeAcc.name = 'House'
-   fakeAcc.balance = 100;
+   //Creating default values for an account
+   account.accountName = 'House'
+   account.balance = 100;
+   account.key = 1;
 
    render(<CreateAccount
-      add={mockCreateButton}
-      accounts={newAccount}
-      userMsg={mockMsg}
-      message={mockMsgTxt}
+      add={mockAddCallBack}
+      account={account}
 
-      totalStuff={mockTotal}
-      highestStuff={mockHighest}
-      lowestStuff={mockLowest}
-      showAllAccts={mockShowAll}
+      userMsg={mockMsgCallBack}
+      message={mockMsgTxtCallBack}
    />)
 
+   //Check that the names rendered to the input text defaultValue
+   expect(getValue('accountName')).toBe('House');
+   expect(getValue('balance')).toBe('100');
 
-   // Did the names render correctly
-   expect(getValue('name')).toBe('House');
-   expect(getValue('startBal')).toBe(100);
+   click('Create Account')
 
-   // //Should ask for account name value
-   // click('Create Account')
+   expect(mockAddCallBack.mock.calls.length).toBe(1)
 
-   // // console.log(mockCreateButton.mock.calls.length)
+   const addAccount = mockAddCallBack.mock.calls[0][0]
 
-   // // screen.debug()
+   expect(addAccount.accountName).toBe('House')
+   expect(addAccount.balance).toBe('100')
+   expect(addAccount.key).toBe(1)
+})
 
-   // expect(mockCreateButton).toHaveBeenCalledTimes(1)
-   // expect(mockCreateButton.mock.calls.length).toBe(1)
+test('Test validation of the form', () => {
+   const acctCtrl = new funcs.AccountController()
+   const account = acctCtrl.getDefaults()
+   const accounts = acctCtrl.accounts
 
-   // screen.getByText('Please enter an account name')
-   // // expect(getTextContent('addMsg')).toContain('enter account name')
+   const mockAddCallBack = jest.fn()
+   const mockMsgCallBack = jest.fn()
+
+   render(<CreateAccount
+      add={mockAddCallBack}
+      account={account}
+      accounts={accounts}
+      userMsg={mockMsgCallBack}
+   />)
+
+   click('Create Account')
+
+   //Expecting input values to be the default values
+   expect(getValue('accountName')).toBe('')
+   expect(getValue('balance')).toBe('')
+
+   expect(mockAddCallBack.mock.calls.length).toBe(0)
+   expect(mockMsgCallBack.mock.calls.length).toBe(1)
+   expect(mockMsgCallBack.mock.calls[0][0]).toMatch(/Please enter an account name/)
+
+   updateValue('accountName', 'House')
+   click('Create Account')
+
+   expect(getValue('accountName')).toBe('House')
+   expect(mockAddCallBack.mock.calls.length).toBe(0)
+   expect(mockMsgCallBack.mock.calls.length).toBe(2)
+   expect(mockMsgCallBack.mock.calls[1][0]).toMatch(/Please enter a starting balance/)
+
+   updateValue('balance', '100')
+   click('Create Account')
+
+   expect(mockAddCallBack.mock.calls.length).toBe(1)
+   expect(mockMsgCallBack.mock.calls.length).toBe(3)
+   expect(mockMsgCallBack.mock.calls[2][0]).toMatch(/Created House account/)
+
+   const fakeAccount = mockAddCallBack.mock.calls[0][0]
+   expect(fakeAccount.accountName).toBe('House')
+   expect(fakeAccount.balance).toBe('100')
 })
 
 function getValue(name) {
    return document.querySelector(`[name=${name}]`).value
 }
 
-function getTextContent(name) {
-   return document.getElementById(`${name}`).textContent;
-}
-
 function updateValue(name, value) {
-   document.querySelector(`[id=${name}]`).value = value;
+   document.querySelector(`[name=${name}]`).value = value;
 }
 
 function click(txt) {

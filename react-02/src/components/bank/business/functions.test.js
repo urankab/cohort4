@@ -21,97 +21,117 @@ test('Test updating default values', () => {
     a1 = acctCtrl.getDefaults()
     a1.accountName = 'House'
 
-    acctCtrl.changeDefaults(a1)
+    acctCtrl.addAccount(a1)
 
-    a2 = acctCtrl.get('1')
+    //Get account with key of 1
+    a2 = acctCtrl.getAccountByKey('1')
     expect(a2.accountName).toBe('House')
 
-    // p2.accountName = 'Hats'
-
+    a2.accountName = 'Hats'
+    expect(a2.accountName).toBe('Hats')
 })
 
 test('Test Account Class constructor', () => {
-    const account1 = new funcs.Account('checkingAcc', 25);
+    const account1 = new funcs.Account({ accountName: 'checkingAcc', balance: 100, key: 0 })
     expect(account1.accountName).toBe('checkingAcc');
-    expect(account1.balance).toBe(25);
+    expect(account1.balance).toBe(100);
 })
 
 test('Test Account Class deposit/withdraw/show balance methods', () => {
-    const account1 = new funcs.Account('checkingAcc', 25);
+    //Expecting empty default values 
+    const defaultAcc = new funcs.Account({})
+    expect(defaultAcc).toEqual({ accountName: '', balance: '', key: '' })
+
+    //Creating an Account
+    const account1 = new funcs.Account({ accountName: 'House', balance: 100, key: 0 })
     account1.deposit(10);
-    expect(account1.balance).toBe(35);
+    expect(account1.balance).toBe(110);
     account1.withdraw(30);
-    expect(account1.balance).toBe(5);
-    expect(account1.showBalance()).toBe("checkingAcc: $5");
+    expect(account1.balance).toBe(80);
+    expect(account1.key).toBe(0);
+    expect(account1.showBalance()).toBe('House: $80');
+    expect(account1.showName()).toBe('House')
 })
 
 //-------- ACCOUNT CONTROLLER CLASS -------------------
 test('Test keys generation', () => {
-    const acc = new funcs.AccountController();
-    acc.addAccount("Art", 200)
-    expect(acc.accArray[0].key).toBe(0)
-    expect(acc.getAccountFromKey(0)).toEqual({ "accountName": "Art", "balance": 200, "key": 0 })
+    const accCtrl = new funcs.AccountController();
+
+    accCtrl.addAccount({ accountName: 'Cats', balance: 25 })
+    accCtrl.addAccount({ accountName: 'Dogs', balance: 10 })
+    expect(Object.values(accCtrl.accounts)[0]).toEqual({ 'accountName': 'Cats', 'balance': 25, 'key': 1 })
+    expect(accCtrl.getAccountByKey(1)).toEqual({ 'accountName': 'Cats', 'balance': 25, 'key': 1 })
+    expect((accCtrl.accounts[1]).key).toBe(1)
 })
 
-test('Test add/delete/rename an Account', () => {
-    const acc = new funcs.AccountController();
-    acc.addAccount("Vacation", 100);
-    expect(acc.accArray[0].accountName).toBe("Vacation");
-    expect(acc.accArray[0].balance).toBe(100);
-    acc.addAccount("Car", 500);
-    expect(acc.accArray[1]).toEqual({ "accountName": "Car", "balance": 500, "key": 1 });
-    expect(acc.accArray).toEqual([{ accountName: "Vacation", balance: 100, "key": 0 }, { accountName: 'Car', balance: 500, "key": 1 }])
-    acc.removeAccount("Vacation"); //Remove vacation fund account
-    expect(acc.accArray).not.toContain({ accountName: "Vacation", balance: 100 }); //Check that Vacation is not in there
-    expect(acc.accArray[0].accountName).toContain('Car'); //Check Car account is there
-    expect(acc.accArray.length).toEqual(1);
-    acc.renameAccount("Car", "House");
-    expect(acc.accArray[0].accountName).toEqual("House")
+test('Test checking name if it already exists', () => {
+    const accCtrl = new funcs.AccountController();
+
+    accCtrl.addAccount({ accountName: 'Party', balance: 100 })
+    expect(accCtrl.addAccount({ accountName: 'Party', balance: 25 })).toBe()
+    expect(accCtrl.checkName('Party')).toBe(true)
+
 })
 
-test('Test getting total of all accounts', () => {
-    const acc = new funcs.AccountController();
-    acc.addAccount("Kids", 1000);
-    acc.addAccount("Cat", 10);
-    expect(acc.totalBalance()).toBe('$' + 1010);
-})
+// test('Test add/delete/rename an Account', () => {
+//     const acc = new funcs.AccountController();
+//     acc.addAccount("Vacation", 100);
+//     expect(acc.accArray[0].accountName).toBe("Vacation");
+//     expect(acc.accArray[0].balance).toBe(100);
+//     acc.addAccount("Car", 500);
+//     expect(acc.accArray[1]).toEqual({ "accountName": "Car", "balance": 500, "key": 1 });
+//     expect(acc.accArray).toEqual([{ accountName: "Vacation", balance: 100, "key": 0 }, { accountName: 'Car', balance: 500, "key": 1 }])
+//     acc.removeAccount("Vacation"); //Remove vacation fund account
+//     expect(acc.accArray).not.toContain({ accountName: "Vacation", balance: 100 }); //Check that Vacation is not in there
+//     expect(acc.accArray[0].accountName).toContain('Car'); //Check Car account is there
+//     expect(acc.accArray.length).toEqual(1);
+//     acc.renameAccount("Car", "House");
+//     expect(acc.accArray[0].accountName).toEqual("House")
+// })
 
-test('Test deposit, withdrawal, show balance', () => {
-    const acc = new funcs.AccountController();
-    acc.addAccount("Kids", 1000);
-    acc.accArray[0].deposit(15);
-    expect(acc.accArray[0].showBalance()).toEqual("Kids: $" + 1015);
-    acc.accArray[0].withdraw(100);
-    expect(acc.accArray[0].showBalance()).toEqual("Kids: $" + 915);
-})
+// test('Test getting total of all accounts', () => {
+//     const acc = new funcs.AccountController();
+//     acc.addAccount("Kids", 1000);
+//     acc.addAccount("Cat", 10);
+//     expect(acc.totalBalance()).toBe('$' + 1010);
+// })
 
-test('Test getting HIGHEST of all accounts works', () => {
-    const acc = new funcs.AccountController();
-    acc.addAccount("Doggy Business", 3000);
-    acc.addAccount("Video Games", 2000);
-    acc.addAccount("Video Games", 300);
-    expect(acc.highestAccount()).toBe("Doggy Business - $3000");
-})
+// test('Test deposit, withdrawal, show balance', () => {
+//     const acc = new funcs.AccountController();
+//     acc.addAccount("Kids", 1000);
+//     acc.accArray[0].deposit(15);
+//     expect(acc.accArray[0].showBalance()).toEqual("Kids: $" + 1015);
+//     acc.accArray[0].withdraw(100);
+//     expect(acc.accArray[0].showBalance()).toEqual("Kids: $" + 915);
+// })
 
-test('Test getting LOWEST of all accounts works', () => {
-    const acc = new funcs.AccountController();
-    acc.addAccount("Doggy Business", 3000);
-    acc.addAccount("Video Games", 2000);
-    acc.addAccount("Video Games", 300);
-    expect(acc.lowestAccount()).toBe("Video Games - $300");
-})
+// test('Test getting HIGHEST of all accounts works', () => {
+//     const acc = new funcs.AccountController();
+//     acc.addAccount("Doggy Business", 3000);
+//     acc.addAccount("Video Games", 2000);
+//     acc.addAccount("Video Games", 300);
+//     expect(acc.highestAccount()).toBe("Doggy Business - $3000");
+// })
 
-test('Test that checkName() works', () => {
-    const acc = new funcs.AccountController();
-    acc.addAccount("House", 3000);
-    expect(acc.checkName("House")).toBe(true);
-})
+// test('Test getting LOWEST of all accounts works', () => {
+//     const acc = new funcs.AccountController();
+//     acc.addAccount("Doggy Business", 3000);
+//     acc.addAccount("Video Games", 2000);
+//     acc.addAccount("Video Games", 300);
+//     expect(acc.lowestAccount()).toBe("Video Games - $300");
+// })
 
-test('Test that showAll() works', () => {
-    const acc = new funcs.AccountController();
-    acc.addAccount("House", 515);
-    acc.addAccount("Kids", 900);
-    acc.addAccount("Doggy Business", 3000);
-    acc.addAccount("Video Games", 300);
-    expect(acc.showAll()).toEqual([" House - $515 ", " Kids - $900 ", " Doggy Business - $3000 ", " Video Games - $300 "]);
-})
+// test('Test that checkName() works', () => {
+//     const acc = new funcs.AccountController();
+//     acc.addAccount("House", 3000);
+//     expect(acc.checkName("House")).toBe(true);
+// })
+
+// test('Test that showAll() works', () => {
+//     const acc = new funcs.AccountController();
+//     acc.addAccount("House", 515);
+//     acc.addAccount("Kids", 900);
+//     acc.addAccount("Doggy Business", 3000);
+//     acc.addAccount("Video Games", 300);
+//     expect(acc.showAll()).toEqual([" House - $515 ", " Kids - $900 ", " Doggy Business - $3000 ", " Video Games - $300 "]);
+// })

@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
+import funcs from '../business/functions'
+
+const acc = new funcs.AccountController();
 
 function AccCtrl(props) {
 

@@ -12,7 +12,7 @@ function CreateAccount(props) {
       el.select();
    }
 
-   function onAdd(e) {
+   function onSave(e) {
       const AccountToAdd = {};
       AccountToAdd.key = account.key;
       const form = document.getElementById('accForm');
@@ -37,12 +37,15 @@ function CreateAccount(props) {
             focusElement('balance');
             throw new Error('Please enter an amount greater than 0');
          }
+
          props.add(AccountToAdd);
          props.userMsg(`Created ${AccountToAdd.accountName} account`);
 
       } catch (e) {
+         // console.log(e);
          props.userMsg(e.message, "error");
       }
+
       e.preventDefault();
    }
 
@@ -50,7 +53,7 @@ function CreateAccount(props) {
       <div id='box1'>
          <h2 className='boxHeader'>Create an Account</h2>
          <div className='innerDiv'>
-            <form id="accForm" onSubmit={onAdd}>
+            <form id="accForm" onSubmit={onSave}>
                <label htmlFor='accountName'>Account Name: </label>
                <input name='accountName' defaultValue={account.accountName}
                   type='text' id='accountName' className='input'></input>
@@ -59,7 +62,7 @@ function CreateAccount(props) {
                <input name='balance' defaultValue={account.balance}
                   type='number' id='balance' className='input'></input>
                <br></br>
-               <button className='btn' id='createBtn' onClick={onAdd}>
+               <button className='btn' id='createBtn' onClick={onSave}>
                   Create Account</button>
                <p name='addMsg' id='addMsg' label='addmsg' className='msg'>{props.message}</p>
             </form>
