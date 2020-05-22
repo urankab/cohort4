@@ -29,10 +29,10 @@ test('Test add/delete/rename an Account', () => {
     expect(acc.accArray[0].balance).toBe(100);
     expect(acc.accArray[0].key).toBe(1)
     acc.addAccount("Car", 500);
-    expect(acc.accArray[1]).toEqual({ "accountName": "Car", "balance": 500 , "key": 2});
-    acc.removeAccount("Vacation"); 
-    expect(acc.accArray).not.toContain({ accountName: "Vacation", balance: 100 }); 
-    expect(acc.accArray[0].accountName).toContain('Car'); 
+    expect(acc.accArray[1]).toEqual({ "accountName": "Car", "balance": 500, "key": 2 });
+    acc.removeAccount("Vacation");
+    expect(acc.accArray).not.toContain({ accountName: "Vacation", balance: 100 });
+    expect(acc.accArray[0].accountName).toContain('Car');
     expect(acc.accArray.length).toEqual(1);
     acc.renameAccount("Car", "House");
     expect(acc.accArray[0].accountName).toEqual("House")
@@ -67,6 +67,7 @@ test('Test getting LOWEST of all accounts works', () => {
     acc.addAccount("Doggy Business", 3000);
     acc.addAccount("Video Games", 2000);
     acc.addAccount("Video Games", 300);
+    console.log(acc.accArray)
     expect(acc.lowestAccount()).toBe("Lowest Acc: Video Games: $300");
 })
 

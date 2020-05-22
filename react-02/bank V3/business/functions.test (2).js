@@ -59,9 +59,8 @@ test('Test keys generation', () => {
 
     accCtrl.addAccount({ accountName: 'Cats', balance: 25 })
     accCtrl.addAccount({ accountName: 'Dogs', balance: 10 })
-
-    expect(Object.values(accCtrl.accounts)[0]).toEqual({ accountName: 'Cats', balance: 25, key: 1 })
-    expect(accCtrl.getAccountByKey(1)).toEqual({ accountName: 'Cats', balance: 25, key: 1 })
+    expect(Object.values(accCtrl.accounts)[0]).toEqual({ 'accountName': 'Cats', 'balance': 25, 'key': 1 })
+    expect(accCtrl.getAccountByKey(1)).toEqual({ 'accountName': 'Cats', 'balance': 25, 'key': 1 })
     expect((accCtrl.accounts[1]).key).toBe(1)
 })
 
@@ -69,11 +68,9 @@ test('Test checking name if it already exists', () => {
     const accCtrl = new funcs.AccountController();
 
     accCtrl.addAccount({ accountName: 'Party', balance: 100 })
-    accCtrl.addAccount({ accountName: 'Candy', balance: 25 })
-    accCtrl.addAccount({ accountName: 'Juice', balance: 10 })
-
-    expect(accCtrl.checkLength()).toBe(3)
+    expect(accCtrl.addAccount({ accountName: 'Party', balance: 25 })).toBe()
     expect(accCtrl.checkName('Party')).toBe(true)
+
 })
 
 // test('Test add/delete/rename an Account', () => {

@@ -8,8 +8,6 @@ function AccountsApp() {
    const accCtrl = new funcs.AccountController();
    const [accountsCtrl] = useState(accCtrl)
    const [account] = useState(accountsCtrl.getDefaults())
-   const [accounts] = useState(accountsCtrl.accounts)
-
    const [message, setMessage] = useState({ text: '' })
    const [selectedAccount, setSelected] = useState()
    const [totalBal, setShowTotalBal] = useState()
@@ -17,19 +15,20 @@ function AccountsApp() {
    const [lowestBal, setLowestBal] = useState()
    const [showAllAccts, setShowAllAccts] = useState()
 
-   // useEffect(() => {
-   //    console.log('useEffect: general')
-   // })
+   useEffect(() => {
+      console.log('useEffect: general')
+   })
 
    function addAccount(accToAdd) {
       accountsCtrl.addAccount(accToAdd)
-      console.log(accToAdd.accountName)
-      console.log(accounts)
+      console.log(accountsCtrl.accounts)
 
       // setShowTotalBal(accountsCtrl.totalBalance())
       // setHighestBal(accountsCtrl.highestAccount())
       // setLowestBal(accountsCtrl.lowestAccount())
       // setShowAllAccts(accountsCtrl.showAll())
+
+      userMsg()
    }
 
    function userMsg(msg) {
@@ -41,13 +40,12 @@ function AccountsApp() {
          <h1 id='header'>Banking with Uranka</h1>
          <CreateAccount
             account={account}
-            accounts={accounts}
             add={addAccount}
             userMsg={userMsg}
             message={message.text}
          />
          <AccCtrl
-            accounts={accounts}
+            accounts={accountsCtrl.accounts}
             userMsg={userMsg}
             message={message.text}
          // selected={selectedAccount}

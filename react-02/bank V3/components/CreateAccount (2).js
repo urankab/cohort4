@@ -28,17 +28,12 @@ function CreateAccount(props) {
             throw new Error('Please enter an account name');
          }
 
-         if (acc.checkName(AccountToAdd.accountName)) {
-            focusElement('accountName');
-            throw new Error('Account name already exists');
-         }
-
-         if (!AccountToAdd.balance) {
+         else if (!AccountToAdd.balance) {
             focusElement('balance');
             throw new Error('Please enter a starting balance');
          }
 
-         if (AccountToAdd.balance <= 0) {
+         else if (AccountToAdd.balance <= 0) {
             focusElement('balance');
             throw new Error('Please enter an amount greater than 0');
          }
@@ -50,28 +45,6 @@ function CreateAccount(props) {
       }
       e.preventDefault();
    }
-
-   // if (!AccountToAdd.accountName) {
-   //    focusElement('accountName');
-   //    props.userMsg('Please enter an account name')
-   // }
-
-   // else if (acc.checkName(AccountToAdd.accountName)) {
-   //    focusElement('accountName');
-   //    props.userMsg('Account name already exists')
-   // }
-
-   // else if (!AccountToAdd.balance) {
-   //    focusElement('balance');
-   //    props.userMsg('Please enter a starting balance');
-   // }
-
-   // else if (AccountToAdd.balance <= 0) {
-   //    focusElement('balance');
-   //    props.userMsg('Please enter an amount greater than 0');
-   // }
-   // props.add(AccountToAdd);
-   // props.userMsg(`Created ${AccountToAdd.accountName} account`)
 
    return (
       <div id='box1'>
@@ -96,3 +69,64 @@ function CreateAccount(props) {
 }
 
 export default CreateAccount;
+
+// constructor(props) {
+   //    super(props);
+   //    this.state = {
+   //       name: '',
+   //       balance: '',
+   //       key: '',
+   //       accounts: acc.accArray,
+   //       msg: '',
+
+   //       total: '',
+   //       highest: '',
+   //       lowest: '',
+   //       all: '',
+   //       selected: ''
+   //    }
+   //    // this.handleCreateButton = this.handleCreateButton.bind(this)
+   // }
+
+   // handleNameInput = (e) => {
+   //    this.setState({ name: e.target.value })
+   // }
+
+   // handleStartBalInput = (e) => {
+   //    this.setState({ balance: e.target.value })
+   // }
+
+   // handleCreateButton = () => {
+   //    if (this.state.name === '') {
+   //       this.setState({ msg: 'Please enter an account name' })
+   //    }
+
+   //    else if (acc.checkName(this.state.name)) {
+   //       this.setState({ msg: 'Account name already exists' })
+   //    }
+
+   //    else if (this.state.balance <= 0) {
+   //       this.setState({ msg: 'Please enter a balance greater than 0' })
+   //    }
+
+   //    else {
+   //       acc.addAccount(this.state.name, this.state.balance)
+   //       this.setState({
+   //          msg: `Created ${this.state.name} account`,
+   //          total: acc.totalBalance(),
+   //          highest: acc.highestAccount(),
+   //          lowest: acc.lowestAccount(),
+   //          all: acc.showAll(),
+   //       })
+   //       this.clearInputs();
+   //    }
+
+
+   // clearInputs = () => {
+   //    this.setState({
+   //       name: '',
+   //       balance: ''
+   //    })
+   //    document.getElementById('name').value = ''
+   //    document.getElementById('startBal').value = ''
+   // }
