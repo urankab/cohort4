@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import AccCtrl from './AccCtrl'
 import CreateAccount from './CreateAccount'
-import funcs from '../business/functions'
+import { AccountController, Account } from '../business/functions'
 import Summary from './Summary';
 
 function AccountsApp() {
-   const accCtrl = new funcs.AccountController();
+   const accCtrl = new AccountController();
    const [accountsCtrl] = useState(accCtrl)
    const [account] = useState(accountsCtrl.getDefaults())
    const [accounts] = useState(accountsCtrl.accounts)
 
+   const [checkMsg, setCheck] = useState()
    const [message, setMessage] = useState({ text: '' })
    const [selectedAccount, setSelected] = useState()
    const [totalBal, setShowTotalBal] = useState()
@@ -17,14 +18,12 @@ function AccountsApp() {
    const [lowestBal, setLowestBal] = useState()
    const [showAllAccts, setShowAllAccts] = useState()
 
-   // useEffect(() => {
-   //    console.log('useEffect: general')
-   // })
+   useEffect(() => {
+      console.log('useEffect: general')
+   })
 
    function addAccount(accToAdd) {
       accountsCtrl.addAccount(accToAdd)
-      console.log(accToAdd.accountName)
-      console.log(accounts)
 
       // setShowTotalBal(accountsCtrl.totalBalance())
       // setHighestBal(accountsCtrl.highestAccount())
@@ -41,10 +40,12 @@ function AccountsApp() {
          <h1 id='header'>Banking with Uranka</h1>
          <CreateAccount
             account={account}
-            accounts={accounts}
+            // accounts={accounts}
+            acctCtrl={accountsCtrl}
             add={addAccount}
             userMsg={userMsg}
             message={message.text}
+            checkMsg={accountsCtrl.msg}
          />
          <AccCtrl
             accounts={accounts}

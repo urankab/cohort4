@@ -1,7 +1,5 @@
 import React from 'react'
-import funcs from '../business/functions'
-
-const acc = new funcs.AccountController()
+import { AccountController, Account } from '../business/functions'
 
 function CreateAccount(props) {
    const account = props.account;
@@ -28,7 +26,7 @@ function CreateAccount(props) {
             throw new Error('Please enter an account name');
          }
 
-         if (acc.checkName(AccountToAdd.accountName)) {
+         if (props.acctCtrl.checkName(AccountToAdd.accountName)) {
             focusElement('accountName');
             throw new Error('Account name already exists');
          }
@@ -50,28 +48,6 @@ function CreateAccount(props) {
       }
       e.preventDefault();
    }
-
-   // if (!AccountToAdd.accountName) {
-   //    focusElement('accountName');
-   //    props.userMsg('Please enter an account name')
-   // }
-
-   // else if (acc.checkName(AccountToAdd.accountName)) {
-   //    focusElement('accountName');
-   //    props.userMsg('Account name already exists')
-   // }
-
-   // else if (!AccountToAdd.balance) {
-   //    focusElement('balance');
-   //    props.userMsg('Please enter a starting balance');
-   // }
-
-   // else if (AccountToAdd.balance <= 0) {
-   //    focusElement('balance');
-   //    props.userMsg('Please enter an amount greater than 0');
-   // }
-   // props.add(AccountToAdd);
-   // props.userMsg(`Created ${AccountToAdd.accountName} account`)
 
    return (
       <div id='box1'>

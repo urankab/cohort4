@@ -1,4 +1,4 @@
-class Account {
+export class Account {
     static lastKey = 0
     constructor(obj) {
         const defaults = { accountName: '', balance: '', key: '' }
@@ -31,7 +31,7 @@ class Account {
     }
 }
 
-class AccountController {
+export class AccountController {
     constructor() {
         this.accounts = {}
         this.lastKey = 0;
@@ -55,23 +55,27 @@ class AccountController {
                 return true;
             }
         }
-        //Turn to array version
-        // let allNames = [];
-        // for (let key in this.accounts) {
-        //     allNames.push(this.accounts[key].accountName)
-        // }
-
-        // for (let i = 0; i < allNames.length; i++) {
-        //     if (nameToCheck === allNames[i]) {
-        //         return true;
-        //     }
-        // }
+        return false;
     }
+
+    //Turn to array version
+    // let allNames = [];
+    // for (let key in this.accounts) {
+    //     allNames.push(this.accounts[key].accountName)
+    // }
+
+    // for (let i = 0; i < allNames.length; i++) {
+    //     if (nameToCheck === allNames[i]) {
+    //         return true;
+    //     }
+    // }
+
 
     addAccount(account) {
         this.lastKey++
         account.key = this.lastKey;
         this.accounts[account.key] = account
+        console.log(this.accounts)
     }
 
     removeAccount(accountName) {
@@ -130,5 +134,5 @@ class AccountController {
     }
 }
 
-export default { Account, AccountController }
+// export default { Account, AccountController }
 

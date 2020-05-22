@@ -1,10 +1,10 @@
 // import { Account, AccountController } from './functions'
-import funcs from './functions'
+import { Account, AccountController } from './functions'
 
 //-------- ACCOUNT CLASS ------------------------------
 
 test('Test getDefaults', () => {
-    const acctCtrl = new funcs.AccountController()
+    const acctCtrl = new AccountController()
     const a1 = acctCtrl.getDefaults()
 
     expect(a1.accountName).toBe('')
@@ -13,8 +13,8 @@ test('Test getDefaults', () => {
 })
 
 test('Test updating default values', () => {
-    const acctCtrl = new funcs.AccountController()
-    funcs.Account.lastKey = 0
+    const acctCtrl = new AccountController()
+    Account.lastKey = 0
 
     let a1, a2;
 
@@ -32,18 +32,18 @@ test('Test updating default values', () => {
 })
 
 test('Test Account Class constructor', () => {
-    const account1 = new funcs.Account({ accountName: 'checkingAcc', balance: 100, key: 0 })
+    const account1 = new Account({ accountName: 'checkingAcc', balance: 100, key: 0 })
     expect(account1.accountName).toBe('checkingAcc');
     expect(account1.balance).toBe(100);
 })
 
 test('Test Account Class deposit/withdraw/show balance methods', () => {
     //Expecting empty default values 
-    const defaultAcc = new funcs.Account({})
+    const defaultAcc = new Account({})
     expect(defaultAcc).toEqual({ accountName: '', balance: '', key: '' })
 
     //Creating an Account
-    const account1 = new funcs.Account({ accountName: 'House', balance: 100, key: 0 })
+    const account1 = new Account({ accountName: 'House', balance: 100, key: 0 })
     account1.deposit(10);
     expect(account1.balance).toBe(110);
     account1.withdraw(30);
@@ -55,7 +55,7 @@ test('Test Account Class deposit/withdraw/show balance methods', () => {
 
 //-------- ACCOUNT CONTROLLER CLASS -------------------
 test('Test keys generation', () => {
-    const accCtrl = new funcs.AccountController();
+    const accCtrl = new AccountController();
 
     accCtrl.addAccount({ accountName: 'Cats', balance: 25 })
     accCtrl.addAccount({ accountName: 'Dogs', balance: 10 })
@@ -66,7 +66,7 @@ test('Test keys generation', () => {
 })
 
 test('Test checking name if it already exists', () => {
-    const accCtrl = new funcs.AccountController();
+    const accCtrl = new AccountController();
 
     accCtrl.addAccount({ accountName: 'Party', balance: 100 })
     accCtrl.addAccount({ accountName: 'Candy', balance: 25 })
@@ -74,6 +74,7 @@ test('Test checking name if it already exists', () => {
 
     expect(accCtrl.checkLength()).toBe(3)
     expect(accCtrl.checkName('Party')).toBe(true)
+    expect(accCtrl.checkName('Goats')).toBe(false)
 })
 
 // test('Test add/delete/rename an Account', () => {
