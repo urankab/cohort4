@@ -45,6 +45,14 @@ export class AccountController {
         return this.accounts[key]
     }
 
+    getAccountNameByKey(thekey) {
+        for (let key in this.accounts) {
+            if (thekey === this.accounts[key].key) {
+                return this.accounts[key].accountName
+            }
+        }
+    }
+
     checkLength() {
         return Object.keys(this.accounts).length
     }
@@ -58,80 +66,66 @@ export class AccountController {
         return false;
     }
 
-    //Turn to array version
-    // let allNames = [];
-    // for (let key in this.accounts) {
-    //     allNames.push(this.accounts[key].accountName)
-    // }
-
-    // for (let i = 0; i < allNames.length; i++) {
-    //     if (nameToCheck === allNames[i]) {
-    //         return true;
-    //     }
-    // }
-
-
     addAccount(account) {
         this.lastKey++
         account.key = this.lastKey;
         this.accounts[account.key] = account
-        console.log(this.accounts)
     }
 
-    removeAccount(accountName) {
-        for (let i = 0; i < this.accArray.length; i++) {
-            if (accountName === this.accArray[i].accountName) {
-                this.accArray.splice(i, 1)
+    removeAccount(nameToDelete) {
+        for (let key in this.accounts) {
+            if (nameToDelete === this.accounts[key].accountName) {
+                delete this.accounts[key]
             }
         }
     }
 
-    renameAccount(accountName, newName) {
-        for (let i = 0; i < this.accArray.length; i++) {
-            if (accountName === this.accArray[i].accountName) {
-                this.accArray[i].accountName = newName;
-            }
-        }
-    }
+    // renameAccount(accountName, newName) {
+    //     for (let i = 0; i < this.accArray.length; i++) {
+    //         if (accountName === this.accArray[i].accountName) {
+    //             this.accArray[i].accountName = newName;
+    //         }
+    //     }
+    // }
 
-    totalBalance() {
-        let total = 0;
-        for (let i = 0; i < this.accArray.length; i++) {
-            total += Number(this.accArray[i].balance);
-        }
-        return `$${total}`;
-    }
+    // totalBalance() {
+    //     let total = 0;
+    //     for (let i = 0; i < this.accArray.length; i++) {
+    //         total += Number(this.accArray[i].balance);
+    //     }
+    //     return `$${total}`;
+    // }
 
-    highestAccount() {
-        let highestBal = 0;
-        let highestName;
-        for (let i = 0; i < this.accArray.length; i++) {
-            if (this.accArray[i].balance > highestBal) {
-                let currentName = this.accArray[i].accountName;
-                highestBal = Number(this.accArray[i].balance);
-                highestName = currentName;
-            }
-        }
-        return `${highestName} - $${highestBal}`
-    }
+    // highestAccount() {
+    //     let highestBal = 0;
+    //     let highestName;
+    //     for (let i = 0; i < this.accArray.length; i++) {
+    //         if (this.accArray[i].balance > highestBal) {
+    //             let currentName = this.accArray[i].accountName;
+    //             highestBal = Number(this.accArray[i].balance);
+    //             highestName = currentName;
+    //         }
+    //     }
+    //     return `${highestName} - $${highestBal}`
+    // }
 
-    lowestAccount() {
-        let lowest = Number.POSITIVE_INFINITY;
-        let lowestName;
-        for (let i = this.accArray.length - 1; i >= 0; i--) {
-            let currentName = this.accArray[i].accountName;
-            let currentBal = Number(this.accArray[i].balance);
-            if (currentBal < lowest) {
-                lowestName = currentName;
-                lowest = currentBal;
-            }
-        }
-        return `${lowestName} - $${lowest}`
-    }
+    // lowestAccount() {
+    //     let lowest = Number.POSITIVE_INFINITY;
+    //     let lowestName;
+    //     for (let i = this.accArray.length - 1; i >= 0; i--) {
+    //         let currentName = this.accArray[i].accountName;
+    //         let currentBal = Number(this.accArray[i].balance);
+    //         if (currentBal < lowest) {
+    //             lowestName = currentName;
+    //             lowest = currentBal;
+    //         }
+    //     }
+    //     return `${lowestName} - $${lowest}`
+    // }
 
-    showAll() {
-        return this.accArray.map((f) => ` ${f.accountName} - $${f.balance} `);
-    }
+    // showAll() {
+    //     return this.accArray.map((f) => ` ${f.accountName} - $${f.balance} `);
+    // }
 }
 
 // export default { Account, AccountController }

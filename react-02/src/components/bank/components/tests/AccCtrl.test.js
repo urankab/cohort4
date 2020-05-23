@@ -1,10 +1,10 @@
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import AccCtrl from '../AccCtrl'
-import funcs from '../../business/functions'
+import { Account, AccountController } from '../../business/functions'
 
 test('Test dropdown for accounts', () => {
-   const acctCtrl = new funcs.AccountController()
+   const acctCtrl = new AccountController()
    const mockAccounts = acctCtrl.accounts
    const mockUserMsgCallBack = jest.fn()
 

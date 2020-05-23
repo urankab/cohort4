@@ -1,14 +1,14 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import Summary from '../Summary'
-import funcs from '../../business/functions'
+import { Account, AccountController } from '../../business/functions'
 
 test('Test summary output for accounts', () => {
-    const acctCtrl = new funcs.AccountController()
+    const acctCtrl = new AccountController()
 
-    acctCtrl.addAccount('House', 100)
-    acctCtrl.addAccount('Cat', 120)
-    acctCtrl.addAccount('Food', 10)
+    acctCtrl.addAccount({ accountName: 'Dance party', balance: 100 })
+    acctCtrl.addAccount({ accountName: 'Whiskey party', balance: 100 })
+    acctCtrl.addAccount({ accountName: 'Party', balance: 100 })
 
     const mockTotal = acctCtrl.totalBalance()
     const mockHighest = acctCtrl.highestAccount()
