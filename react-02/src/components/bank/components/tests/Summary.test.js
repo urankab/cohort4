@@ -1,32 +1,32 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import Summary from '../Summary'
-import { Account, AccountController } from '../../business/functions'
+import { AccountController } from '../../business/functions'
 
 test('Test summary output for accounts', () => {
     const acctCtrl = new AccountController()
 
-    acctCtrl.addAccount({ accountName: 'Dance party', balance: 100 })
-    acctCtrl.addAccount({ accountName: 'Whiskey party', balance: 100 })
-    acctCtrl.addAccount({ accountName: 'Party', balance: 100 })
+    acctCtrl.addAccount({ accountName: 'Dance Party', balance: 200 })
+    acctCtrl.addAccount({ accountName: 'Whiskey Party', balance: 69 })
+    acctCtrl.addAccount({ accountName: 'Taco Party', balance: 100 })
 
+    const accounts = acctCtrl.accounts
     const mockTotal = acctCtrl.totalBalance()
     const mockHighest = acctCtrl.highestAccount()
     const mockLowest = acctCtrl.lowestAccount()
-    const mockShowAll = acctCtrl.showAll()
 
     render(<Summary
+        accounts={accounts}
         totalStuff={mockTotal}
         highestStuff={mockHighest}
         lowestStuff={mockLowest}
-        showAllAccts={mockShowAll}
     />)
 
-    screen.getByText('$230')
-    expect(getTextContent('total')).toBe('$230')
-    expect(getTextContent('highest')).toBe('Cat - $120')
-    expect(getTextContent('lowest')).toBe('Food - $10')
-    expect(getTextContent('all')).toBe(' House - $100  Cat - $120  Food - $10 ')
+    screen.getByText('$369')
+    expect(getTextContent('total')).toBe('$369')
+    expect(getTextContent('highest')).toBe('Dance Party - $200')
+    expect(getTextContent('lowest')).toBe('Whiskey Party - $69')
+    expect(getTextContent('all')).toContain('Dance Party - $200Whiskey Party - $69Taco Party - $100')
 })
 
 function getTextContent(name) {

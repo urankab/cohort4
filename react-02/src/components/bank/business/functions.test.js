@@ -53,9 +53,7 @@ test('Test Account Class deposit/withdraw/show balance methods', () => {
 })
 
 //-------- ACCOUNT CONTROLLER CLASS -------------------
-// const acc = new AccountController()
-
-test('Test keys generation', () => {
+test('Test keys generation when we create accounts', () => {
     const accCtrl = new AccountController();
 
     accCtrl.addAccount({ accountName: 'Cats', balance: 25 })
@@ -77,73 +75,61 @@ test('Test checking name if it already exists', () => {
     expect(accCtrl.checkName('Party')).toBe(true)
 })
 
-test('Test add/delete/rename an Account', () => {
+test('Test delete/rename an Account works', () => {
     const acc = new AccountController();
     acc.addAccount({ accountName: 'Jiggly Puff', balance: 10 });
     acc.addAccount({ accountName: 'Cream Puff', balance: 10 });
+    acc.addAccount({ accountName: 'Jello', balance: 10 });
     acc.removeAccount('Jiggly Puff')
-    expect(acc.checkLength()).toBe(1)
+    expect(acc.checkLength()).toBe(2)
     expect(acc.checkName('Cream Puff')).toBe(true)
     expect(acc.checkName('Jiggly Puff')).toBe(false)
 
-    console.log(acc.accounts)
-    expect(acc.getAccountNameByKey(2)).toBe('')
-    // expect(acc.accArray[0].accountName).toBe("Vacation");
-    // expect(acc.accArray[0].balance).toBe(100);
-    // acc.addAccount("Car", 500);
-    // expect(acc.accArray[1]).toEqual({ "accountName": "Car", "balance": 500, "key": 1 });
-    // expect(acc.accArray).toEqual([{ accountName: "Vacation", balance: 100, "key": 0 }, { accountName: 'Car', balance: 500, "key": 1 }])
-    // acc.removeAccount("Vacation"); //Remove vacation fund account
-    // expect(acc.accArray).not.toContain({ accountName: "Vacation", balance: 100 }); //Check that Vacation is not in there
-    // expect(acc.accArray[0].accountName).toContain('Car'); //Check Car account is there
-    // expect(acc.accArray.length).toEqual(1);
-    // acc.renameAccount("Car", "House");
-    // expect(acc.accArray[0].accountName).toEqual("House")
+    expect(acc.getAccountNameByKey(2)).toBe('Cream Puff')
+    // acc.getAccountNameByKey(2)
+    // expect(acc.selectedName).toBe('Cream Puff')
+
+    acc.renameAccount('Cream Puff', 'Ghosts')
+    expect(acc.accounts[2].accountName).toBe('Ghosts')
+    expect(acc.getAccountNameByKey(2)).toBe('Ghosts')
+
+    // acc.getAccountNameByKey(2)
+    // expect(acc.selectedName).toBe('Ghosts')
+    // acc.removeAccount(acc.selectedName)
+
+    // expect(acc.checkLength()).toBe(1)
+    // expect(acc.accounts).toEqual({ "3": { "accountName": "Jello", "balance": 10, "key": 3 } })
+    // console.log(acc.accounts)
 })
 
-// test('Test getting total of all accounts', () => {
-//     const acc = new AccountController();
-//     acc.addAccount("Kids", 1000);
-//     acc.addAccount("Cat", 10);
-//     expect(acc.totalBalance()).toBe('$' + 1010);
-// })
+test('Test getting total of all accounts', () => {
+    const acc = new AccountController();
+    acc.addAccount({ accountName: 'Jiggly Puff', balance: 10 });
+    acc.addAccount({ accountName: 'Cream Puff', balance: 10 });
+    acc.addAccount({ accountName: 'Yeet', balance: 15 });
+    expect(acc.totalBalance()).toBe('$' + 35);
+})
 
-// test('Test deposit, withdrawal, show balance', () => {
-//     const acc = new AccountController();
-//     acc.addAccount("Kids", 1000);
-//     acc.accArray[0].deposit(15);
-//     expect(acc.accArray[0].showBalance()).toEqual("Kids: $" + 1015);
-//     acc.accArray[0].withdraw(100);
-//     expect(acc.accArray[0].showBalance()).toEqual("Kids: $" + 915);
-// })
+test('Test getting HIGHEST of all accounts works', () => {
+    const acc = new AccountController();
+    acc.addAccount({ accountName: 'I Love Bunnies', balance: 1000 });
+    acc.addAccount({ accountName: 'Curry Fund', balance: 50 });
+    acc.addAccount({ accountName: 'Cookies', balance: 5 });
+    expect(acc.highestAccount()).toBe("I Love Bunnies - $1000");
+})
 
-// test('Test getting HIGHEST of all accounts works', () => {
-//     const acc = new AccountController();
-//     acc.addAccount("Doggy Business", 3000);
-//     acc.addAccount("Video Games", 2000);
-//     acc.addAccount("Video Games", 300);
-//     expect(acc.highestAccount()).toBe("Doggy Business - $3000");
-// })
+test('Test getting LOWEST of all accounts works', () => {
+    const acc = new AccountController();
+    acc.addAccount({ accountName: 'Pottery Lessons', balance: 50 });
+    acc.addAccount({ accountName: 'Chicken Nuggets', balance: 10 });
+    acc.addAccount({ accountName: 'Candy', balance: 5 });
+    expect(acc.lowestAccount()).toBe('Candy - $5');
+})
 
-// test('Test getting LOWEST of all accounts works', () => {
-//     const acc = new AccountController();
-//     acc.addAccount("Doggy Business", 3000);
-//     acc.addAccount("Video Games", 2000);
-//     acc.addAccount("Video Games", 300);
-//     expect(acc.lowestAccount()).toBe("Video Games - $300");
-// })
-
-// test('Test that checkName() works', () => {
-//     const acc = new AccountController();
-//     acc.addAccount("House", 3000);
-//     expect(acc.checkName("House")).toBe(true);
-// })
-
-// test('Test that showAll() works', () => {
-//     const acc = new AccountController();
-//     acc.addAccount("House", 515);
-//     acc.addAccount("Kids", 900);
-//     acc.addAccount("Doggy Business", 3000);
-//     acc.addAccount("Video Games", 300);
-//     expect(acc.showAll()).toEqual([" House - $515 ", " Kids - $900 ", " Doggy Business - $3000 ", " Video Games - $300 "]);
-// })
+test('Test that showAll() works', () => {
+    const acc = new AccountController();
+    acc.addAccount({ accountName: 'Sushi Day', balance: 300 });
+    acc.addAccount({ accountName: 'Camping', balance: 50 });
+    acc.addAccount({ accountName: 'Jello', balance: 15 });
+    expect(acc.showAll()).toContain('Sushi Day - $300\nCamping - $50\nJello - $15');
+})

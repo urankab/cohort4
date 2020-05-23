@@ -5,8 +5,12 @@ import { Account, AccountController } from '../../business/functions'
 
 test('Test dropdown for accounts', () => {
    const acctCtrl = new AccountController()
-   const mockAccounts = acctCtrl.accounts
+   const accounts = acctCtrl.accounts
+   const selectedName = acctCtrl.selectedName
+
    const mockUserMsgCallBack = jest.fn()
+   const mockGetTheName = jest.fn()
+   const mockDeleteCallBack = jest.fn()
 
    acctCtrl.addAccount({ accountName: 'Kitty', balance: 100 })
    acctCtrl.addAccount({ accountName: 'Doggy', balance: 10 })
@@ -14,12 +18,21 @@ test('Test dropdown for accounts', () => {
    expect(Object.values(acctCtrl.accounts)[1]).toEqual({ "accountName": "Doggy", "balance": 10, "key": 2 })
 
    render(<AccCtrl
-      accounts={mockAccounts}
+      accounts={accounts}
+      selectedName={selectedName}
       userMsg={mockUserMsgCallBack}
+      getTheName={mockGetTheName}
+      delete={mockDeleteCallBack}
    />)
 
    screen.getByText('Kitty - $100')
    screen.getByText('Doggy - $10')
+
+   click('Kitty - $100')
+
+   // click('Delete Account')
+
+   screen.debug()
 
    //getByDisplayValue shows selected value of select dropdwon
    //screen.getByDisplayValue('House - $100')

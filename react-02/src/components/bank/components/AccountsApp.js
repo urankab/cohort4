@@ -1,93 +1,83 @@
 import React, { useState, useEffect } from 'react'
 import AccCtrl from './AccCtrl'
 import CreateAccount from './CreateAccount'
-import { AccountController } from '../business/functions'
+import { Account, AccountController } from '../business/functions'
 import Summary from './Summary';
 
 function AccountsApp() {
    const accCtrl = new AccountController();
    const [accountsCtrl] = useState(accCtrl)
-   const [account] = useState(accountsCtrl.getDefaults())
+   const [accountDefaults] = useState(accountsCtrl.getDefaults())
    const [accounts] = useState(accountsCtrl.accounts)
 
-   const [message, setMessage] = useState({ text: '' })
-
-   const [selectedAccount, setSelected] = useState()
    const [selectedName, setSelectedName] = useState()
 
-   // const [totalBal, setShowTotalBal] = useState()
-   // const [highestBal, setHighestBal] = useState()
-   // const [lowestBal, setLowestBal] = useState()
-   // const [showAllAccts, setShowAllAccts] = useState()
+   // const [message, setMessage] = useState('')
 
-   // useEffect(() => {
+   const [addMessage, setAddMessage] = useState('')
+   const [editMsg, setEditMsg] = useState('')
 
-   //    console.log('useEffect: general')
-   // })
+   const [totalBal, setShowTotalBal] = useState()
+   const [highestBal, setHighestBal] = useState()
+   const [lowestBal, setLowestBal] = useState()
 
-   // componentDidUpdate(){
-
-   // }
+   useEffect(() => {
+      console.log('useEffect: general')
+   })
 
    function addAccount(accToAdd) {
       accountsCtrl.addAccount(accToAdd)
 
-      // setShowTotalBal(accountsCtrl.totalBalance())
-      // setHighestBal(accountsCtrl.highestAccount())
-      // setLowestBal(accountsCtrl.lowestAccount())
-      // setShowAllAccts(accountsCtrl.showAll())
+      setShowTotalBal(accountsCtrl.totalBalance())
+      setHighestBal(accountsCtrl.highestAccount())
+      setLowestBal(accountsCtrl.lowestAccount())
    }
 
-   function getSelectedAccount(key) {
-      setSelected(accountsCtrl.getAccountByKey(key))
-      console.log(selectedAccount)
+   function getAccountNameByKey(key) {
+      setSelectedName(accountsCtrl.getAccountNameByKey(key))
    }
 
-   // function getAccountNameByKey(key) {
-   //    setSelectedName(accountsCtrl.getAccountNameByKey(key))
-   //    console.log(selectedName)
-   // }
-
-   function deleteAccount(accNameToDelete) {
-      accountsCtrl.removeAccount(accNameToDelete)
+   function deleteAccount(nameToDelete) {
+      accountsCtrl.removeAccount(nameToDelete)
    }
 
-   function userMsg(msg) {
-      setMessage({ text: msg })
+   function userAddMsg(msg) {
+      setAddMessage({ text: msg })
+
+   }
+
+   function userEditMsg(msg) {
+      setEditMsg({ text: msg })
    }
 
    return (
       <div className='container'>
          <h1 id='header'>Banking with Uranka</h1>
          <CreateAccount
-            account={account}
+            accountDefaults={accountDefaults}
             acctCtrl={accountsCtrl}
             add={addAccount}
-            userMsg={userMsg}
-            message={message.text}
-            checkMsg={accountsCtrl.msg}
+            userAddMsg={userAddMsg}
+            addMessage={addMessage.text}
          />
          <AccCtrl
+            acctCtrl={accountsCtrl}
             accounts={accounts}
-            userMsg={userMsg}
-            message={message.text}
+            userEditMsg={userEditMsg}
+            editMsg={editMsg.text}
 
-            getSelectedAccount={getSelectedAccount}
-            selectedAccount={selectedAccount}
-
-            // toGetTheName={getAccountNameByKey}
-            // getName={selectedName}
-
+            getTheName={getAccountNameByKey}
+            theName={selectedName}
             delete={deleteAccount}
          // deposit={deposit}
          // withdraw={withDraw}
          // rename={renameAccount}
          />
          <Summary
-         // totalStuff={totalBal}
-         // highestStuff={highestBal}
-         // lowestStuff={lowestBal}
-         // showAllAccts={showAllAccts}
+            accounts={accounts}
+            totalStuff={totalBal}
+            highestStuff={highestBal}
+            lowestStuff={lowestBal}
          />
       </div>
    )

@@ -73,5 +73,15 @@ label{
     display: inline-block;
 }
 
+ul.showAllUl{
+    list-style: none;
+    padding-left: 0px;
+    margin-block-start:0px;
+    margin-block-end: 0px;
+}
+
+#item{
+    padding: 5px;
+}
 
 

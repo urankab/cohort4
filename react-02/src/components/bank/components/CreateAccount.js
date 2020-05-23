@@ -1,7 +1,7 @@
 import React from 'react'
 
 function CreateAccount(props) {
-   const account = props.account;
+   const account = props.accountDefaults;
 
    function focusElement(name) {
       const el = document.querySelector(`[name=${name}]`);
@@ -40,10 +40,10 @@ function CreateAccount(props) {
             throw new Error('Please enter an amount greater than 0');
          }
          props.add(AccountToAdd);
-         props.userMsg(`Created ${AccountToAdd.accountName} account`);
+         props.userAddMsg(`Created ${AccountToAdd.accountName} account`);
 
       } catch (e) {
-         props.userMsg(e.message, "error");
+         props.userAddMsg(e.message, "error");
       }
       e.preventDefault();
    }
@@ -63,7 +63,7 @@ function CreateAccount(props) {
                <br></br>
                <button className='btn' id='createBtn' onClick={onAdd}>
                   Create Account</button>
-               <p name='addMsg' id='addMsg' label='addmsg' className='msg'>{props.message}</p>
+               <p name='addMsg' id='addMsg' label='addmsg' className='msg'>{props.addMessage}</p>
             </form>
          </div>
       </div>

@@ -35,6 +35,7 @@ export class AccountController {
     constructor() {
         this.accounts = {}
         this.lastKey = 0;
+        this.selectedName = ''
     }
 
     getDefaults() {
@@ -45,9 +46,22 @@ export class AccountController {
         return this.accounts[key]
     }
 
+    // getAccountNameByKey(thekey) {
+    //     for (let key in this.accounts) {
+    //         console.log(thekey)
+    //         if (Number(thekey) === this.accounts[key].key) {
+    //             // this.selectedName = this.accounts[key].accountName
+    //             // console.log(this.accounts[key].accountName)
+    //             return this.accounts[key].accountName
+    //         } else {
+    //             return `fail: ${this.accounts[key].key}`
+    //         }
+    //     }
+    // }
+
     getAccountNameByKey(thekey) {
         for (let key in this.accounts) {
-            if (thekey === this.accounts[key].key) {
+            if ((Number(thekey) === this.accounts[key].key)) {
                 return this.accounts[key].accountName
             }
         }
@@ -80,51 +94,65 @@ export class AccountController {
         }
     }
 
-    // renameAccount(accountName, newName) {
-    //     for (let i = 0; i < this.accArray.length; i++) {
-    //         if (accountName === this.accArray[i].accountName) {
-    //             this.accArray[i].accountName = newName;
-    //         }
-    //     }
-    // }
+    renameAccount(accountName, newName) {
+        for (let key in this.accounts) {
+            if (accountName === this.accounts[key].accountName) {
+                this.accounts[key].accountName = newName;
+            }
+        }
+    }
 
-    // totalBalance() {
-    //     let total = 0;
-    //     for (let i = 0; i < this.accArray.length; i++) {
-    //         total += Number(this.accArray[i].balance);
-    //     }
-    //     return `$${total}`;
-    // }
+    totalBalance() {
+        let total = 0
+        for (let key in this.accounts) {
+            total += Number(this.accounts[key].balance)
+        }
+        return `$${total}`
+    }
 
-    // highestAccount() {
-    //     let highestBal = 0;
-    //     let highestName;
-    //     for (let i = 0; i < this.accArray.length; i++) {
-    //         if (this.accArray[i].balance > highestBal) {
-    //             let currentName = this.accArray[i].accountName;
-    //             highestBal = Number(this.accArray[i].balance);
-    //             highestName = currentName;
-    //         }
-    //     }
-    //     return `${highestName} - $${highestBal}`
-    // }
+    highestAccount() {
+        let highestBal = 0;
+        let highestName;
+        for (let key in this.accounts) {
+            if (this.accounts[key].balance > highestBal) {
+                let currentName = this.accounts[key].accountName;
+                highestBal = Number(this.accounts[key].balance);
+                highestName = currentName;
+            }
+        }
+        return `${highestName} - $${highestBal}`
+    }
 
-    // lowestAccount() {
-    //     let lowest = Number.POSITIVE_INFINITY;
-    //     let lowestName;
-    //     for (let i = this.accArray.length - 1; i >= 0; i--) {
-    //         let currentName = this.accArray[i].accountName;
-    //         let currentBal = Number(this.accArray[i].balance);
-    //         if (currentBal < lowest) {
-    //             lowestName = currentName;
-    //             lowest = currentBal;
-    //         }
-    //     }
-    //     return `${lowestName} - $${lowest}`
-    // }
+    lowestAccount() {
+        let lowest = Number.POSITIVE_INFINITY;
+        let lowestName;
+        for (let key in this.accounts) {
+            let currentName = this.accounts[key].accountName;
+            let currentBal = Number(this.accounts[key].balance);
+            if (currentBal < lowest) {
+                lowestName = currentName;
+                lowest = currentBal;
+            }
+        }
+        return `${lowestName} - $${lowest}`
+    }
 
+    showAll() {
+        let stuff = ''
+        for (let key in this.accounts) {
+            stuff += `${this.accounts[key].accountName} - $${this.accounts[key].balance}\n`
+        }
+        return stuff;
+    }
+
+    //Works - prints on next
     // showAll() {
-    //     return this.accArray.map((f) => ` ${f.accountName} - $${f.balance} `);
+    //     let str = '';
+    //     for (let key in this.accounts) {
+    //         const { accountName, balance } = this.accounts[key];
+    //         str += `Name: ${accountName} Balance:  ${balance} \n`;
+    //     }
+    //     return str;
     // }
 }
 
