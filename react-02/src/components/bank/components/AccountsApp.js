@@ -25,12 +25,15 @@ function AccountsApp() {
       console.log('useEffect: general')
    })
 
-   function addAccount(accToAdd) {
-      accountsCtrl.addAccount(accToAdd)
-
+   function updateSummary() {
       setShowTotalBal(accountsCtrl.totalBalance())
       setHighestBal(accountsCtrl.highestAccount())
       setLowestBal(accountsCtrl.lowestAccount())
+   }
+
+   function addAccount(accToAdd) {
+      accountsCtrl.addAccount(accToAdd)
+      updateSummary()
    }
 
    function getAccountNameByKey(key) {
@@ -39,6 +42,7 @@ function AccountsApp() {
 
    function deleteAccount(nameToDelete) {
       accountsCtrl.removeAccount(nameToDelete)
+      updateSummary()
    }
 
    function userAddMsg(msg) {

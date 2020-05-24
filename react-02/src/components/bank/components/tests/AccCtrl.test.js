@@ -30,32 +30,15 @@ test('Test dropdown for accounts', () => {
 
    click('Kitty - $100')
 
-   // click('Delete Account')
+   click('Delete Account')
+   expect(mockDeleteCallBack.mock.calls.length).toBe(1)
 
-   screen.debug()
+   // screen.debug()
 
    //getByDisplayValue shows selected value of select dropdwon
    //screen.getByDisplayValue('House - $100')
 
 })
-
-// test('Test dropdown for accounts', () => {
-//    const mockAccounts = {
-//       1: { accountName: 'House', balance: 100, key: '0' },
-//       2: { accountName: 'Cats', balance: 1000, key: '1' }
-//    }
-
-//    render(<AccCtrl
-//       accounts={mockAccounts}
-//    />)
-
-//    screen.getByText('House - $100')
-//    screen.getByText('Cats - $1000')
-
-//    //getByDisplayValue shows selected value of select dropdwon
-//    //screen.getByDisplayValue('House - $100')
-
-// })
 
 function getValue(name) {
    return document.querySelector(`[name=${name}]`).value

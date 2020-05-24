@@ -1,15 +1,14 @@
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import CreateAccount from '../CreateAccount'
-import funcs from '../../business/functions'
+import { Account, AccountController } from '../../business/functions'
 
 test('Test the Create Account form', () => {
-   const acctCtrl = new funcs.AccountController()
+   const acctCtrl = new AccountController()
    const account = acctCtrl.getDefaults()
 
    const mockAddCallBack = jest.fn()
    const mockMsgCallBack = jest.fn()
-   const mockMsgTxtCallBack = ''
 
    //Creating default values for an account
    account.accountName = 'House'
@@ -19,9 +18,7 @@ test('Test the Create Account form', () => {
    render(<CreateAccount
       add={mockAddCallBack}
       account={account}
-
-      userMsg={mockMsgCallBack}
-      message={mockMsgTxtCallBack}
+      userAddMsg={mockMsgCallBack}
    />)
 
    //Check that the names rendered to the input text defaultValue
@@ -40,7 +37,7 @@ test('Test the Create Account form', () => {
 })
 
 test('Test validation of the form', () => {
-   const acctCtrl = new funcs.AccountController()
+   const acctCtrl = new AccountController()
    const account = acctCtrl.getDefaults()
    const accounts = acctCtrl.accounts
 
@@ -51,7 +48,7 @@ test('Test validation of the form', () => {
       add={mockAddCallBack}
       account={account}
       accounts={accounts}
-      userMsg={mockMsgCallBack}
+      userAddMsg={mockMsgCallBack}
    />)
 
    click('Create Account')

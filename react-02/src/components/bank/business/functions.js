@@ -107,7 +107,8 @@ export class AccountController {
         for (let key in this.accounts) {
             total += Number(this.accounts[key].balance)
         }
-        return `$${total}`
+        if (this.checkLength() > 0)
+            return `$${total}`
     }
 
     highestAccount() {
@@ -120,7 +121,8 @@ export class AccountController {
                 highestName = currentName;
             }
         }
-        return `${highestName} - $${highestBal}`
+        if (this.checkLength() > 0)
+            return `${highestName} - $${highestBal}`
     }
 
     lowestAccount() {
@@ -134,7 +136,8 @@ export class AccountController {
                 lowest = currentBal;
             }
         }
-        return `${lowestName} - $${lowest}`
+        if (this.checkLength() > 0)
+            return `${lowestName} - $${lowest}`
     }
 
     showAll() {
@@ -144,17 +147,4 @@ export class AccountController {
         }
         return stuff;
     }
-
-    //Works - prints on next
-    // showAll() {
-    //     let str = '';
-    //     for (let key in this.accounts) {
-    //         const { accountName, balance } = this.accounts[key];
-    //         str += `Name: ${accountName} Balance:  ${balance} \n`;
-    //     }
-    //     return str;
-    // }
 }
-
-// export default { Account, AccountController }
-
