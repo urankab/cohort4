@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 function AccCtrl(props) {
    let list;
@@ -6,7 +6,7 @@ function AccCtrl(props) {
       list = Object.keys(props.accounts).map(k => {
          const a = props.accounts[k]
          return (
-            <option key={a.key} mykey={a.key} onClick={onClickName}>
+            <option key={a.key} mykey={a.key} onClick={onClickName} value={a.accountName}>
                {a.accountName} - ${a.balance}
             </option>
          )
@@ -14,10 +14,8 @@ function AccCtrl(props) {
    }
 
    function onDelete() {
-      console.log(props.accounts)
       props.delete(props.theName)
-      props.userEditMsg(`Delete ${props.theName}`)
-      console.log(props.accounts)
+      props.userMsg(`Delete ${props.theName}`)
    }
 
    function onClickName(e) {
@@ -30,7 +28,7 @@ function AccCtrl(props) {
       <div id='box2'>
          <h2 className='boxHeader'>Edit an Account</h2>
          <div className='innerDiv'>
-            <p className='msg'>{props.editMsg}</p>
+            <p className='msg'>{props.message}</p>
             <label id='selectLabel' htmlFor='dropdown'>Select Account: </label>
             <select id='dropdown' multiple={true}>
                {list}

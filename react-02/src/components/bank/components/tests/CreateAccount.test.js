@@ -9,6 +9,8 @@ test('Test the Create Account form', () => {
 
    const mockAddCallBack = jest.fn()
    const mockMsgCallBack = jest.fn()
+   const mockCheckNameCallBack = jest.fn()
+   const mockMsgTxtCallBack = ''
 
    //Creating default values for an account
    account.accountName = 'House'
@@ -18,7 +20,9 @@ test('Test the Create Account form', () => {
    render(<CreateAccount
       add={mockAddCallBack}
       account={account}
-      userAddMsg={mockMsgCallBack}
+      userMsg={mockMsgCallBack}
+      checkName={mockCheckNameCallBack}
+      message={mockMsgTxtCallBack}
    />)
 
    //Check that the names rendered to the input text defaultValue
@@ -43,12 +47,14 @@ test('Test validation of the form', () => {
 
    const mockAddCallBack = jest.fn()
    const mockMsgCallBack = jest.fn()
+   const mockCheckNameCallBack = jest.fn()
 
    render(<CreateAccount
+      checkName={mockCheckNameCallBack}
       add={mockAddCallBack}
       account={account}
       accounts={accounts}
-      userAddMsg={mockMsgCallBack}
+      userMsg={mockMsgCallBack}
    />)
 
    click('Create Account')

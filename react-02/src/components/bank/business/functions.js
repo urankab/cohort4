@@ -46,19 +46,6 @@ export class AccountController {
         return this.accounts[key]
     }
 
-    // getAccountNameByKey(thekey) {
-    //     for (let key in this.accounts) {
-    //         console.log(thekey)
-    //         if (Number(thekey) === this.accounts[key].key) {
-    //             // this.selectedName = this.accounts[key].accountName
-    //             // console.log(this.accounts[key].accountName)
-    //             return this.accounts[key].accountName
-    //         } else {
-    //             return `fail: ${this.accounts[key].key}`
-    //         }
-    //     }
-    // }
-
     getAccountNameByKey(thekey) {
         for (let key in this.accounts) {
             if ((Number(thekey) === this.accounts[key].key)) {

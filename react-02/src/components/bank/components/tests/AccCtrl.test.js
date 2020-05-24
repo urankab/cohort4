@@ -20,6 +20,7 @@ test('Test dropdown for accounts', () => {
    render(<AccCtrl
       accounts={accounts}
       selectedName={selectedName}
+
       userMsg={mockUserMsgCallBack}
       getTheName={mockGetTheName}
       delete={mockDeleteCallBack}
@@ -32,12 +33,6 @@ test('Test dropdown for accounts', () => {
 
    click('Delete Account')
    expect(mockDeleteCallBack.mock.calls.length).toBe(1)
-
-   // screen.debug()
-
-   //getByDisplayValue shows selected value of select dropdwon
-   //screen.getByDisplayValue('House - $100')
-
 })
 
 function getValue(name) {

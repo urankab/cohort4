@@ -7,15 +7,12 @@ import Summary from './Summary';
 function AccountsApp() {
    const accCtrl = new AccountController();
    const [accountsCtrl] = useState(accCtrl)
-   const [accountDefaults] = useState(accountsCtrl.getDefaults())
+   const [account] = useState(accountsCtrl.getDefaults())
    const [accounts] = useState(accountsCtrl.accounts)
 
    const [selectedName, setSelectedName] = useState()
-
-   // const [message, setMessage] = useState('')
-
-   const [addMessage, setAddMessage] = useState('')
-   const [editMsg, setEditMsg] = useState('')
+   const [duplicateName, setDupName] = useState()
+   const [message, setMessage] = useState('')
 
    const [totalBal, setShowTotalBal] = useState()
    const [highestBal, setHighestBal] = useState()
@@ -29,6 +26,10 @@ function AccountsApp() {
       setShowTotalBal(accountsCtrl.totalBalance())
       setHighestBal(accountsCtrl.highestAccount())
       setLowestBal(accountsCtrl.lowestAccount())
+   }
+
+   function plzCheckName(name) {
+      accountsCtrl.checkName(name)
    }
 
    function addAccount(accToAdd) {
@@ -45,30 +46,26 @@ function AccountsApp() {
       updateSummary()
    }
 
-   function userAddMsg(msg) {
-      setAddMessage({ text: msg })
-
-   }
-
-   function userEditMsg(msg) {
-      setEditMsg({ text: msg })
+   function userMsg(msg) {
+      setMessage({ text: msg })
    }
 
    return (
       <div className='container'>
          <h1 id='header'>Banking with Uranka</h1>
          <CreateAccount
-            accountDefaults={accountDefaults}
+            account={account}
             acctCtrl={accountsCtrl}
+            checkName={plzCheckName}
             add={addAccount}
-            userAddMsg={userAddMsg}
-            addMessage={addMessage.text}
+            duplicateName={duplicateName}
+            userMsg={userMsg}
+            message={message.text}
          />
          <AccCtrl
             acctCtrl={accountsCtrl}
             accounts={accounts}
-            userEditMsg={userEditMsg}
-            editMsg={editMsg.text}
+            userMsg={userMsg}
 
             getTheName={getAccountNameByKey}
             theName={selectedName}

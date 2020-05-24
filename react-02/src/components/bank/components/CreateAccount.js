@@ -1,7 +1,7 @@
 import React from 'react'
 
 function CreateAccount(props) {
-   const account = props.accountDefaults;
+   const account = props.account;
 
    function focusElement(name) {
       const el = document.querySelector(`[name=${name}]`);
@@ -25,7 +25,12 @@ function CreateAccount(props) {
             throw new Error('Please enter an account name');
          }
 
-         if (props.acctCtrl.checkName(AccountToAdd.accountName)) {
+         // if (props.acctCtrl.checkName(AccountToAdd.accountName)) {
+         //    focusElement('accountName');
+         //    throw new Error('Account name already exists');
+         // }
+
+         if (props.checkName(AccountToAdd.accountName)) {
             focusElement('accountName');
             throw new Error('Account name already exists');
          }
@@ -40,10 +45,10 @@ function CreateAccount(props) {
             throw new Error('Please enter an amount greater than 0');
          }
          props.add(AccountToAdd);
-         props.userAddMsg(`Created ${AccountToAdd.accountName} account`);
+         props.userMsg(`Created ${AccountToAdd.accountName} account`);
 
       } catch (e) {
-         props.userAddMsg(e.message, "error");
+         props.userMsg(e.message, "error");
       }
       e.preventDefault();
    }
@@ -63,7 +68,7 @@ function CreateAccount(props) {
                <br></br>
                <button className='btn' id='createBtn' onClick={onAdd}>
                   Create Account</button>
-               <p name='addMsg' id='addMsg' label='addmsg' className='msg'>{props.addMessage}</p>
+               <p name='addMsg' id='addMsg' label='addmsg' className='msg'>{props.message}</p>
             </form>
          </div>
       </div>
