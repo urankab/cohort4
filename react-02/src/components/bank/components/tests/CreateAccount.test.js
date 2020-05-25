@@ -41,7 +41,7 @@ test('Test the Create Account form', () => {
 })
 
 test('Test validation of the form', () => {
-   const acctCtrl = new AccountController()
+   let acctCtrl = new AccountController()
    const account = acctCtrl.getDefaults()
    const accounts = acctCtrl.accounts
 
@@ -63,6 +63,7 @@ test('Test validation of the form', () => {
    expect(getValue('accountName')).toBe('')
    expect(getValue('balance')).toBe('')
 
+   expect(mockCheckNameCallBack.mock.calls.length).toBe(0)
    expect(mockAddCallBack.mock.calls.length).toBe(0)
    expect(mockMsgCallBack.mock.calls.length).toBe(1)
    expect(mockMsgCallBack.mock.calls[0][0]).toMatch(/Please enter an account name/)
@@ -70,6 +71,7 @@ test('Test validation of the form', () => {
    updateValue('accountName', 'House')
    click('Create Account')
 
+   expect(mockCheckNameCallBack.mock.calls.length).toBe(1)
    expect(getValue('accountName')).toBe('House')
    expect(mockAddCallBack.mock.calls.length).toBe(0)
    expect(mockMsgCallBack.mock.calls.length).toBe(2)
@@ -78,6 +80,7 @@ test('Test validation of the form', () => {
    updateValue('balance', '100')
    click('Create Account')
 
+   expect(mockCheckNameCallBack.mock.calls.length).toBe(2)
    expect(mockAddCallBack.mock.calls.length).toBe(1)
    expect(mockMsgCallBack.mock.calls.length).toBe(3)
    expect(mockMsgCallBack.mock.calls[2][0]).toMatch(/Created House account/)
@@ -85,7 +88,20 @@ test('Test validation of the form', () => {
    const fakeAccount = mockAddCallBack.mock.calls[0][0]
    expect(fakeAccount.accountName).toBe('House')
    expect(fakeAccount.balance).toBe('100')
+
+   updateValue('accountName', 'House')
+   updateValue('balance', '100')
+
+   expect(getValue('accountName')).toBe('House')
+   expect(getValue('balance')).toBe('100')
+
+   click('Create Account')
+
+   expect(mockCheckNameCallBack.mock.calls.length).toBe(3)
+   expect(mockAddCallBack.mock.calls.length).toBe(2)
+   expect(mockMsgCallBack.mock.calls.length).toBe(4)
 })
+
 
 function getValue(name) {
    return document.querySelector(`[name=${name}]`).value

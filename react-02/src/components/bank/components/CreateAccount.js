@@ -25,15 +25,21 @@ function CreateAccount(props) {
             throw new Error('Please enter an account name');
          }
 
+         //Causes errors in testing
          // if (props.acctCtrl.checkName(AccountToAdd.accountName)) {
          //    focusElement('accountName');
          //    throw new Error('Account name already exists');
          // }
 
-         if (props.checkName(AccountToAdd.accountName)) {
-            focusElement('accountName');
-            throw new Error('Account name already exists');
-         }
+         //Return is 1 late
+         // if (AccountToAdd != '') {
+         //    props.checkName(AccountToAdd.accountName)
+         //    if (props.checkedName) {
+         //       console.log('trycatch' + AccountToAdd.accountName)
+         //       focusElement('accountName');
+         //       throw new Error(`${AccountToAdd.accountName} already exists`);
+         //    }
+         // }
 
          if (!AccountToAdd.balance) {
             focusElement('balance');

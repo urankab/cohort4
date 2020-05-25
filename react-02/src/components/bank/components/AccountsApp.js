@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import AccCtrl from './AccCtrl'
 import CreateAccount from './CreateAccount'
 import { Account, AccountController } from '../business/functions'
@@ -6,21 +6,20 @@ import Summary from './Summary';
 
 function AccountsApp() {
    const accCtrl = new AccountController();
+   const acc = new Account()
+
    const [accountsCtrl] = useState(accCtrl)
    const [account] = useState(accountsCtrl.getDefaults())
    const [accounts] = useState(accountsCtrl.accounts)
 
    const [selectedName, setSelectedName] = useState()
-   const [duplicateName, setDupName] = useState()
-   const [message, setMessage] = useState('')
+   const [selectedAccount, setSelectedAccount] = useState()
+   const [editMsg, setEditMessage] = useState('')
 
+   const [message, setMessage] = useState('')
    const [totalBal, setShowTotalBal] = useState()
    const [highestBal, setHighestBal] = useState()
    const [lowestBal, setLowestBal] = useState()
-
-   useEffect(() => {
-      console.log('useEffect: general')
-   })
 
    function updateSummary() {
       setShowTotalBal(accountsCtrl.totalBalance())
@@ -28,26 +27,54 @@ function AccountsApp() {
       setLowestBal(accountsCtrl.lowestAccount())
    }
 
-   function plzCheckName(name) {
-      accountsCtrl.checkName(name)
+   function userMsg(msg) {
+      setMessage({ text: msg })
+   }
+
+   function userEditMsg(msg) {
+      setEditMessage({ text: msg })
    }
 
    function addAccount(accToAdd) {
-      accountsCtrl.addAccount(accToAdd)
-      updateSummary()
+      if (accountsCtrl.checkName(accToAdd.accountName)) {
+         userMsg('Test')
+         console.log('caught dup')
+      }
+      else {
+         accountsCtrl.addAccount(accToAdd)
+         console.log(accounts)
+         updateSummary()
+      }
    }
 
    function getAccountNameByKey(key) {
       setSelectedName(accountsCtrl.getAccountNameByKey(key))
    }
 
-   function deleteAccount(nameToDelete) {
-      accountsCtrl.removeAccount(nameToDelete)
+   function getAccountByKey(key) {
+      setSelectedAccount(accountsCtrl.getAccountByKey(key))
+   }
+
+   function withdraw(amount) {
+      console.log(selectedAccount)
+      acc.withdraw(amount)
       updateSummary()
    }
 
-   function userMsg(msg) {
-      setMessage({ text: msg })
+   function deposit(amount) {
+      console.log(selectedAccount)
+      acc.deposit(amount)
+      updateSummary()
+   }
+
+   function rename(selectedName, newName) {
+      accountsCtrl.renameAccount(selectedName, newName)
+      updateSummary()
+   }
+
+   function deleteAccount(nameToDelete) {
+      accountsCtrl.removeAccount(nameToDelete)
+      updateSummary()
    }
 
    return (
@@ -56,9 +83,11 @@ function AccountsApp() {
          <CreateAccount
             account={account}
             acctCtrl={accountsCtrl}
-            checkName={plzCheckName}
+
+            userEditMsg={userEditMsg}
+            editMsg={editMsg.text}
+
             add={addAccount}
-            duplicateName={duplicateName}
             userMsg={userMsg}
             message={message.text}
          />
@@ -66,13 +95,19 @@ function AccountsApp() {
             acctCtrl={accountsCtrl}
             accounts={accounts}
             userMsg={userMsg}
+            message={message.text}
+
+            userEditMsg={userEditMsg}
+            editMsg={editMsg.text}
 
             getTheName={getAccountNameByKey}
+            getAccByKey={getAccountByKey}
             theName={selectedName}
+
+            withdraw={withdraw}
+            deposit={deposit}
+            rename={rename}
             delete={deleteAccount}
-         // deposit={deposit}
-         // withdraw={withDraw}
-         // rename={renameAccount}
          />
          <Summary
             accounts={accounts}

@@ -11,6 +11,10 @@ test('Test dropdown for accounts', () => {
    const mockUserMsgCallBack = jest.fn()
    const mockGetTheName = jest.fn()
    const mockDeleteCallBack = jest.fn()
+   const mockDepositCallBack = jest.fn()
+   const mockRenameCallBack = jest.fn()
+   const mockAccByKeyCallBack = jest.fn()
+   const mockTest = jest.fn()
 
    acctCtrl.addAccount({ accountName: 'Kitty', balance: 100 })
    acctCtrl.addAccount({ accountName: 'Doggy', balance: 10 })
@@ -23,16 +27,31 @@ test('Test dropdown for accounts', () => {
 
       userMsg={mockUserMsgCallBack}
       getTheName={mockGetTheName}
+      getAccByKey={mockAccByKeyCallBack}
+      deposit={mockDepositCallBack}
       delete={mockDeleteCallBack}
+      rename={mockRenameCallBack}
+
+      test={mockTest}
    />)
 
    screen.getByText('Kitty - $100')
    screen.getByText('Doggy - $10')
 
    click('Kitty - $100')
+   expect(mockTest.mock.calls.length).toBe(1)
+   expect(mockAccByKeyCallBack.mock.calls.length).toBe(1)
+   expect(mockGetTheName.mock.calls.length).toBe(1)
+   expect(mockUserMsgCallBack.mock.calls.length).toBe(0)
 
    click('Delete Account')
    expect(mockDeleteCallBack.mock.calls.length).toBe(1)
+   expect(mockUserMsgCallBack.mock.calls.length).toBe(1)
+
+   click('Change Name')
+   expect(mockAccByKeyCallBack.mock.calls.length).toBe(1)
+   expect(mockGetTheName.mock.calls.length).toBe(1)
+
 })
 
 function getValue(name) {
