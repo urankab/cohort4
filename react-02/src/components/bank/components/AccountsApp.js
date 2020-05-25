@@ -6,13 +6,11 @@ import Summary from './Summary';
 
 function AccountsApp() {
    const accCtrl = new AccountController();
-   const acc = new Account()
 
    const [accountsCtrl] = useState(accCtrl)
    const [account] = useState(accountsCtrl.getDefaults())
    const [accounts] = useState(accountsCtrl.accounts)
 
-   const [selectedName, setSelectedName] = useState()
    const [selectedAccount, setSelectedAccount] = useState()
    const [editMsg, setEditMessage] = useState('')
 
@@ -47,28 +45,30 @@ function AccountsApp() {
       }
    }
 
-   function getAccountNameByKey(key) {
-      setSelectedName(accountsCtrl.getAccountNameByKey(key))
-   }
+   // function getAccountNameByKey(key) {
+   //    setSelectedName(accountsCtrl.getAccountNameByKey(key))
+   // }
 
    function getAccountByKey(key) {
       setSelectedAccount(accountsCtrl.getAccountByKey(key))
    }
 
-   function withdraw(amount) {
-      console.log(selectedAccount)
-      acc.withdraw(amount)
-      updateSummary()
-   }
+   // function withdraw(amount) {
+   //    console.log(selectedAccount)
+   //    acc.withdraw(amount)
+   //    updateSummary()
+   // }
 
    function deposit(amount) {
+      console.log(amount)
       console.log(selectedAccount)
-      acc.deposit(amount)
+      // accountsCtrl.selectedAccount.deposit(amount)
       updateSummary()
    }
 
    function rename(selectedName, newName) {
       accountsCtrl.renameAccount(selectedName, newName)
+      console.log(accounts)
       updateSummary()
    }
 
@@ -94,17 +94,17 @@ function AccountsApp() {
          <AccCtrl
             acctCtrl={accountsCtrl}
             accounts={accounts}
+
             userMsg={userMsg}
             message={message.text}
 
             userEditMsg={userEditMsg}
             editMsg={editMsg.text}
 
-            getTheName={getAccountNameByKey}
             getAccByKey={getAccountByKey}
-            theName={selectedName}
+            theAccount={selectedAccount}
 
-            withdraw={withdraw}
+            // withdraw={withdraw}
             deposit={deposit}
             rename={rename}
             delete={deleteAccount}
