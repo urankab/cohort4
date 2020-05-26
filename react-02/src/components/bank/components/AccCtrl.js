@@ -32,12 +32,15 @@ function AccCtrl(props) {
    // }
 
    function onDelete() {
-      // if (selectedName) {
-      //    props.delete(selectedName)
-      //    props.userEditMsg(`Deleted ${selectedName}`)
-      // } else {
-      //    props.userEditMsg('Select account to delete')
-      // }
+      let e = document.getElementById('dropdown')
+      let value = e.options[e.selectedIndex].value
+      if (value != '') {
+         props.delete(value)
+         props.userEditMsg(`Deleted ${value}`)
+      }
+      else {
+         props.userEditMsg('Select account to delete')
+      }
    }
 
    function onRename() {
@@ -71,8 +74,8 @@ function AccCtrl(props) {
             <input
                type='number' className='input' id='amount'></input>
             <br></br>
-            <button className='btn'>Deposit</button>
-            <button className='btn'>Withdraw</button>
+            <button className='btn' id='depBtn'>Deposit</button>
+            <button className='btn' id='withdrawBtn'>Withdraw</button>
             <br></br>
             <label htmlFor='renameField'>New Name: </label>
             <input type='text' className='input' id='renameField'></input>

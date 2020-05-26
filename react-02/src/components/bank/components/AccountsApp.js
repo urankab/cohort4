@@ -12,9 +12,10 @@ function AccountsApp() {
    const [accounts] = useState(accountsCtrl.accounts)
 
    const [selectedAccount, setSelectedAccount] = useState()
-   const [editMsg, setEditMessage] = useState('')
 
+   const [editMsg, setEditMessage] = useState('')
    const [message, setMessage] = useState('')
+
    const [totalBal, setShowTotalBal] = useState()
    const [highestBal, setHighestBal] = useState()
    const [lowestBal, setLowestBal] = useState()
