@@ -6,6 +6,7 @@ export class Account {
 
         this.accountName = data.accountName;
         this.balance = data.balance;
+        // this.balance = Number(data.balance);
         this.key = data.key;
     }
 
@@ -38,10 +39,6 @@ export class AccountController {
         this.selectedName = ''
     }
 
-    getDefaults() {
-        return new Account({})
-    }
-
     getAccountByKey(key) {
         return this.accounts[key]
     }
@@ -50,6 +47,14 @@ export class AccountController {
         for (let key in this.accounts) {
             if ((Number(thekey) === this.accounts[key].key)) {
                 return this.accounts[key].accountName
+            }
+        }
+    }
+
+    getKeyByName(name) {
+        for (let key in this.accounts) {
+            if (name === this.accounts[key].accountName) {
+                return this.accounts[key].key
             }
         }
     }
@@ -67,23 +72,28 @@ export class AccountController {
         return false;
     }
 
-    addAccount(account) {
-        this.lastKey++
-        account.key = this.lastKey;
-        this.accounts[account.key] = account
+    getDefaults() {
+        return new Account({})
     }
 
-    removeAccount(nameToDelete) {
+    addAccount(account) {
+        this.lastKey++
+        account.key = this.lastKey
+        account.balance = Number(account.balance)
+        this.accounts[account.key] = new Account(account)
+    }
+
+    removeAccount(thekey) {
         for (let key in this.accounts) {
-            if (nameToDelete === this.accounts[key].accountName) {
+            if ((Number(thekey)) === this.accounts[key].key) {
                 delete this.accounts[key]
             }
         }
     }
 
-    renameAccount(accountName, newName) {
+    renameAccount(thekey, newName) {
         for (let key in this.accounts) {
-            if (accountName === this.accounts[key].accountName) {
+            if ((Number(thekey)) === this.accounts[key].key) {
                 this.accounts[key].accountName = newName;
             }
         }

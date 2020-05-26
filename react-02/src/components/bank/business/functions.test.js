@@ -80,26 +80,24 @@ test('Test delete/rename an Account works', () => {
     acc.addAccount({ accountName: 'Jiggly Puff', balance: 10 });
     acc.addAccount({ accountName: 'Cream Puff', balance: 10 });
     acc.addAccount({ accountName: 'Jello', balance: 10 });
-    acc.removeAccount('Jiggly Puff')
+
+    acc.removeAccount(1)
     expect(acc.checkLength()).toBe(2)
-    expect(acc.checkName('Cream Puff')).toBe(true)
-    expect(acc.checkName('Jiggly Puff')).toBe(false)
+    expect(acc.showAll()).toContain('Cream Puff - $10\nJello - $10')
 
-    expect(acc.getAccountNameByKey(2)).toBe('Cream Puff')
-    // acc.getAccountNameByKey(2)
-    // expect(acc.selectedName).toBe('Cream Puff')
+    acc.renameAccount(2, 'HEY!')
+    expect(acc.getAccountByKey(2)).toEqual({ "accountName": "HEY!", "balance": 10, "key": 2 })
+    expect(acc.getKeyByName('HEY!')).toBe(2)
+})
 
-    acc.renameAccount('Cream Puff', 'Ghosts')
-    expect(acc.accounts[2].accountName).toBe('Ghosts')
-    expect(acc.getAccountNameByKey(2)).toBe('Ghosts')
-
-    // acc.getAccountNameByKey(2)
-    // expect(acc.selectedName).toBe('Ghosts')
-    // acc.removeAccount(acc.selectedName)
-
-    // expect(acc.checkLength()).toBe(1)
-    // expect(acc.accounts).toEqual({ "3": { "accountName": "Jello", "balance": 10, "key": 3 } })
-    // console.log(acc.accounts)
+test('Depositing and withdrawing to accounts', () => {
+    const acc = new AccountController();
+    acc.addAccount({ accountName: 'Jiggly Puff', balance: 10 });
+    acc.getAccountByKey(1).deposit(100)
+    expect(acc.getAccountByKey(1)).toEqual({ "accountName": "Jiggly Puff", "balance": 110, "key": 1 })
+    acc.getAccountByKey(1).withdraw(15)
+    expect(acc.getAccountByKey(1)).toEqual({ "accountName": "Jiggly Puff", "balance": 95, "key": 1 })
+    expect((acc.accounts[1]).balance).toBe(95)
 })
 
 test('Test getting total of all accounts', () => {

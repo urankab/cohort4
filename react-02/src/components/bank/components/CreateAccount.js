@@ -20,26 +20,11 @@ function CreateAccount(props) {
       }
 
       try {
+
          if (!AccountToAdd.accountName) {
             focusElement('accountName');
             throw new Error('Please enter an account name');
          }
-
-         //Causes errors in testing
-         // if (props.acctCtrl.checkName(AccountToAdd.accountName)) {
-         //    focusElement('accountName');
-         //    throw new Error('Account name already exists');
-         // }
-
-         //Return is 1 late
-         // if (AccountToAdd != '') {
-         //    props.checkName(AccountToAdd.accountName)
-         //    if (props.checkedName) {
-         //       console.log('trycatch' + AccountToAdd.accountName)
-         //       focusElement('accountName');
-         //       throw new Error(`${AccountToAdd.accountName} already exists`);
-         //    }
-         // }
 
          if (!AccountToAdd.balance) {
             focusElement('balance');
@@ -66,7 +51,9 @@ function CreateAccount(props) {
             <form id="accForm" onSubmit={onAdd}>
                <label htmlFor='accountName'>Account Name: </label>
                <input name='accountName' defaultValue={account.accountName}
-                  type='text' id='accountName' className='input'></input>
+                  type='text' id='accountName' className='input'
+               >
+               </input>
                <br></br>
                <label htmlFor='balance'>Starting Balance: $</label>
                <input name='balance' defaultValue={account.balance}

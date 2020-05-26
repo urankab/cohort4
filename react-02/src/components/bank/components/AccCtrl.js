@@ -14,49 +14,99 @@ function AccCtrl(props) {
       })
    }
 
-   // function onWithDraw() {
-   //    let amt = document.getElementById('amount').value
-   //    props.withdraw(amt)
-   //    props.userMsg(`Withdrew from ${amt} ${props.theName}`)
-   // }
+   function focusElement(name) {
+      const el = document.querySelector(`[id=${name}]`);
+      el.focus();
+   }
 
+   function onDeposit() {
+      if (props.accLength >= 1) {
+         let e = document.getElementById('dropdown')
+         let theKey = e.options[e.selectedIndex].getAttribute("mykey")
+         let theName = e.options[e.selectedIndex].value
 
-   // function onDeposit() {
-   //    if (selectedName) {
-   //       let amt = document.getElementById('amount').value
-   //       props.deposit(amt)
-   //       props.userMsg(`Deposited ${amt} to ${props.theName}`)
-   //    } else {
-   //       props.userEditMsg('Select account to deposit')
-   //    }
-   // }
+         let amt = document.getElementById('amount').value
+         if (theKey != '') {
+            if (amt != '') {
+               props.acctCtrl.getAccountByKey(theKey).deposit(amt)
+               props.userMsg('')
+               props.userEditMsg(`Deposited ${amt} to ${theName}`)
+               props.updateSummary()
+            } else {
+               focusElement('amount');
+               props.userMsg('')
+               props.userEditMsg('Please enter an amount to deposit')
+            }
+         } else {
+            props.userMsg('')
+            props.userEditMsg('Select account to deposit')
+         }
+      } else {
+         props.userEditMsg('No accounts to deposit too')
+      }
+   }
+
+   function onWithdraw() {
+      if (props.accLength >= 1) {
+         let e = document.getElementById('dropdown')
+         let theKey = e.options[e.selectedIndex].getAttribute("mykey")
+         let theName = e.options[e.selectedIndex].value
+
+         let amt = document.getElementById('amount').value
+         if (theKey != '') {
+            if (amt != '') {
+               props.acctCtrl.getAccountByKey(theKey).withdraw(amt)
+               props.userMsg('')
+               props.userEditMsg(`Withdrawed ${amt} to ${theName}`)
+               props.updateSummary()
+            } else {
+               focusElement('amount');
+               props.userMsg('')
+               props.userEditMsg('Please enter an amount to withdraw')
+            }
+         } else {
+            props.userMsg('')
+            props.userEditMsg('Select account to withdraw from')
+         }
+      } else {
+         props.userEditMsg('No accounts to withdraw from')
+      }
+   }
 
    function onDelete() {
-      let e = document.getElementById('dropdown')
-      let value = e.options[e.selectedIndex].value
-      if (value != '') {
-         props.delete(value)
-         props.userEditMsg(`Deleted ${value}`)
+      if (props.accLength >= 1) {
+         let e = document.getElementById('dropdown')
+         let theKey = e.options[e.selectedIndex].getAttribute("mykey")
+         let theName = e.options[e.selectedIndex].value
+         if (theKey != '') {
+            props.delete(theKey)
+            props.userEditMsg(`Deleted ${theName}`)
+         }
       }
       else {
-         props.userEditMsg('Select account to delete')
+         focusElement('dropdown');
+         props.userEditMsg('No accounts to delete')
       }
    }
 
    function onRename() {
-      let renameValue = document.getElementById('renameField').value
-      let e = document.getElementById('dropdown')
-      let value = e.options[e.selectedIndex].value
-      if (value != '') {
-         if (renameValue != '') {
-            props.rename(value, renameValue)
-            props.userEditMsg(`Renamed ${value}`)
-         } else {
-            props.userEditMsg('Please enter a new name')
+      if (props.accLength >= 1) {
+         let renameValue = document.getElementById('renameField').value
+         let e = document.getElementById('dropdown')
+         let theKey = e.options[e.selectedIndex].getAttribute("mykey")
+         let accName = e.options[e.selectedIndex].value
+         if (theKey !== '') {
+            if (renameValue !== '') {
+               props.rename(theKey, renameValue)
+               props.userEditMsg(`Renamed ${accName}`)
+            } else {
+               focusElement('renameField')
+               props.userEditMsg('Please enter a new name')
+            }
          }
       }
       else {
-         props.userEditMsg('Select account to rename')
+         props.userEditMsg('No accounts to rename')
       }
    }
 
@@ -66,7 +116,7 @@ function AccCtrl(props) {
          <div className='innerDiv'>
             <p className='msg'>{props.editMsg}</p>
             <label id='selectLabel' htmlFor='dropdown'>Select Account: </label>
-            <select id='dropdown' data-testid='select'>
+            <select id='dropdown' name='dropdown'>
                {options}
             </select>
             <br></br>
@@ -74,8 +124,8 @@ function AccCtrl(props) {
             <input
                type='number' className='input' id='amount'></input>
             <br></br>
-            <button className='btn' id='depBtn'>Deposit</button>
-            <button className='btn' id='withdrawBtn'>Withdraw</button>
+            <button className='btn' id='depBtn' onClick={onDeposit}>Deposit</button>
+            <button className='btn' id='withdrawBtn' onClick={onWithdraw}>Withdraw</button>
             <br></br>
             <label htmlFor='renameField'>New Name: </label>
             <input type='text' className='input' id='renameField'></input>
@@ -84,7 +134,7 @@ function AccCtrl(props) {
             <button className='btn' id='deleteBtn' onClick={onDelete}>
                Delete Account</button>
          </div>
-      </div>
+      </div >
    )
 }
 
