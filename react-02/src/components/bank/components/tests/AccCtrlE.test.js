@@ -91,7 +91,7 @@ describe('AccCtrl Component test', () => {
       const mockRenameClickCallBack = jest.fn()
       const mockUserMsgCallBack = jest.fn()
 
-      let wrapper = mount(<AccCtrl
+      let wrapper = shallow(<AccCtrl
          userEditMsg={mockUserMsgCallBack}
          rename={mockRenameClickCallBack}
          accounts={accounts}
@@ -99,15 +99,13 @@ describe('AccCtrl Component test', () => {
 
       render(<AccCtrl
          accounts={accounts}
-         rename={mockRenameClickCallBack}
       />)
 
       updateValue('renameField', 'Wolves')
 
-      document.getElementById('dropdown').selectedIndex = '1'
-      let e = document.getElementById('dropdown')
-      let value = e.options[e.selectedIndex].value
-      expect(value).toBe('Doggy')
+      fireEvent.change(screen.getByLabelText('Select Account:'), {
+         target: { value: 'Doggy' }
+      })
 
       wrapper.find('#renameBtn').simulate('click')
 

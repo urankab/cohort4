@@ -79,11 +79,16 @@ test('Test dropdown and renaming accounts', () => {
    expect(mockUserMsgCallBack.mock.calls.length).toBe(1)
    expect(mockUserMsgCallBack.mock.calls[0][0]).toBe('Deleted Kitty')
 
-   let secondSelected = document.getElementById('dropdown').selectedIndex = '1'
-   expect(secondSelected).toBe('1')
-   let w = document.getElementById('dropdown')
-   let valuew = w.options[w.selectedIndex].value
-   expect(valuew).toBe('Doggy')
+   fireEvent.change(screen.getByLabelText('Select Account:'), {
+      target: { value: 'Doggy' }
+   })
+
+   //Old way, really long
+   // let secondSelected = document.getElementById('dropdown').selectedIndex = '1'
+   // expect(secondSelected).toBe('1')
+   // let w = document.getElementById('dropdown')
+   // let valuew = w.options[w.selectedIndex].value
+   // expect(valuew).toBe('Doggy')
 
    click('Delete Account')
 

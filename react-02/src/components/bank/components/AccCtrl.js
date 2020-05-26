@@ -66,7 +66,7 @@ function AccCtrl(props) {
          <div className='innerDiv'>
             <p className='msg'>{props.editMsg}</p>
             <label id='selectLabel' htmlFor='dropdown'>Select Account: </label>
-            <select id='dropdown'>
+            <select id='dropdown' data-testid='select'>
                {options}
             </select>
             <br></br>
