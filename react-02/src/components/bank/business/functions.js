@@ -6,7 +6,6 @@ export class Account {
 
         this.accountName = data.accountName;
         this.balance = data.balance;
-        // this.balance = Number(data.balance);
         this.key = data.key;
     }
 

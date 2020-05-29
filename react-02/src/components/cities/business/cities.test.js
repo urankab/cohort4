@@ -1,194 +1,256 @@
-import { City, Community } from "./cities.js";
+global.fetch = require('node-fetch');
+// import { City, Community, postData, url } from "./cities.js";
+import funcs from "./cities.js";
 
-test('Check the City constructor works', () => {
-    const city1 = new City('Calgary', 51.0447, 114.0719, 1360000, 'k1');
-    expect(city1.name).toBe('Calgary');
-    expect(city1.latitude).toBe(51.0447);
-    expect(city1.longitude).toBe(114.0719);
-    expect(city1.population).toBe(1360000);
-    expect(city1.key).toBe('k1')
+test('Test that postData gives a good error if api server not started', async () => {
+    try {
+        // dummy url:port that does not exist
+        const url = 'http://localhost:5678/';
+        const data = await funcs.postData(url);
+        // The above line should throw an error and we should never get to the next line
+        expect("").toBe("This bad port # should have caused an exception.");
+    }
+    catch (e) {
+        expect(e.code).toBe("ECONNREFUSED");
+    }
+    finally {
+    }
+});
+
+test('Test getting default values', () => {
+    const cityCtrl = new funcs.Community()
+    const c1 = cityCtrl.getNewCity()
+    expect(c1.name).toBe('');
+    expect(c1.latitude).toBe('')
+    expect(c1.longitude).toBe('');
+    expect(c1.population).toBe('');
+    expect(c1.key).toBe('')
 })
 
-test('Check that show() works - show data', () => {
-    const city1 = new City('Calgary', 51.0447, 114.0719, 1360000, 'k1');
-    expect(city1.show()).toBe('Calgary: Latitude: 51.0447 Longitude: 114.0719 Population: 1360000 Key: k1');
+test('test load People from api', async () => {
+    const cityCtrl = new funcs.Community();
+
+    try {
+        const url = funcs.url;
+        const postData = funcs.postData;
+
+        // clear the server (delete all the data on the server)
+        let data = await postData(url + 'clear');
+
+        let city;
+        await cityCtrl.loadCities();
+
+        expect(cityCtrl.length()).toBe(0);
+
+        city = cityCtrl.getNewCity();
+        city.name = 'Calgary';
+        city.latitude = '51.0447';
+        city.longitude = '114.0719';
+        city.population = 1366000;
+        await cityCtrl.addOrUpdate(city);
+
+        await cityCtrl.loadCities();
+        expect(cityCtrl.length()).toBe(1);
+
+        //Add another city
+        city = cityCtrl.getNewCity();
+        city.name = 'Winnipeg';
+        await cityCtrl.addOrUpdate(city);
+
+        await cityCtrl.loadCities();
+        expect(cityCtrl.length()).toBe(2);
+
+        city = cityCtrl.get('1');
+        expect(city.name).toBe('Calgary');
+        city = cityCtrl.get('2');
+        expect(city.name).toBe('Winnipeg');
+
+        city = cityCtrl.get('1');
+        city.name = 'Cowtown';
+        city.population = 2;
+        await cityCtrl.addOrUpdate(city);
+
+        await cityCtrl.loadCities();
+        city = cityCtrl.get('1');
+        expect(city.name).toBe('Cowtown');
+        city = cityCtrl.get('2');
+        expect(city.name).toBe('Winnipeg');
+
+        //Test that last key works
+        expect(cityCtrl.lastKey).toBe(2);
+        const cityCtrl2 = new funcs.Community();
+        await cityCtrl2.loadCities();
+        expect(cityCtrl2.lastKey).toBe(2);
+    } catch (e) {
+        console.log(e);
+        expect("").toBe(e.message);
+    }
+});
+
+test('Test load person instance from city copy', async () => {
+
+    const cityCtrl = new funcs.Community();
+
+    //Clear the server (delete all the data on the server)
+    let data = await funcs.postData(funcs.url + 'clear');
+
+    let city;
+    city = cityCtrl.getNewCity();
+    city.name = "Red Deer";
+    // console.log(city);
+    const newCity = { ...city };
+    // console.log(newCity);
+
+    await cityCtrl.addOrUpdate(newCity);
+});
+
+test('Test addOrUpdate updates internal storage', async () => {
+
+    // clear the server (delete all the data on the server)
+    let data = await funcs.postData(funcs.url + 'clear');
+    funcs.City.lastKey = 0;
+    const cityCtrl = new funcs.Community();
+
+    let c1, c2, k1, k2;
+    c1 = cityCtrl.getNewCity();
+    c1.name = 'Toronto';
+    await cityCtrl.addOrUpdate(c1);
+
+    // console.log(cityCtrl.cities);
+
+    c2 = cityCtrl.get('1');
+    expect(c2.name).toBe('Toronto');
+
+    c2.name = "TayTay";
+    await cityCtrl.addOrUpdate(c2);
+    c1 = cityCtrl.get('1');
+    expect(c1.name).toBe('TayTay');
+});
+
+test('Test show() - show city data', () => {
+    const city1 = new funcs.City({
+        name: 'Calgary', latitude: '51.0447 N', longitude: '114.0719 W',
+        population: 1360000, key: 1
+    });
+    expect(city1.show()).toBe('Calgary\nLatitude: 51.0447 N\nLongitude: 114.0719 W\n'
+        + 'Population: 1360000\nKey: 1');
 })
 
-test('Check that movedIn() and movedOut() works - changes population', () => {
-    const city1 = new City('Calgary', 51.0447, 114.0719, 1360000, 'k1');
-    city1.movedIn(2000);
-    expect(city1.population).toBe(1362000);
-    city1.movedOut(1000);
-    expect(city1.population).toBe(1361000);
+test('Test movedIn() and movedOut() - changes population', async () => {
+    const cityCtrl = new funcs.Community();
+    let data = await funcs.postData(funcs.url + 'clear');
+    await cityCtrl.loadCities()
+    expect(cityCtrl.length()).toBe(0)
+
+    let city = cityCtrl.getNewCity();
+    city.name = 'Kitty City'
+    city.population = 100
+    await cityCtrl.addOrUpdate(city)
+    expect(city.key).toBe(1)
+
+    await city.movedIn(50);
+    await city.movedOut(10);
+
+    city = cityCtrl.get('1');
+    expect(city.population).toBe(140);
 })
 
-test('Check that howBig() works', () => {
-    let city2 = new City('City', 1, 1, 0, 'k1')
-    expect(city2.howBig()).toBe('No Population')
-    city2.movedIn(100);
-    expect(city2.howBig()).toBe('Hamlet: 1-100')
-    city2.movedIn(1);
-    expect(city2.howBig()).toBe('Village: 101-999')
-    city2.movedIn(899);
-    expect(city2.howBig()).toBe('Town: 1,000-20,000')
-    city2.movedIn(19000);
-    expect(city2.howBig()).toBe('Large Town: 20,000-100,000')
-    city2.movedIn(80000);
-    expect(city2.howBig()).toBe('City: 100,000+')
+test('Test howBig() - returns size of city', () => {
+    let city = new funcs.City({ name: 'City', latitude: 1, longitude: 1, population: 0, key: 1 })
+    expect(city.howBig()).toBe('No Population')
+    city.movedIn(100);
+    expect(city.howBig()).toBe('Hamlet: 1-100')
+    city.movedIn(1);
+    expect(city.howBig()).toBe('Village: 101-999')
+    city.movedIn(899);
+    expect(city.howBig()).toBe('Town: 1,000-20,000')
+    city.movedIn(19000);
+    expect(city.howBig()).toBe('Large Town: 20,000-100,000')
+    city.movedIn(80000);
+    expect(city.howBig()).toBe('City: 100,000+')
 })
 
-//-------- COMMUNITY CLASS ------------------------------
-test('Test that the Community methods works', () => {
-    const community = new Community();
-    community.createCity('Paris', 48.8566, 2.3522, 2148000, 1)
-    community.createCity('Test2', 50, 5, 21, 2)
-    community.createCity('Test3', -7, 1, 1000, 3)
-    community.createCity('Test4', 90, 1, 1000, 4)
-    expect(community.createCity('Jello', 90, 1, 100000, 5)).toBe('Created Jello city with key: 5')
-    expect(community.cityArray[0].name).toEqual('Paris')
-    expect(community.cityArray[1].name).toEqual('Test2')
-    expect(community.cityArray[2].name).toEqual('Test3')
-    expect(community.cityArray[3].name).toEqual('Test4')
-    community.deleteCity(2);
-    expect(community.cityArray[0].name).toBe('Paris')
-    expect(community.cityArray[1].name).not.toBe('Test2')
-    expect(community.cityArray[1].name).toBe('Test3')
-    expect(community.whichSphere(community.cityArray[0].key)).toBe('Northern Hemisphere')
-    expect(community.whichSphere(4)).toBe('Northern Hemisphere')
-    expect(community.whichSphere(3)).toBe('Southern Hemisphere')
-    expect(community.getMostNorthern()).toEqual('Most Northern: Test4,90,1,1000,4')
-    expect(community.getMostSouthern()).toEqual('Most Southern: Test3,-7,1,1000,3')
-    expect(community.getPopulation()).toBe('Total Population: 2250000')
+test('Test which sphere, most northern, southern and total population', async () => {
+    const cityCtrl = new funcs.Community();
+    await funcs.postData(funcs.url + 'clear');
+
+    let city1 = cityCtrl.getNewCity()
+    city1.name = "Gangster's Paradise"
+    city1.latitude = -15
+    city1.longitude = 5
+    city1.population = 10
+    await cityCtrl.addOrUpdate(city1)
+
+
+    let city2 = cityCtrl.getNewCity()
+    city2.name = 'Pho City'
+    city2.latitude = 5
+    city1.longitude = 52
+    city1.population = 1050
+    await cityCtrl.addOrUpdate(city2)
+
+    let city3 = cityCtrl.getNewCity()
+    city3.name = 'Frisbee Land'
+    city3.latitude = 0
+    city1.longitude = 12
+    city1.population = 1000000
+    await cityCtrl.addOrUpdate(city3)
+
+    expect(cityCtrl.length()).toBe(3);
+    expect(city1.whichSphere()).toBe('Southern Hemisphere')
+    expect(city2.whichSphere()).toBe('Northern Hemisphere')
+    expect(city3.whichSphere()).toBe('Equater')
 })
 
-//This works because both variables are referencing the same object, = to each other
-test('Test myFav = myCity works', () => {
-    const myCity = new City('FavCity', 20, 30, 100, 1)
-    const myFav = myCity;
-    console.log(myCity.population);
-    console.log(myFav.population);
-    expect(myCity.population).toEqual(myFav.population)
+test('Test deleting cities', async () => {
+    const cityCtrl = new funcs.Community();
+    await funcs.postData(funcs.url + 'clear');
 
-    myCity.movedIn(10)
-    console.log(myCity.population);
-    console.log(myFav.population);
-    expect(myCity.population).toEqual(110)
-    expect(myFav.population).toEqual(110)
+    let city1 = cityCtrl.getNewCity()
+    city1.name = 'Kitty City'
+    await cityCtrl.addOrUpdate(city1)
 
-    myFav.movedIn(20)
-    console.log(myCity.population);
-    console.log(myFav.population);
-    expect(myCity.population).toEqual(130)
-    expect(myFav.population).toEqual(130)
+
+    let city2 = cityCtrl.getNewCity()
+    city2.name = 'Doggy City'
+    await cityCtrl.addOrUpdate(city2)
+
+    expect(cityCtrl.length()).toBe(2);
+
+    await cityCtrl.delete(city1)
+
+    await cityCtrl.loadCities()
+    expect(cityCtrl.length()).toBe(1);
 })
 
-//---DOM TESTING--------------------------------------
+test('Test most northern, southern and total population', async () => {
+    const cityCtrl = new funcs.Community();
+    await funcs.postData(funcs.url + 'clear');
 
-test('Test that createCard() works', () => {
-    const com = new Community();
-    com.createCity('Test', 1, 1, 1, 1)
+    let city1 = cityCtrl.getNewCity()
+    city1.name = "Gangster's Paradise"
+    city1.latitude = -15
+    city1.longitude = 5
+    city1.population = 10
+    await cityCtrl.addOrUpdate(city1)
 
-    let container = document.createElement('div')
-    let newCard = document.createElement('div')
-    container.appendChild(newCard)
 
-    newCard.appendChild(com.createCard(com.cityArray[0]))
-    newCard.setAttribute('class', 'card')
-    newCard.setAttribute('key', com.cityArray[0].key)
-    let msg = document.createElement('p')
-    newCard.appendChild(msg)
+    let city2 = cityCtrl.getNewCity()
+    city2.name = 'Pho City'
+    city2.latitude = 5
+    city2.longitude = 52
+    city2.population = 1050
+    await cityCtrl.addOrUpdate(city2)
 
-    expect(newCard).toBeTruthy();
-    expect(container.children.length).toBe(1)
-    expect(container.children[0].getAttribute('class')).toBe('card')
-    expect(container.children[0].getAttribute('key')).toBe('1')
-    expect(container.children[0].textContent).toContain('Test', '1', 'MovedIn')
-    expect(container.children[0].textContent.substr(0, 15)).toBe('TestLatitude: 1')
+    let city3 = cityCtrl.getNewCity()
+    city3.name = 'Frisbee Land'
+    city3.latitude = 0
+    city3.longitude = 12
+    city3.population = 1000000
+    await cityCtrl.addOrUpdate(city3)
+    expect(cityCtrl.length()).toBe(3);
 
-    let cityPopText = document.createElement('p')
-    newCard.append(cityPopText)
-    cityPopText.textContent = `Population: ${com.cityArray[0].population}`;
-    expect(cityPopText.textContent).toBe('Population: 1')
-
-    let howBigText = document.createElement('p')
-    newCard.append(howBigText)
-    howBigText.textContent = com.cityArray[0].howBig();
-    expect(howBigText.textContent).toBe('Hamlet: 1-100')
-
-    let sphereText = document.createElement('p')
-    newCard.append(sphereText)
-    sphereText.textContent = com.whichSphere(com.cityArray[0].key);
-    expect(sphereText.textContent).toBe('Northern Hemisphere')
-
-    let input = document.createElement('text')
-    let movedOutBtn = document.createElement('button')
-    let movedInBtn = document.createElement('button')
-    let deleteBtn = document.createElement('button')
-
-    newCard.appendChild(input)
-    newCard.appendChild(movedInBtn)
-    newCard.appendChild(movedOutBtn)
-    newCard.appendChild(deleteBtn)
-
-    let dataDiv = document.createElement('div')
-    let n = document.createElement('p')
-    let s = document.createElement('p')
-    let p = document.createElement('p')
-
-    dataDiv.appendChild(n)
-    dataDiv.appendChild(s)
-    dataDiv.appendChild(p)
-
-    n.setAttribute('id', 'mostNorthP')
-    s.setAttribute('id', 'mostSouthP')
-    p.setAttribute('id', 'totalPP')
-
-    movedInBtn.addEventListener('click', () => {
-        input.value = 1000;
-        com.cityArray[0].movedIn(input.value)
-        cityPopText.textContent = `Population: ${com.cityArray[0].population}`;
-        howBigText.textContent = com.cityArray[0].howBig()
-        n.textContent = com.getMostNorthern();
-        s.textContent = com.getMostSouthern();
-        p.textContent = com.getPopulation();
-    })
-
-    movedOutBtn.addEventListener('click', () => {
-        input.value = 2;
-        com.cityArray[0].movedOut(input.value)
-        cityPopText.textContent = `Population: ${com.cityArray[0].population}`;
-        howBigText.textContent = com.cityArray[0].howBig()
-        n.textContent = com.getMostNorthern();
-        s.textContent = com.getMostSouthern();
-        p.textContent = com.getPopulation();
-    })
-
-    deleteBtn.addEventListener('click', () => {
-        msg.textContent = `Deleted ${com.cityArray[0].name}`
-        com.deleteCity(com.cityArray[0].key)
-        deleteBtn.parentElement.remove();
-        n.textContent = com.getMostNorthern();
-        s.textContent = com.getMostSouthern();
-        p.textContent = com.getPopulation();
-    })
-
-    movedInBtn.click()
-    expect(cityPopText.textContent).toBe('Population: 1001')
-    expect(howBigText.textContent).toBe('Town: 1,000-20,000')
-
-    movedOutBtn.click()
-    expect(cityPopText.textContent).toBe('Population: 999')
-    expect(howBigText.textContent).toBe('Village: 101-999')
-
-    n.textContent = com.getMostNorthern();
-    s.textContent = com.getMostSouthern();
-    p.textContent = com.getPopulation();
-
-    expect(n.textContent).toBe('Most Northern: Test,1,1,999,1')
-    expect(s.textContent).toBe('Most Southern: Test,1,1,999,1')
-    expect(p.textContent).toBe('Total Population: 999')
-
-    deleteBtn.click()
-    expect(msg.textContent).toBe(`Deleted Test`)
-    expect(container.children.length).toBe(0)
+    expect(cityCtrl.getMostNorthern()).toBe('Pho City at 5°')
+    expect(cityCtrl.getMostSouthern()).toBe("Gangster's Paradise at -15°")
+    expect(cityCtrl.getTotalPopulation()).toBe(1001060)
 })

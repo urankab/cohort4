@@ -44,7 +44,7 @@ class Board extends React.Component {
    }
 }
 
-class Game extends React.Component {
+export default class Game extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -145,4 +145,4 @@ function calculateWinner(squares) {
 }
 
 
-export { Game, Square, Board };
+// export { Game, Square, Board };

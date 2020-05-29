@@ -1,0 +1,602 @@
+[
+	{
+		"name": "Villenave-d'Ornon",
+		"latitude": "-15.08177",
+		"longitude": "-18.96319",
+		"population": 15085
+	},
+	{
+		"name": "Cornwall",
+		"latitude": "-70.71369",
+		"longitude": "-166.98058",
+		"population": 51402
+	},
+	{
+		"name": "Victoria",
+		"latitude": "-13.684",
+		"longitude": "-40.22821",
+		"population": 63121
+	},
+	{
+		"name": "Markkleeberg",
+		"latitude": "-33.00475",
+		"longitude": "126.25357",
+		"population": 124540
+	},
+	{
+		"name": "Watson Lake",
+		"latitude": "30.34444",
+		"longitude": "-174.74773",
+		"population": 83261
+	},
+	{
+		"name": "Vellore",
+		"latitude": "4.13672",
+		"longitude": "-41.02458",
+		"population": 20948
+	},
+	{
+		"name": "Owensboro",
+		"latitude": "-26.65922",
+		"longitude": "-45.8537",
+		"population": 72478
+	},
+	{
+		"name": "IJlst",
+		"latitude": "36.56667",
+		"longitude": "-81.7288",
+		"population": 82841
+	},
+	{
+		"name": "Balclutha",
+		"latitude": "69.4726",
+		"longitude": "-17.72492",
+		"population": 117289
+	},
+	{
+		"name": "Hualpén",
+		"latitude": "48.58442",
+		"longitude": "-6.33631",
+		"population": 142259
+	},
+	{
+		"name": "Krasnozavodsk",
+		"latitude": "52.26908",
+		"longitude": "7.81994",
+		"population": 64279
+	},
+	{
+		"name": "Liernu",
+		"latitude": "10.65039",
+		"longitude": "140.30819",
+		"population": 94357
+	},
+	{
+		"name": "Kemzeke",
+		"latitude": "-84.67574",
+		"longitude": "95.82142",
+		"population": 102778
+	},
+	{
+		"name": "Oss",
+		"latitude": "-45.93987",
+		"longitude": "153.6513",
+		"population": 130815
+	},
+	{
+		"name": "Aschersleben",
+		"latitude": "23.5292",
+		"longitude": "30.93288",
+		"population": 95712
+	},
+	{
+		"name": "Sooke",
+		"latitude": "-1.89327",
+		"longitude": "3.31145",
+		"population": 111039
+	},
+	{
+		"name": "Salvador",
+		"latitude": "89.84504",
+		"longitude": "95.79288",
+		"population": 29755
+	},
+	{
+		"name": "Hudiksvall",
+		"latitude": "-74.08084",
+		"longitude": "170.0902",
+		"population": 40802
+	},
+	{
+		"name": "Heilbronn",
+		"latitude": "-89.81826",
+		"longitude": "-135.078",
+		"population": 31401
+	},
+	{
+		"name": "Colloredo di Monte Albano",
+		"latitude": "42.63196",
+		"longitude": "-82.64247",
+		"population": 41032
+	},
+	{
+		"name": "Ribeirão das Neves",
+		"latitude": "-43.0702",
+		"longitude": "107.72025",
+		"population": 61087
+	},
+	{
+		"name": "Dublin",
+		"latitude": "-56.25535",
+		"longitude": "-164.25675",
+		"population": 57760
+	},
+	{
+		"name": "Gävle",
+		"latitude": "-72.86949",
+		"longitude": "-122.44767",
+		"population": 33498
+	},
+	{
+		"name": "Champlain",
+		"latitude": "70.28893",
+		"longitude": "179.1256",
+		"population": 16534
+	},
+	{
+		"name": "Werbomont",
+		"latitude": "24.33106",
+		"longitude": "38.06471",
+		"population": 77115
+	},
+	{
+		"name": "Moffat",
+		"latitude": "81.02503",
+		"longitude": "147.23931",
+		"population": 19361
+	},
+	{
+		"name": "Yeongcheon",
+		"latitude": "57.62229",
+		"longitude": "-25.98368",
+		"population": 89484
+	},
+	{
+		"name": "Borgo Valsugana",
+		"latitude": "-8.21117",
+		"longitude": "-105.50798",
+		"population": 142888
+	},
+	{
+		"name": "Heerlen",
+		"latitude": "60.00565",
+		"longitude": "141.96507",
+		"population": 137947
+	},
+	{
+		"name": "Curanilahue",
+		"latitude": "-39.15032",
+		"longitude": "-172.34944",
+		"population": 65626
+	},
+	{
+		"name": "Trieste",
+		"latitude": "-13.24548",
+		"longitude": "-159.243",
+		"population": 123720
+	},
+	{
+		"name": "Covington",
+		"latitude": "-68.06848",
+		"longitude": "152.61519",
+		"population": 49705
+	},
+	{
+		"name": "Dendermonde",
+		"latitude": "-2.29846",
+		"longitude": "171.64851",
+		"population": 126495
+	},
+	{
+		"name": "Langford",
+		"latitude": "-23.77541",
+		"longitude": "4.88175",
+		"population": 55143
+	},
+	{
+		"name": "San Pedro de Atacama",
+		"latitude": "-76.04777",
+		"longitude": "-151.95195",
+		"population": 39200
+	},
+	{
+		"name": "Tuxtla Gutiérrez",
+		"latitude": "16.79288",
+		"longitude": "167.81255",
+		"population": 22633
+	},
+	{
+		"name": "Weert",
+		"latitude": "-26.61949",
+		"longitude": "-28.89798",
+		"population": 120345
+	},
+	{
+		"name": "Bazel",
+		"latitude": "-79.6746",
+		"longitude": "-122.89109",
+		"population": 100767
+	},
+	{
+		"name": "Fiuminata",
+		"latitude": "44.99262",
+		"longitude": "2.73482",
+		"population": 26465
+	},
+	{
+		"name": "Neu-Ulm",
+		"latitude": "65.49857",
+		"longitude": "-59.47501",
+		"population": 74132
+	},
+	{
+		"name": "Sint-Andries",
+		"latitude": "-89.36837",
+		"longitude": "174.49355",
+		"population": 59059
+	},
+	{
+		"name": "Castel di Tora",
+		"latitude": "68.72648",
+		"longitude": "-2.13426",
+		"population": 35054
+	},
+	{
+		"name": "Fernie",
+		"latitude": "-43.45539",
+		"longitude": "79.55444",
+		"population": 122800
+	},
+	{
+		"name": "Guri",
+		"latitude": "35.4285",
+		"longitude": "114.83264",
+		"population": 146843
+	},
+	{
+		"name": "Coquitlam",
+		"latitude": "-63.35166",
+		"longitude": "80.27226",
+		"population": 11312
+	},
+	{
+		"name": "Bridlington",
+		"latitude": "-11.08603",
+		"longitude": "-94.1722",
+		"population": 87200
+	},
+	{
+		"name": "Palmerston North",
+		"latitude": "-29.49906",
+		"longitude": "-69.36001",
+		"population": 134865
+	},
+	{
+		"name": "Lanaken",
+		"latitude": "-19.87139",
+		"longitude": "17.38911",
+		"population": 24703
+	},
+	{
+		"name": "Borlänge",
+		"latitude": "-62.2803",
+		"longitude": "50.05655",
+		"population": 60191
+	},
+	{
+		"name": "Waiblingen",
+		"latitude": "28.83239",
+		"longitude": "-106.40642",
+		"population": 39365
+	},
+	{
+		"name": "Trivigno",
+		"latitude": "37.88323",
+		"longitude": "137.39324",
+		"population": 125192
+	},
+	{
+		"name": "Marystown",
+		"latitude": "-23.6487",
+		"longitude": "7.49356",
+		"population": 59444
+	},
+	{
+		"name": "Sint-Pieters-Kapelle",
+		"latitude": "24.72812",
+		"longitude": "179.24814",
+		"population": 6406
+	},
+	{
+		"name": "Chiniot",
+		"latitude": "7.33481",
+		"longitude": "-63.03106",
+		"population": 93967
+	},
+	{
+		"name": "Hertsberge",
+		"latitude": "-51.11471",
+		"longitude": "-173.12694",
+		"population": 78433
+	},
+	{
+		"name": "Pyeongtaek",
+		"latitude": "-31.19924",
+		"longitude": "96.1458",
+		"population": 128473
+	},
+	{
+		"name": "Glain",
+		"latitude": "22.29985",
+		"longitude": "142.84793",
+		"population": 53491
+	},
+	{
+		"name": "Van",
+		"latitude": "38.89704",
+		"longitude": "53.2357",
+		"population": 19627
+	},
+	{
+		"name": "Silvan",
+		"latitude": "54.03777",
+		"longitude": "-162.21247",
+		"population": 118369
+	},
+	{
+		"name": "Wanzele",
+		"latitude": "72.29938",
+		"longitude": "159.82156",
+		"population": 84083
+	},
+	{
+		"name": "Francofonte",
+		"latitude": "16.63814",
+		"longitude": "-3.31052",
+		"population": 58017
+	},
+	{
+		"name": "Ahmedabad",
+		"latitude": "-69.31838",
+		"longitude": "83.8609",
+		"population": 140423
+	},
+	{
+		"name": "Gaithersburg",
+		"latitude": "52.23698",
+		"longitude": "-147.4013",
+		"population": 144813
+	},
+	{
+		"name": "Bloxham",
+		"latitude": "-76.31476",
+		"longitude": "-150.02798",
+		"population": 41531
+	},
+	{
+		"name": "Traralgon",
+		"latitude": "32.90991",
+		"longitude": "162.6622",
+		"population": 67147
+	},
+	{
+		"name": "Sonipat",
+		"latitude": "-64.84265",
+		"longitude": "-123.3863",
+		"population": 9059
+	},
+	{
+		"name": "Lansing",
+		"latitude": "35.68366",
+		"longitude": "60.40979",
+		"population": 30360
+	},
+	{
+		"name": "Coelemu",
+		"latitude": "-55.82111",
+		"longitude": "-85.69035",
+		"population": 80255
+	},
+	{
+		"name": "Bad Neuenahr-Ahrweiler",
+		"latitude": "69.97148",
+		"longitude": "152.30604",
+		"population": 54110
+	},
+	{
+		"name": "Swindon",
+		"latitude": "47.1406",
+		"longitude": "-115.55384",
+		"population": 84232
+	},
+	{
+		"name": "Ville de Maniwaki",
+		"latitude": "-25.25245",
+		"longitude": "-89.82445",
+		"population": 124344
+	},
+	{
+		"name": "Pune",
+		"latitude": "-28.99198",
+		"longitude": "152.09647",
+		"population": 117831
+	},
+	{
+		"name": "Birmingham",
+		"latitude": "-76.02723",
+		"longitude": "-173.45233",
+		"population": 4148
+	},
+	{
+		"name": "Houtvenne",
+		"latitude": "-51.90249",
+		"longitude": "-54.00992",
+		"population": 93186
+	},
+	{
+		"name": "Alix",
+		"latitude": "-36.60685",
+		"longitude": "143.27339",
+		"population": 37241
+	},
+	{
+		"name": "Milmort",
+		"latitude": "54.05171",
+		"longitude": "35.103",
+		"population": 63025
+	},
+	{
+		"name": "Raychikhinsk",
+		"latitude": "69.68714",
+		"longitude": "-50.06669",
+		"population": 5925
+	},
+	{
+		"name": "Carterton",
+		"latitude": "6.1399",
+		"longitude": "8.99584",
+		"population": 124655
+	},
+	{
+		"name": "Parramatta",
+		"latitude": "51.82251",
+		"longitude": "169.74715",
+		"population": 42447
+	},
+	{
+		"name": "Pushkino",
+		"latitude": "-62.98699",
+		"longitude": "60.64743",
+		"population": 139311
+	},
+	{
+		"name": "Redruth",
+		"latitude": "0.26578",
+		"longitude": "63.38809",
+		"population": 131965
+	},
+	{
+		"name": "Namur",
+		"latitude": "36.44641",
+		"longitude": "-142.27848",
+		"population": 16850
+	},
+	{
+		"name": "Lobbes",
+		"latitude": "-16.4811",
+		"longitude": "-63.60485",
+		"population": 78783
+	},
+	{
+		"name": "Vanderhoof",
+		"latitude": "-9.12015",
+		"longitude": "-170.50879",
+		"population": 88519
+	},
+	{
+		"name": "Sant'Urbano",
+		"latitude": "-49.09562",
+		"longitude": "64.83175",
+		"population": 60279
+	},
+	{
+		"name": "Sirsa",
+		"latitude": "18.57136",
+		"longitude": "-78.79725",
+		"population": 86720
+	},
+	{
+		"name": "Baton Rouge",
+		"latitude": "4.20293",
+		"longitude": "46.76554",
+		"population": 137517
+	},
+	{
+		"name": "Chippenham",
+		"latitude": "-84.49437",
+		"longitude": "-30.10453",
+		"population": 94174
+	},
+	{
+		"name": "Kessel",
+		"latitude": "19.96376",
+		"longitude": "-3.99884",
+		"population": 138835
+	},
+	{
+		"name": "Ipiales",
+		"latitude": "-86.97449",
+		"longitude": "-73.44953",
+		"population": 53842
+	},
+	{
+		"name": "Renaico",
+		"latitude": "1.01741",
+		"longitude": "-61.93224",
+		"population": 114809
+	},
+	{
+		"name": "Kashmore",
+		"latitude": "-78.44143",
+		"longitude": "-4.65159",
+		"population": 139822
+	},
+	{
+		"name": "Bottrop",
+		"latitude": "67.01951",
+		"longitude": "52.20668",
+		"population": 139201
+	},
+	{
+		"name": "Castel Maggiore",
+		"latitude": "-13.16561",
+		"longitude": "-129.66922",
+		"population": 97720
+	},
+	{
+		"name": "Cherbourg-Octeville",
+		"latitude": "-37.2064",
+		"longitude": "-31.25454",
+		"population": 11834
+	},
+	{
+		"name": "Torgny",
+		"latitude": "-42.15509",
+		"longitude": "111.88208",
+		"population": 125270
+	},
+	{
+		"name": "Montauban",
+		"latitude": "-24.27716",
+		"longitude": "-105.26069",
+		"population": 24354
+	},
+	{
+		"name": "Motta Sant'Anastasia",
+		"latitude": "28.21584",
+		"longitude": "-151.10355",
+		"population": 99470
+	},
+	{
+		"name": "Reims",
+		"latitude": "-28.10328",
+		"longitude": "76.8199",
+		"population": 148523
+	},
+	{
+		"name": "Cuccaro Vetere",
+		"latitude": "-8.54229",
+		"longitude": "-173.97964",
+		"population": 109303
+	}
+]

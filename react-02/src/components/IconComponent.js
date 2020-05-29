@@ -8,10 +8,10 @@ import tacoLogo from './svgs/taco.svg';
 import ticLogo from './svgs/tic.svg'
 import logo from '../logo.svg'
 
-import { Game } from './game/TicTacToe'
-
 import Home from './Home'
+import Game from './game/TicTacToe'
 import AccountsApp from './bank/components/AccountsApp';
+import CitiesApp from './cities/components/CitiesApp'
 
 const Icons = ({ getIcon }) => {
    return (
@@ -20,7 +20,7 @@ const Icons = ({ getIcon }) => {
             <Link to='/'><img alt='icon' className='icon' src={logo} onClick={getIcon} /></Link>
             <Link to='/game'><img alt='tictactoe' className='tic' src={ticLogo} onClick={getIcon} /></Link>
             <Link to='/bank'><img alt='taco' className='foodLogos' src={tacoLogo} onClick={getIcon} /></Link>
-            <img alt='kebab' className='foodLogos' src={kebabLogo} onClick={getIcon} />
+            <Link to='/cities'><img alt='kebab' className='foodLogos' src={kebabLogo} onClick={getIcon} /></Link>
             <img alt='chicken' className='chicken' src={chickenLogo} onClick={getIcon} />
             <img alt='pizza' className='pizza' src={pizzaLogo} onClick={getIcon} />
             <img alt='noodles' className='foodLogos' src={noodleLogo} onClick={getIcon} />
@@ -28,7 +28,7 @@ const Icons = ({ getIcon }) => {
          <Route exact path='/' component={Home} />
          <Route exact path='/game' component={Game} />
          <Route exact path='/bank' component={AccountsApp} />
-         {/* <Route exact path='/cities' component={Cities} /> */}
+         <Route exact path='/cities' component={CitiesApp} />
       </Router>
    )
 }
