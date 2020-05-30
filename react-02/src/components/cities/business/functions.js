@@ -57,7 +57,7 @@ class City {
     }
 
     howBig() {
-        if (this.population == 0) {
+        if (this.population === 0) {
             return "No Population"
         }
         if (this.population > 0 && this.population <= 100) {
@@ -88,7 +88,6 @@ class City {
             return 'Southern Hemisphere'
         }
     }
-
 }
 
 class Community {

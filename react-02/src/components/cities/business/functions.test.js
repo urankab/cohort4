@@ -1,6 +1,5 @@
 global.fetch = require('node-fetch');
-// import { City, Community, postData, url } from "./cities.js";
-import funcs from "./cities.js";
+import funcs from "./functions.js";
 
 test('Test that postData gives a good error if api server not started', async () => {
     try {

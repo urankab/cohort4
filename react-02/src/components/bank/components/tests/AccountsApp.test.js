@@ -2,14 +2,8 @@ import React from 'react'
 import { fireEvent, screen, render } from '@testing-library/react'
 import AccountsApp from '../AccountsApp'
 
-test('Testing AccountsApp functions', () => {
-    const mockMsgCallBack = jest.fn()
-    const mockAddCallBack = jest.fn()
-
+test('Testing AccountsApp', () => {
     render(<AccountsApp
-        userMsg={mockMsgCallBack}
-        add={mockAddCallBack}
-        userMsg={mockMsgCallBack}
     />)
 
     screen.getByText(/Banking with Uranka/)

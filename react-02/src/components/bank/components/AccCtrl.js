@@ -26,8 +26,8 @@ function AccCtrl(props) {
          let theName = e.options[e.selectedIndex].value
 
          let amt = document.getElementById('amount').value
-         if (theKey != '') {
-            if (amt != '') {
+         if (theKey !== '') {
+            if (amt !== '') {
                props.acctCtrl.getAccountByKey(theKey).deposit(amt)
                props.userMsg('')
                props.userEditMsg(`Deposited ${amt} to ${theName}`)
@@ -53,8 +53,8 @@ function AccCtrl(props) {
          let theName = e.options[e.selectedIndex].value
 
          let amt = document.getElementById('amount').value
-         if (theKey != '') {
-            if (amt != '') {
+         if (theKey !== '') {
+            if (amt !== '') {
                props.acctCtrl.getAccountByKey(theKey).withdraw(amt)
                props.userMsg('')
                props.userEditMsg(`Withdrawed ${amt} to ${theName}`)
@@ -78,7 +78,7 @@ function AccCtrl(props) {
          let e = document.getElementById('dropdown')
          let theKey = e.options[e.selectedIndex].getAttribute("mykey")
          let theName = e.options[e.selectedIndex].value
-         if (theKey != '') {
+         if (theKey !== '') {
             props.delete(theKey)
             props.userEditMsg(`Deleted ${theName}`)
          }
