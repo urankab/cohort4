@@ -1,36 +1,51 @@
 import React from 'react'
 import {
-   Typography, Button, TextField, makeStyles
+   Typography, Button, TextField, Grid, makeStyles
 } from '@material-ui/core';
+import SaveIcon from '@material-ui/icons/Save';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
    root: {
-      '& .MuiTextField-root': {
-         margin: theme.spacing(1),
-         width: '25ch',
-      },
+      borderRadius: 15,
+      margin: 10,
+      backgroundColor: '#ffd6e1',
    },
-}));
+   item: {
+      padding: 15
+   },
+   btnPadding: {
+      margin: 15
+   }
+});
 
 function CityForm(props) {
-   const city = props.city;
    const classes = useStyles();
+   const city = props.city;
 
    return (
-      <form className={classes.root} >
-         <div id='createStuff'>
-            <Typography className='header' variant="h5" component="h2">
-               Create a City/>
+      <form className={classes.root}>
+         <Grid>
+            <Typography variant='h5' component="h2" className={classes.item}>
+               Create a City
             </Typography>
-            <TextField required={true} label='City Name:'
+            <TextField required label='City Name:' className={classes.item}
                defaultValue={city.name} />
-            <TextField required={true} label='Latitude:'
-               defaultValue={city.latitude} />
-            <TextField required={true} label='Longitude:'
-               defaultValue={city.longitude} />
-            <TextField required={true} label='Population:'
+            <TextField label='Population:' type='number' className={classes.item}
                defaultValue={city.population} />
-         </div>
+            <br></br>
+            <TextField required label='Latitude:' type='number' className={classes.item}
+               defaultValue={city.latitude} />
+            <TextField required label='Longitude:' type='number' className={classes.item}
+               defaultValue={city.longitude} />
+            <br></br>
+            <Button
+               className={classes.btnPadding}
+               variant="contained"
+               color="primary"
+               size="large"
+               startIcon={<SaveIcon />}
+            >Save</Button>
+         </Grid>
       </form>
    )
 }

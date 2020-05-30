@@ -1,4 +1,4 @@
-.cardMainContainer{
+/* .cardMainContainer{
    font-family: 'Roboto', sans-serif;
    display: grid;
    grid-template-columns: auto auto;
@@ -25,8 +25,7 @@ h1{
    border-radius: 15px;
    text-align: center;
    margin: 10px;
-   /* padding: 15px; */
-   min-width: 400px;
+   display: block;
 }
 
 #cardDiv {
@@ -40,4 +39,4 @@ h1{
    border-radius: 15px;
    text-align: center;
    min-width: 230px;
-}
+} */
