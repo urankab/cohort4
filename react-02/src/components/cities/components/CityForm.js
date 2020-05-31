@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
    Typography, Button, TextField, Grid, makeStyles
 } from '@material-ui/core';
@@ -11,31 +11,106 @@ const useStyles = makeStyles({
       backgroundColor: '#ffd6e1',
    },
    item: {
-      padding: 15
+      padding: 15,
+      paddingLeft: 0,
+      paddingRight: 0
    },
    btnPadding: {
-      margin: 15
+      margin: 15,
+   },
+   msg: {
+      paddingBottom: 15,
+      fontSize: 12,
+      color: 'red'
    }
 });
 
 function CityForm(props) {
    const classes = useStyles();
    const city = props.city;
+   const [errorName, setErrorName] = useState(false)
+   const [errorLat, setErrorLat] = useState(false)
+   const [errorLong, setErrorLong] = useState(false)
+   const [errorPop, setErrorPop] = useState(false)
+
+   function focusElement(name) {
+      const el = document.querySelector(`[name=${name}]`);
+      el.focus();
+      el.select();
+   }
+
+   function onSave(e) {
+      const cityToSave = {}
+      cityToSave.key = city.key
+      const idCityForm = document.getElementById('form')
+      const inputs = idCityForm.getElementsByTagName('input')
+
+      for (let i = 0; i < inputs.length; i++) {
+         cityToSave[inputs[i].name] = inputs[i].value;
+      }
+
+      try {
+         if (!cityToSave.name) {
+            focusElement('name');
+            setErrorName(true)
+            throw new Error('*Please enter a city name');
+         }
+         if (cityToSave.name) {
+            setErrorName(false)
+         }
+         if (cityToSave.population === '') {
+            focusElement('population');
+            setErrorPop(true)
+            throw new Error('*Population cannot be blank');
+         }
+         if (cityToSave.population) {
+            setErrorPop(false)
+         }
+         if (!cityToSave.latitude) {
+            focusElement('latitude');
+            setErrorLat(true)
+            throw new Error('*Please enter the latitude');
+         }
+         if (cityToSave.latitude) {
+            setErrorLat(false)
+         }
+         if (!cityToSave.longitude) {
+            focusElement('longitude');
+            setErrorLong(true)
+            throw new Error('*Please enter the longitude');
+         }
+         if (cityToSave.longitude) {
+            setErrorLong(false)
+         }
+         props.save(cityToSave);
+         props.userMsg(`Saved ${cityToSave.name}`);
+      } catch (e) {
+         props.userMsg(e.message, "error");
+      }
+      e.preventDefault();
+   }
 
    return (
-      <form className={classes.root}>
+      <form id='form' className={classes.root}>
          <Grid>
             <Typography variant='h5' component="h2" className={classes.item}>
                Create a City
             </Typography>
-            <TextField required label='City Name:' className={classes.item}
+            <Typography className={classes.msg} id='addMsg'>
+               {props.message}
+            </Typography>
+            <TextField name='name' label='City Name:' className={classes.item}
+               error={errorName}
                defaultValue={city.name} />
-            <TextField label='Population:' type='number' className={classes.item}
+            <TextField name='population' label='Population:' type='number' className={classes.item}
+               error={errorPop}
                defaultValue={city.population} />
             <br></br>
-            <TextField required label='Latitude:' type='number' className={classes.item}
+            <TextField name='latitude' label='Latitude:' type='number' className={classes.item}
+               error={errorLat}
                defaultValue={city.latitude} />
-            <TextField required label='Longitude:' type='number' className={classes.item}
+            <TextField name='longitude' label='Longitude:' type='number' className={classes.item}
+               error={errorLong}
                defaultValue={city.longitude} />
             <br></br>
             <Button
@@ -44,6 +119,7 @@ function CityForm(props) {
                color="primary"
                size="large"
                startIcon={<SaveIcon />}
+               onClick={onSave}
             >Save</Button>
          </Grid>
       </form>

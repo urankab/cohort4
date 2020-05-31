@@ -3,41 +3,39 @@ import funcs from '../business/functions'
 import CityCards from './CityCards'
 import CityForm from './CityForm'
 import {
-   Grid, makeStyles,
+   Grid, makeStyles
 } from '@material-ui/core';
 
 const useStyles = makeStyles({
-   root: {
-      flexGrow: 1,
-   },
+   // root: {
+   //    flexGrow: 1,
+   // },
    header: {
       backgroundColor: '#ff9b98',
-      marginBottom: 10
+      marginBottom: 10,
+      fontSize: 40
    },
-   // leftC: {
-   //    margin: 10
-   // },
-
-   // rightC: {
-   //    margin: 10,
-   // }
+   credit: {
+      fontSize: 12,
+      color: 'grey'
+   }
 });
 
 function CitiesApp() {
    const classes = useStyles();
    const cc = new funcs.Community()
-   const [cityCtrl] = useState(cc)
+   const [cityCtrl, setCityCtrl] = useState(cc)
    const [city] = useState(cityCtrl.getNewCity())
 
    const [message, setMessage] = useState('')
-   const [loaded] = useState(true)
+   const [loaded, setLoaded] = useState()
 
    useEffect(() => {
       //Load cities from the API 
       async function fetchData() {
          try {
             await cityCtrl.loadCities()
-            loaded(true);
+            setLoaded(true);
             console.log('cards loaded')
          } catch (e) {
             userMsg("***** Turn the server on dummy! *****", "error");
@@ -45,14 +43,14 @@ function CitiesApp() {
          }
       }
       fetchData();
-   }, [cityCtrl, loaded]); //Maybe remove later
-
-   async function onSave(city) {
-      await cityCtrl.addOrUpdate(city)
-   }
+   }, [cityCtrl]);
 
    function userMsg(msg) {
       setMessage({ text: msg })
+   }
+
+   async function onSave(city) {
+      await cityCtrl.addOrUpdate(city)
    }
 
    async function moveIn(num) {
@@ -63,8 +61,9 @@ function CitiesApp() {
 
    }
 
-   async function deleteCard(key) {
-
+   function deleteCard(thekey) {
+      console.log(thekey)
+      cityCtrl.delete(thekey)
    }
 
    return (
@@ -76,6 +75,7 @@ function CitiesApp() {
                   city={city}
                   save={onSave}
                   userMsg={userMsg}
+                  message={message.text}
                />
             </Grid>
             <Grid item md={10}>
@@ -87,6 +87,9 @@ function CitiesApp() {
                />
             </Grid>
          </Grid>
+         <p className={classes.credit}>Population Icon made by <a style={{ color: 'lightpink' }} href="https://www.flaticon.com/authors/freepik"
+            title="Freepik">Freepik</a> from <a style={{ color: 'lightpink' }} href="https://www.flaticon.com/"
+               title="Flaticon">www.flaticon.com</a></p>
       </div>
    )
 }

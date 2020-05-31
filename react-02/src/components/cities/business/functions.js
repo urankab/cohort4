@@ -137,12 +137,12 @@ class Community {
         this.cities[city.key] = city;
     }
 
-    async delete(city) {
+    async delete(thekey) {
         let theUrl;
-        if (city.key) {
+        if (thekey) {
             theUrl = url + 'delete'
         }
-        await postData(theUrl, { key: city.key });
+        await postData(theUrl, { key: Number(thekey) });
     }
 
     getMostNorthern() {

@@ -8,11 +8,11 @@ test('Testing CitiesApp', () => {
 
    screen.getByText(/Cities/)
 
-   click('Create City')
+   click('Save')
 
    screen.getByText(/Please enter a city name/)
 
-   expect(document.getElementById('addMsg').textContent).toBe('Please enter a city name')
+   expect(document.getElementById('addMsg').textContent).toBe('*Please enter a city name')
 })
 
 function click(txt) {

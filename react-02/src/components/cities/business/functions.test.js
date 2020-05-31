@@ -209,14 +209,13 @@ test('Test deleting cities', async () => {
     city1.name = 'Kitty City'
     await cityCtrl.addOrUpdate(city1)
 
-
     let city2 = cityCtrl.getNewCity()
     city2.name = 'Doggy City'
     await cityCtrl.addOrUpdate(city2)
 
     expect(cityCtrl.length()).toBe(2);
 
-    await cityCtrl.delete(city1)
+    await cityCtrl.delete(1)
 
     await cityCtrl.loadCities()
     expect(cityCtrl.length()).toBe(1);
