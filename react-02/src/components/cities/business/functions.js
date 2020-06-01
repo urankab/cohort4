@@ -42,52 +42,20 @@ class City {
         this.key = City.lastKey;
     }
 
-    async movedIn(num) {
-        this.population += Number(num);
-        await postData(url + 'update', { population: this.population, key: this.key })
-    }
+    // async movedIn(num) {
+    //     this.population += Number(num);
+    //     await postData(url + 'update', { population: this.population, key: this.key })
+    // }
 
-    async movedOut(num) {
-        this.population -= Number(num);
-        await postData(url + 'update', { population: this.population, key: this.key })
-    }
+    // async movedOut(num) {
+    //     this.population -= Number(num);
+    //     await postData(url + 'update', { population: this.population, key: this.key })
+    // }
 
     show() {
         return `${this.name}\nLatitude: ${this.latitude}\nLongitude: ${this.longitude}\nPopulation: ${this.population}\nKey: ${this.key}`;
     }
 
-    howBig() {
-        if (this.population === 0) {
-            return "No Population"
-        }
-        if (this.population > 0 && this.population <= 100) {
-            return "Hamlet: 1-100";
-        }
-        if (this.population > 100 && this.population < 1000) {
-            return "Village: 101-999"
-        }
-        if (this.population >= 1000 && this.population < 20000) {
-            return "Town: 1,000-20,000";
-        }
-        if (this.population >= 20000 && this.population < 100000) {
-            return "Large Town: 20,000-100,000";
-        }
-        if (this.population >= 100000) {
-            return "City: 100,000+";
-        }
-    }
-
-    whichSphere() {
-        if (this.latitude > 0) {
-            return 'Northern Hemisphere'
-        }
-        if (this.latitude === 0) {
-            return 'Equater'
-        }
-        if (this.latitude < 0) {
-            return 'Southern Hemisphere'
-        }
-    }
 }
 
 class Community {
@@ -110,7 +78,6 @@ class Community {
 
     async loadCities() {
         const data = await postData(url + "all");
-
         //Create a dictionary of cities and keep track of the last key
         const cities = {};
         data.forEach(x => {
@@ -126,18 +93,35 @@ class Community {
 
         if (city.key) {
             theUrl = url + 'update'
-            // city.population = Number(city.population)
         } else {
             theUrl = url + 'add'
             this.lastKey++;
             city.key = this.lastKey;
-            // city.population = Number(city.population)
+            city.population = Number(city.population)
         }
         await postData(theUrl, city);
         this.cities[city.key] = city;
     }
 
-    async delete(thekey) {
+    async movedIn(city, num) {
+        let theUrl
+        if (city.key) {
+            city.population += Number(num)
+            theUrl = url + 'update'
+        }
+        await postData(theUrl, city)
+    }
+
+    async movedOut(city, num) {
+        let theUrl
+        if (city.key) {
+            city.population -= Number(num)
+            theUrl = url + 'update'
+        }
+        await postData(theUrl, city)
+    }
+
+    async deleteCard(thekey) {
         let theUrl;
         if (thekey) {
             theUrl = url + 'delete'
@@ -186,6 +170,39 @@ class Community {
         }
         if (this.length() > 0) {
             return total
+        }
+    }
+
+    howBig(pop) {
+        if (pop === 0) {
+            return "No Population"
+        }
+        if (pop > 0 && pop <= 100) {
+            return "Hamlet: 1-100";
+        }
+        if (pop > 100 && pop < 1000) {
+            return "Village: 101-999"
+        }
+        if (pop >= 1000 && pop < 20000) {
+            return "Town: 1,000-20,000";
+        }
+        if (pop >= 20000 && pop < 100000) {
+            return "Large Town: 20,000-100,000";
+        }
+        if (pop >= 100000) {
+            return "City: 100,000+";
+        }
+    }
+
+    whichSphere(latitude) {
+        if (latitude > 0) {
+            return 'Northern Hemisphere'
+        }
+        if (latitude === 0) {
+            return 'Equater'
+        }
+        if (latitude < 0) {
+            return 'Southern Hemisphere'
         }
     }
 }

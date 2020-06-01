@@ -3,17 +3,24 @@ import funcs from '../business/functions'
 import CityCards from './CityCards'
 import CityForm from './CityForm'
 import {
-   Grid, makeStyles
+   Grid, makeStyles, List, ListItem, ListItemText
 } from '@material-ui/core';
 
 const useStyles = makeStyles({
-   // root: {
-   //    flexGrow: 1,
-   // },
+   root: {
+      flexGrow: 1,
+   },
    header: {
       backgroundColor: '#ff9b98',
       marginBottom: 10,
       fontSize: 40
+   },
+   summary: {
+      borderRadius: 15,
+      margin: 10,
+      backgroundColor: '#ffebf0',
+      height: 300,
+      minWidth: 154
    },
    credit: {
       fontSize: 12,
@@ -21,69 +28,104 @@ const useStyles = makeStyles({
    }
 });
 
+const cityCtrl = new funcs.Community()
+
 function CitiesApp() {
    const classes = useStyles();
-   const cc = new funcs.Community()
-   const [cityCtrl, setCityCtrl] = useState(cc)
-   const [city] = useState(cityCtrl.getNewCity())
-
    const [message, setMessage] = useState('')
-   const [loaded, setLoaded] = useState()
+
+   const [count, setCount] = useState(0)
+
+   const [total, setTotal] = useState()
+   const [northest, setNorthest] = useState()
+   const [southest, setSouthest] = useState()
 
    useEffect(() => {
-      //Load cities from the API 
+      //Load cities from the API - re-render when count is updated
       async function fetchData() {
          try {
             await cityCtrl.loadCities()
-            setLoaded(true);
-            console.log('cards loaded')
+            updateSummary()
          } catch (e) {
-            userMsg("***** Turn the server on dummy! *****", "error");
-            console.log(e);
+            userMsg('Turn on the server')
          }
       }
       fetchData();
-   }, [cityCtrl]);
-
-   function userMsg(msg) {
-      setMessage({ text: msg })
-   }
+   }, [count]);
 
    async function onSave(city) {
       await cityCtrl.addOrUpdate(city)
+      setCount(count + 1)
+      updateSummary()
    }
 
-   async function moveIn(num) {
-
+   async function deleteCard(thekey) {
+      await cityCtrl.deleteCard(thekey)
+      setCount(count + 1)
+      updateSummary()
    }
 
-   async function moveOut(num) {
-
+   async function moveIn(thekey, num) {
+      await cityCtrl.movedIn(thekey, num)
+      setCount(count + 1)
+      updateSummary()
    }
 
-   function deleteCard(thekey) {
-      console.log(thekey)
-      cityCtrl.delete(thekey)
+   async function moveOut(thekey, num) {
+      await cityCtrl.movedOut(thekey, num)
+      setCount(count + 1)
+      updateSummary()
+   }
+
+   function updateSummary() {
+      setTotal(cityCtrl.getTotalPopulation())
+      setNorthest(cityCtrl.getMostNorthern())
+      setSouthest(cityCtrl.getMostSouthern())
+   }
+
+   function userMsg(msg) {
+      setMessage({ text: msg })
    }
 
    return (
       <div className={classes.root}>
          <h1 className={classes.header}>Cities</h1>
          <Grid container>
-            <Grid item md={2}>
+            <Grid item sm={2}>
                <CityForm
-                  city={city}
+                  city={cityCtrl.getNewCity()}
                   save={onSave}
                   userMsg={userMsg}
                   message={message.text}
                />
             </Grid>
-            <Grid item md={10}>
+            <Grid item sm={1} className={classes.summary}>
+               <List>
+                  <ListItem>
+                     <ListItemText primary='Total Population:'
+                        secondary={total}
+                     />
+                  </ListItem>
+                  <ListItem>
+                     <ListItemText primary='Most Northern City:'
+                        secondary={northest}
+                     />
+                  </ListItem>
+                  <ListItem>
+                     <ListItemText primary='Most Southern City:'
+                        secondary={southest}
+                     />
+                  </ListItem>
+               </List>
+            </Grid>
+            <Grid item md={8}>
                <CityCards
                   cities={cityCtrl.cities}
                   moveIn={moveIn}
                   moveOut={moveOut}
                   deleteCard={deleteCard}
+                  userMsg={userMsg}
+                  cityCtrl={cityCtrl}
                />
             </Grid>
          </Grid>

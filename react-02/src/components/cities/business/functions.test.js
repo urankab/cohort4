@@ -147,29 +147,44 @@ test('Test movedIn() and movedOut() - changes population', async () => {
     await cityCtrl.addOrUpdate(city)
     expect(city.key).toBe(1)
 
-    await city.movedIn(50);
-    await city.movedOut(10);
-
+    await cityCtrl.movedIn(city, 50);
     city = cityCtrl.get('1');
-    expect(city.population).toBe(140);
+    expect(city.population).toBe(150);
+
+    await cityCtrl.movedOut(city, 100);
+    city = cityCtrl.get('1');
+    expect(city.population).toBe(50);
 })
 
-test('Test howBig() - returns size of city', () => {
-    let city = new funcs.City({ name: 'City', latitude: 1, longitude: 1, population: 0, key: 1 })
-    expect(city.howBig()).toBe('No Population')
-    city.movedIn(100);
-    expect(city.howBig()).toBe('Hamlet: 1-100')
-    city.movedIn(1);
-    expect(city.howBig()).toBe('Village: 101-999')
-    city.movedIn(899);
-    expect(city.howBig()).toBe('Town: 1,000-20,000')
-    city.movedIn(19000);
-    expect(city.howBig()).toBe('Large Town: 20,000-100,000')
-    city.movedIn(80000);
-    expect(city.howBig()).toBe('City: 100,000+')
+test('Test howBig() - returns size of city', async () => {
+    const cityCtrl = new funcs.Community();
+    await funcs.postData(funcs.url + 'clear');
+
+    let city1 = cityCtrl.getNewCity()
+    city1.name = "Gangster's Paradise"
+    city1.latitude = -15
+    city1.longitude = 5
+    city1.population = 0
+    await cityCtrl.addOrUpdate(city1)
+    expect(cityCtrl.howBig(city1.population)).toBe('No Population')
+
+    await cityCtrl.movedIn(city1, 100);
+    expect(cityCtrl.howBig(city1.population)).toBe('Hamlet: 1-100')
+
+    await cityCtrl.movedIn(city1, 1);
+    expect(cityCtrl.howBig(city1.population)).toBe('Village: 101-999')
+
+    await cityCtrl.movedIn(city1, 899);
+    expect(cityCtrl.howBig(city1.population)).toBe('Town: 1,000-20,000')
+
+    await cityCtrl.movedIn(city1, 19000);
+    expect(cityCtrl.howBig(city1.population)).toBe('Large Town: 20,000-100,000')
+
+    await cityCtrl.movedIn(city1, 80000);
+    expect(cityCtrl.howBig(city1.population)).toBe('City: 100,000+')
 })
 
-test('Test which sphere, most northern, southern and total population', async () => {
+test('Test which sphere', async () => {
     const cityCtrl = new funcs.Community();
     await funcs.postData(funcs.url + 'clear');
 
@@ -196,9 +211,9 @@ test('Test which sphere, most northern, southern and total population', async ()
     await cityCtrl.addOrUpdate(city3)
 
     expect(cityCtrl.length()).toBe(3);
-    expect(city1.whichSphere()).toBe('Southern Hemisphere')
-    expect(city2.whichSphere()).toBe('Northern Hemisphere')
-    expect(city3.whichSphere()).toBe('Equater')
+    expect(cityCtrl.whichSphere(city1.latitude)).toBe('Southern Hemisphere')
+    expect(cityCtrl.whichSphere(city2.latitude)).toBe('Northern Hemisphere')
+    expect(cityCtrl.whichSphere(city3.latitude)).toBe('Equater')
 })
 
 test('Test deleting cities', async () => {
@@ -215,7 +230,7 @@ test('Test deleting cities', async () => {
 
     expect(cityCtrl.length()).toBe(2);
 
-    await cityCtrl.delete(1)
+    await cityCtrl.deleteCard(1)
 
     await cityCtrl.loadCities()
     expect(cityCtrl.length()).toBe(1);

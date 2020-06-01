@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
    Card, CardContent, CardActions,
    List, ListItem, ListItemText, Button,
@@ -60,6 +60,7 @@ const useStyles = makeStyles({
 });
 
 function CityCards(props) {
+   const [inputValue, setInputChange] = useState('')
    const classes = useStyles();
    let cards;
    if (props.cities) {
@@ -70,7 +71,7 @@ function CityCards(props) {
                key={p.key} mykey={p.key} >
                <CardContent style={{ paddingBottom: 0 }} className={classes.cardContent}>
                   <List className={classes.list}>
-                     <Typography variant='h5' className={classes.cardHeader}>
+                     <Typography variant='h5' className={classes.cardHeader} id='name'>
                         {p.name}
                      </Typography>
                      <ListItem className={classes.listItem}>
@@ -108,22 +109,23 @@ function CityCards(props) {
                      <ListItem className={classes.listItem}>
                         <ListItemText className={classes.listText}
                            primary='How Big? '
-                           secondary='big'></ListItemText>
+                           secondary={props.cityCtrl.howBig(p.population)}></ListItemText>
                      </ListItem>
                      <ListItem className={classes.listItem}>
                         <ListItemText className={classes.listText}
                            primary='Which Sphere? '
-                           secondary='Northern'></ListItemText>
+                           secondary={props.cityCtrl.whichSphere(p.latitude)}></ListItemText>
                      </ListItem>
                   </List>
                   <List className={classes.list}>
-                     <ListItem className={classes.listItemInput}>
-                        <TextField label='#' type='number' />
+                     <ListItem className={classes.listItemInput} >
+                        <TextField label='#' type='number' onChange={handleInputChange} value={inputValue}
+                           inputProps={{ style: { textAlign: 'center' } }} />
                      </ListItem>
                   </List>
                   <CardActions className={classes.buttonArea}>
-                     <Button variant="outlined" color="primary">Moved In</Button>
-                     <Button variant="outlined" color="primary">Moved Out</Button>
+                     <Button variant="outlined" color="primary" onClick={onMoveIn}>Moved In</Button>
+                     <Button variant="outlined" color="primary" onClick={onMoveOut}>Moved Out</Button>
                      <Button variant="outlined" color="secondary" onClick={deleteCity}>Delete</Button>
                   </CardActions>
                </CardContent>
@@ -135,6 +137,36 @@ function CityCards(props) {
    function deleteCity(e) {
       let thekey = e.currentTarget.parentNode.parentNode.parentNode.getAttribute('mykey')
       props.deleteCard(thekey)
+      props.userMsg('Deleted city')
+   }
+
+   function handleInputChange(e) {
+      setInputChange(e.currentTarget.value)
+   }
+
+   function onMoveIn(e) {
+      let thekey = e.currentTarget.parentNode.parentNode.parentNode.getAttribute('mykey')
+      const cityObj = props.cityCtrl.get(thekey)
+      if (inputValue > 0) {
+         props.moveIn(cityObj, inputValue)
+         props.userMsg(`Added ${inputValue} to ${cityObj.name}`)
+         setInputChange('')
+      } else {
+         props.userMsg('Population increase must be atleast 1')
+      }
+   }
+
+   function onMoveOut(e) {
+      let thekey = e.currentTarget.parentNode.parentNode.parentNode.getAttribute('mykey')
+      const cityObj = props.cityCtrl.get(thekey)
+      if (cityObj.population - inputValue >= 0) {
+         props.moveOut(cityObj, inputValue)
+         props.userMsg(`${inputValue} moved out from ${cityObj.name}`)
+         setInputChange('')
+      }
+      else {
+         props.userMsg('City population cannot be negative')
+      }
    }
 
    return (

@@ -9,6 +9,7 @@ const useStyles = makeStyles({
       borderRadius: 15,
       margin: 10,
       backgroundColor: '#ffd6e1',
+      minWidth: 173
    },
    item: {
       padding: 15,
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
       paddingBottom: 15,
       fontSize: 12,
       color: 'red'
-   }
+   },
 });
 
 function CityForm(props) {
@@ -100,17 +101,17 @@ function CityForm(props) {
                {props.message}
             </Typography>
             <TextField name='name' label='City Name:' className={classes.item}
-               error={errorName}
+               error={errorName} inputProps={{ style: { textAlign: 'center' } }}
                defaultValue={city.name} />
             <TextField name='population' label='Population:' type='number' className={classes.item}
-               error={errorPop}
+               error={errorPop} inputProps={{ style: { textAlign: 'center' } }}
                defaultValue={city.population} />
             <br></br>
             <TextField name='latitude' label='Latitude:' type='number' className={classes.item}
-               error={errorLat}
+               error={errorLat} inputProps={{ style: { textAlign: 'center' } }}
                defaultValue={city.latitude} />
             <TextField name='longitude' label='Longitude:' type='number' className={classes.item}
-               error={errorLong}
+               error={errorLong} inputProps={{ style: { textAlign: 'center' } }}
                defaultValue={city.longitude} />
             <br></br>
             <Button
