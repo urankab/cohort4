@@ -1,3 +1,5 @@
+import data from '../data.js'
+
 const url = 'http://localhost:5000/';
 
 async function postData(url = '', data = {}) {
@@ -27,7 +29,7 @@ class City {
     static lastKey = 0;
     constructor(obj) {
         const defaults = {
-            name: "", latitude: '', longitude: '', population: "", key: ""
+            name: '', latitude: '', longitude: '', population: '', key: ''
         }
         const data = { ...defaults, ...obj };
         this.name = data.name;
@@ -42,20 +44,9 @@ class City {
         this.key = City.lastKey;
     }
 
-    // async movedIn(num) {
-    //     this.population += Number(num);
-    //     await postData(url + 'update', { population: this.population, key: this.key })
-    // }
-
-    // async movedOut(num) {
-    //     this.population -= Number(num);
-    //     await postData(url + 'update', { population: this.population, key: this.key })
-    // }
-
     show() {
         return `${this.name}\nLatitude: ${this.latitude}\nLongitude: ${this.longitude}\nPopulation: ${this.population}\nKey: ${this.key}`;
     }
-
 }
 
 class Community {
@@ -88,6 +79,18 @@ class Community {
         this.cities = cities;
     }
 
+    async loadRandomCity() {
+        const values = Object.values(data)
+        const randomCity = values[parseInt(Math.random() * values.length)]
+        this.lastKey++
+        randomCity.key = this.lastKey
+        randomCity.latitude = Number(randomCity.latitude)
+        randomCity.longitude = Number(randomCity.longitude)
+        randomCity.population = Number(randomCity.population)
+        this.cities[randomCity.key] = randomCity
+        await postData(url + 'add', randomCity)
+    }
+
     async addOrUpdate(city) {
         let theUrl;
 
@@ -98,6 +101,8 @@ class Community {
             this.lastKey++;
             city.key = this.lastKey;
             city.population = Number(city.population)
+            city.latitude = Number(city.latitude)
+            city.longitude = Number(city.longitude)
         }
         await postData(theUrl, city);
         this.cities[city.key] = city;
@@ -130,20 +135,18 @@ class Community {
     }
 
     getMostNorthern() {
-        let latitudeArray = []
-        let theName;
-        for (let key in this.cities) {
-            latitudeArray.push(this.cities[key].latitude)
-        }
-        let mostNorthLat = Math.max.apply(null, latitudeArray);
-        for (let key in this.cities) {
-            if (mostNorthLat === this.cities[key].latitude) {
-                theName = this.cities[key].name
+        if (this.length() <= 0) return '';
+        let mostNorthernCity;
+        for (const key in this.cities) {
+            if (!mostNorthernCity) {
+                mostNorthernCity = this.cities[key];
+                continue;
+            }
+            if (this.cities[key].latitude > mostNorthernCity.latitude) {
+                mostNorthernCity = this.cities[key];
             }
         }
-        if (this.length() > 0) {
-            return `${theName} at ${mostNorthLat}°`
-        }
+        return `${mostNorthernCity.name} at ${mostNorthernCity.latitude}°`;
     }
 
     getMostSouthern() {

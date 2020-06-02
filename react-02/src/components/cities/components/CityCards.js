@@ -79,7 +79,7 @@ function CityCards(props) {
                         <ListItemText className={classes.listText}
                            primary='Latitude:'
                            secondary={
-                              <Typography variant="subtitle2">
+                              <Typography variant="subtitle2" id='lat'>
                                  {p.latitude}
                               </Typography>
                            } />
@@ -89,7 +89,7 @@ function CityCards(props) {
                         <ListItemText className={classes.listText}
                            primary='Longitude:'
                            secondary={
-                              <Typography variant="subtitle2">
+                              <Typography variant="subtitle2" id='long'>
                                  {p.longitude}
                               </Typography>
                            } />
@@ -99,7 +99,7 @@ function CityCards(props) {
                         <ListItemText className={classes.listText}
                            primary='Population:'
                            secondary={
-                              <Typography variant="subtitle2">
+                              <Typography variant="subtitle2" id='pop'>
                                  {p.population}
                               </Typography>
                            } />
@@ -107,12 +107,12 @@ function CityCards(props) {
                   </List>
                   <List className={classes.list}>
                      <ListItem className={classes.listItem}>
-                        <ListItemText className={classes.listText}
+                        <ListItemText className={classes.listText} id='howBig'
                            primary='How Big? '
                            secondary={props.cityCtrl.howBig(p.population)}></ListItemText>
                      </ListItem>
                      <ListItem className={classes.listItem}>
-                        <ListItemText className={classes.listText}
+                        <ListItemText className={classes.listText} id='whichSphere'
                            primary='Which Sphere? '
                            secondary={props.cityCtrl.whichSphere(p.latitude)}></ListItemText>
                      </ListItem>
@@ -120,7 +120,7 @@ function CityCards(props) {
                   <List className={classes.list}>
                      <ListItem className={classes.listItemInput} >
                         <TextField label='#' type='number' onChange={handleInputChange} value={inputValue}
-                           inputProps={{ style: { textAlign: 'center' } }} />
+                           inputProps={{ style: { textAlign: 'center' } }} id='inputChange' />
                      </ListItem>
                   </List>
                   <CardActions className={classes.buttonArea}>
@@ -137,6 +137,7 @@ function CityCards(props) {
    function deleteCity(e) {
       let thekey = e.currentTarget.parentNode.parentNode.parentNode.getAttribute('mykey')
       props.deleteCard(thekey)
+      props.errorMsg('')
       props.userMsg('Deleted city')
    }
 
@@ -149,9 +150,11 @@ function CityCards(props) {
       const cityObj = props.cityCtrl.get(thekey)
       if (inputValue > 0) {
          props.moveIn(cityObj, inputValue)
+         props.errorMsg('')
          props.userMsg(`Added ${inputValue} to ${cityObj.name}`)
          setInputChange('')
       } else {
+         props.errorMsg('')
          props.userMsg('Population increase must be atleast 1')
       }
    }
@@ -161,10 +164,12 @@ function CityCards(props) {
       const cityObj = props.cityCtrl.get(thekey)
       if (cityObj.population - inputValue >= 0) {
          props.moveOut(cityObj, inputValue)
+         props.errorMsg('')
          props.userMsg(`${inputValue} moved out from ${cityObj.name}`)
          setInputChange('')
       }
       else {
+         props.errorMsg('')
          props.userMsg('City population cannot be negative')
       }
    }

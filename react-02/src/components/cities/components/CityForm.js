@@ -3,6 +3,7 @@ import {
    Typography, Button, TextField, Grid, makeStyles
 } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
+import Icon from '@material-ui/core/Icon';
 
 const useStyles = makeStyles({
    root: {
@@ -16,12 +17,23 @@ const useStyles = makeStyles({
       paddingLeft: 0,
       paddingRight: 0
    },
+   header: {
+      paddingTop: 15,
+      paddingLeft: 0,
+      paddingRight: 0,
+      paddingBottom: 0
+   },
    btnPadding: {
-      margin: 15,
+      margin: 10,
    },
    msg: {
       paddingBottom: 15,
-      fontSize: 12,
+      fontSize: 14,
+      color: '#4BB543'
+   },
+   errorMsg: {
+      paddingBottom: 15,
+      fontSize: 14,
       color: 'red'
    },
 });
@@ -38,6 +50,11 @@ function CityForm(props) {
       const el = document.querySelector(`[name=${name}]`);
       el.focus();
       el.select();
+   }
+
+   function onRandomCity() {
+      props.randomCity()
+      props.userMsg('Loaded a random city')
    }
 
    function onSave(e) {
@@ -84,9 +101,11 @@ function CityForm(props) {
             setErrorLong(false)
          }
          props.save(cityToSave);
+         props.errorMsg('')
          props.userMsg(`Saved ${cityToSave.name}`);
       } catch (e) {
-         props.userMsg(e.message, "error");
+         props.errorMsg(e.message, "error");
+         props.userMsg('')
       }
       e.preventDefault();
    }
@@ -94,11 +113,14 @@ function CityForm(props) {
    return (
       <form id='form' className={classes.root}>
          <Grid>
-            <Typography variant='h5' component="h2" className={classes.item}>
+            <Typography variant='h5' component="h2" className={classes.header}>
                Create a City
             </Typography>
-            <Typography className={classes.msg} id='addMsg'>
+            <Typography variant='subtitle2' className={classes.msg} id='addMsg'>
                {props.message}
+            </Typography>
+            <Typography variant='subtitle2' className={classes.errorMsg} id='errorMsg'>
+               {props.errorMessage}
             </Typography>
             <TextField name='name' label='City Name:' className={classes.item}
                error={errorName} inputProps={{ style: { textAlign: 'center' } }}
@@ -122,6 +144,15 @@ function CityForm(props) {
                startIcon={<SaveIcon />}
                onClick={onSave}
             >Save</Button>
+            <Button
+               className={classes.btnPadding}
+               variant="contained"
+               size="large"
+               color="primary"
+               onClick={onRandomCity}
+            >
+               Random City
+            </Button>
          </Grid>
       </form>
    )

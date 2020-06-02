@@ -267,3 +267,11 @@ test('Test most northern, southern and total population', async () => {
     expect(cityCtrl.getMostSouthern()).toBe("Gangster's Paradise at -15°")
     expect(cityCtrl.getTotalPopulation()).toBe(1001060)
 })
+
+
+test('Test loading a random city from', async () => {
+    const cityCtrl = new funcs.Community();
+    await cityCtrl.loadRandomCity()
+    expect(cityCtrl.length()).toBe(1)
+    // console.log(cityCtrl.cities)
+})

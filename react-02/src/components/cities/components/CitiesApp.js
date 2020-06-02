@@ -33,6 +33,7 @@ const cityCtrl = new funcs.Community()
 function CitiesApp() {
    const classes = useStyles();
    const [message, setMessage] = useState('')
+   const [errorMessage, setErrorMsg] = useState('')
 
    const [count, setCount] = useState(0)
 
@@ -77,6 +78,12 @@ function CitiesApp() {
       updateSummary()
    }
 
+   async function randomCity() {
+      await cityCtrl.loadRandomCity()
+      setCount(count + 1)
+      updateSummary()
+   }
+
    function updateSummary() {
       setTotal(cityCtrl.getTotalPopulation())
       setNorthest(cityCtrl.getMostNorthern())
@@ -85,6 +92,10 @@ function CitiesApp() {
 
    function userMsg(msg) {
       setMessage({ text: msg })
+   }
+
+   function errorMsg(msg) {
+      setErrorMsg({ text: msg })
    }
 
    return (
@@ -96,23 +107,26 @@ function CitiesApp() {
                   city={cityCtrl.getNewCity()}
                   save={onSave}
                   userMsg={userMsg}
+                  errorMsg={errorMsg}
                   message={message.text}
+                  errorMessage={errorMessage.text}
+                  randomCity={randomCity}
                />
             </Grid>
             <Grid item sm={1} className={classes.summary}>
                <List>
                   <ListItem>
-                     <ListItemText primary='Total Population:'
+                     <ListItemText id='total' primary='Total Population:'
                         secondary={total}
                      />
                   </ListItem>
                   <ListItem>
-                     <ListItemText primary='Most Northern City:'
+                     <ListItemText id='north' primary='Most Northern City:'
                         secondary={northest}
                      />
                   </ListItem>
                   <ListItem>
-                     <ListItemText primary='Most Southern City:'
+                     <ListItemText id='south' primary='Most Southern City:'
                         secondary={southest}
                      />
                   </ListItem>
@@ -125,6 +139,7 @@ function CitiesApp() {
                   moveOut={moveOut}
                   deleteCard={deleteCard}
                   userMsg={userMsg}
+                  errorMsg={errorMsg}
                   cityCtrl={cityCtrl}
                />
             </Grid>
