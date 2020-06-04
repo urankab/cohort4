@@ -20,7 +20,7 @@ function AccCtrl(props) {
    }
 
    function onDeposit() {
-      if (props.accLength >= 1) {
+      if (props.acctCtrl.checkLength() >= 1) {
          let e = document.getElementById('dropdown')
          let theKey = e.options[e.selectedIndex].getAttribute("mykey")
          let theName = e.options[e.selectedIndex].value
@@ -30,7 +30,7 @@ function AccCtrl(props) {
             if (amt !== '') {
                props.acctCtrl.getAccountByKey(theKey).deposit(amt)
                props.userMsg('')
-               props.userEditMsg(`Deposited ${amt} to ${theName}`)
+               props.userEditMsg(`Deposited $${amt} to ${theName}`)
                props.updateSummary()
             } else {
                focusElement('amount');
@@ -47,7 +47,7 @@ function AccCtrl(props) {
    }
 
    function onWithdraw() {
-      if (props.accLength >= 1) {
+      if (props.acctCtrl.checkLength() >= 1) {
          let e = document.getElementById('dropdown')
          let theKey = e.options[e.selectedIndex].getAttribute("mykey")
          let theName = e.options[e.selectedIndex].value
@@ -57,7 +57,7 @@ function AccCtrl(props) {
             if (amt !== '') {
                props.acctCtrl.getAccountByKey(theKey).withdraw(amt)
                props.userMsg('')
-               props.userEditMsg(`Withdrawed ${amt} to ${theName}`)
+               props.userEditMsg(`Withdrawed $${amt} to ${theName}`)
                props.updateSummary()
             } else {
                focusElement('amount');
@@ -74,7 +74,7 @@ function AccCtrl(props) {
    }
 
    function onDelete() {
-      if (props.accLength >= 1) {
+      if (props.acctCtrl.checkLength() >= 1) {
          let e = document.getElementById('dropdown')
          let theKey = e.options[e.selectedIndex].getAttribute("mykey")
          let theName = e.options[e.selectedIndex].value
@@ -90,7 +90,7 @@ function AccCtrl(props) {
    }
 
    function onRename() {
-      if (props.accLength >= 1) {
+      if (props.acctCtrl.checkLength() >= 1) {
          let renameValue = document.getElementById('renameField').value
          let e = document.getElementById('dropdown')
          let theKey = e.options[e.selectedIndex].getAttribute("mykey")

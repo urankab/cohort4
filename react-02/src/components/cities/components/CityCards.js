@@ -55,12 +55,13 @@ const useStyles = makeStyles({
       padding: 0,
    },
    buttonArea: {
-      padding: 0
+      padding: 0,
+      display: 'inline-block'
    }
 });
 
 function CityCards(props) {
-   const [inputValue, setInputChange] = useState('')
+   const [inputValue, setInputChange] = useState()
    const classes = useStyles();
    let cards;
    if (props.cities) {
@@ -119,12 +120,15 @@ function CityCards(props) {
                   </List>
                   <List className={classes.list}>
                      <ListItem className={classes.listItemInput} >
-                        <TextField label='#' type='number' onChange={handleInputChange} value={inputValue}
-                           inputProps={{ style: { textAlign: 'center' } }} id='inputChange' />
+                        <TextField label='#' htmlFor='hi' type='number' onChange={handleInputChange}
+                           inputProps={{
+                              "data-testid": "content-input",
+                              style: { textAlign: 'center' }
+                           }} />
                      </ListItem>
                   </List>
                   <CardActions className={classes.buttonArea}>
-                     <Button variant="outlined" color="primary" onClick={onMoveIn}>Moved In</Button>
+                     <Button variant="outlined" color="primary" onClick={onMoveIn} mykey={p.key}>Moved In</Button>
                      <Button variant="outlined" color="primary" onClick={onMoveOut}>Moved Out</Button>
                      <Button variant="outlined" color="secondary" onClick={deleteCity}>Delete</Button>
                   </CardActions>
@@ -151,26 +155,39 @@ function CityCards(props) {
       if (inputValue > 0) {
          props.moveIn(cityObj, inputValue)
          props.errorMsg('')
-         props.userMsg(`Added ${inputValue} to ${cityObj.name}`)
+         props.userMsg(`${inputValue} moved to ${cityObj.name}`)
+         clearField()
          setInputChange('')
       } else {
-         props.errorMsg('')
-         props.userMsg('Population increase must be atleast 1')
+         props.userMsg('')
+         props.errorMsg('Population increase must be atleast 1')
       }
    }
 
    function onMoveOut(e) {
       let thekey = e.currentTarget.parentNode.parentNode.parentNode.getAttribute('mykey')
       const cityObj = props.cityCtrl.get(thekey)
-      if (cityObj.population - inputValue >= 0) {
-         props.moveOut(cityObj, inputValue)
-         props.errorMsg('')
-         props.userMsg(`${inputValue} moved out from ${cityObj.name}`)
-         setInputChange('')
+
+      if (inputValue > 0) {
+         if (cityObj.population - inputValue >= 0) {
+            props.moveOut(cityObj, inputValue)
+            props.errorMsg('')
+            props.userMsg(`${inputValue} moved out from ${cityObj.name}`)
+            clearField()
+            setInputChange('')
+         } else {
+            props.errorMsg('City population cannot be negative')
+         }
+      } else {
+         props.userMsg('')
+         props.errorMsg('Please enter a value to move out')
       }
-      else {
-         props.errorMsg('')
-         props.userMsg('City population cannot be negative')
+   }
+
+   function clearField() {
+      let inputs = document.getElementsByName('inputChange')
+      for (let i = 0; i < inputs.length; i++) {
+         inputs[i].value = ''
       }
    }
 

@@ -4,14 +4,9 @@ import CreateAccount from './CreateAccount'
 import { AccountController } from '../business/functions'
 import Summary from './Summary';
 
+const acctCtrl = new AccountController();
+
 function AccountsApp() {
-   const accCtrl = new AccountController();
-
-   const [accountsCtrl] = useState(accCtrl)
-   const [account] = useState(accountsCtrl.getDefaults())
-   const [accounts] = useState(accountsCtrl.accounts)
-   const [accLength, setLength] = useState()
-
    const [editMsg, setEditMessage] = useState('')
    const [message, setMessage] = useState('')
 
@@ -20,9 +15,9 @@ function AccountsApp() {
    const [lowestBal, setLowestBal] = useState()
 
    function updateSummary() {
-      setShowTotalBal(accountsCtrl.totalBalance())
-      setHighestBal(accountsCtrl.highestAccount())
-      setLowestBal(accountsCtrl.lowestAccount())
+      setShowTotalBal(acctCtrl.totalBalance())
+      setHighestBal(acctCtrl.highestAccount())
+      setLowestBal(acctCtrl.lowestAccount())
    }
 
    function userMsg(msg) {
@@ -33,30 +28,21 @@ function AccountsApp() {
       setEditMessage({ text: msg })
    }
 
-   function updateLength() {
-      setLength(accountsCtrl.checkLength())
-   }
-
    function addAccount(accToAdd) {
-      accountsCtrl.addAccount(accToAdd)
-      console.log(accounts)
+      acctCtrl.addAccount(accToAdd)
       setEditMessage('')
-      updateLength()
       updateSummary()
    }
 
    function rename(thekey, newName) {
-      accountsCtrl.renameAccount(thekey, newName)
-      console.log(accounts)
+      acctCtrl.renameAccount(thekey, newName)
       setMessage('')
       updateSummary()
    }
 
    function deleteAccount(thekey) {
-      accountsCtrl.removeAccount(thekey)
-      console.log(accounts)
+      acctCtrl.removeAccount(thekey)
       setMessage('')
-      updateLength()
       updateSummary()
    }
 
@@ -64,8 +50,8 @@ function AccountsApp() {
       <div className='container'>
          <h1 id='header'>Banking with Uranka</h1>
          <CreateAccount
-            account={account}
-            acctCtrl={accountsCtrl}
+            account={acctCtrl.getDefaults()}
+            acctCtrl={acctCtrl}
 
             userEditMsg={userEditMsg}
             editMsg={editMsg.text}
@@ -75,8 +61,8 @@ function AccountsApp() {
             message={message.text}
          />
          <AccCtrl
-            acctCtrl={accountsCtrl}
-            accounts={accounts}
+            acctCtrl={acctCtrl}
+            accounts={acctCtrl.accounts}
 
             userMsg={userMsg}
             message={message.text}
@@ -84,14 +70,12 @@ function AccountsApp() {
             userEditMsg={userEditMsg}
             editMsg={editMsg.text}
 
-            accLength={accLength}
-
             rename={rename}
             delete={deleteAccount}
             updateSummary={updateSummary}
          />
          <Summary
-            accounts={accounts}
+            accounts={acctCtrl.accounts}
             totalStuff={totalBal}
             highestStuff={highestBal}
             lowestStuff={lowestBal}

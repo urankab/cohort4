@@ -3,19 +3,18 @@ import {
    Typography, Button, TextField, Grid, makeStyles
 } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
-import Icon from '@material-ui/core/Icon';
 
 const useStyles = makeStyles({
    root: {
       borderRadius: 15,
       margin: 10,
       backgroundColor: '#ffd6e1',
-      minWidth: 173
+      minWidth: 173,
    },
    item: {
       padding: 15,
       paddingLeft: 0,
-      paddingRight: 0
+      paddingRight: 0,
    },
    header: {
       paddingTop: 15,
@@ -101,6 +100,7 @@ function CityForm(props) {
             setErrorLong(false)
          }
          props.save(cityToSave);
+         clearField()
          props.errorMsg('')
          props.userMsg(`Saved ${cityToSave.name}`);
       } catch (e) {
@@ -108,6 +108,13 @@ function CityForm(props) {
          props.userMsg('')
       }
       e.preventDefault();
+   }
+
+   function clearField() {
+      let inputs = document.getElementsByTagName('input')
+      for (let i = 0; i < inputs.length; i++) {
+         inputs[i].value = ''
+      }
    }
 
    return (

@@ -1,97 +1,66 @@
 import React from 'react'
-import { fireEvent, render, screen, act } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import CityCards from '../CityCards'
 import funcs from '../../business/functions'
-import { shallow, mount } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16';
-import Enzyme from 'enzyme'
 
-Enzyme.configure({ adapter: new Adapter() });
-
-describe('<CityCards/>', () => {
+test('Test the card Move In/Out functionality', () => {
    const cityCtrl = new funcs.Community()
 
    const mockMoveInCallBack = jest.fn()
    const mockMoveOutCallBack = jest.fn()
    const mockDeleteCallBack = jest.fn()
    const mockMsgCallBack = jest.fn()
-   const mockHandleInput = jest.fn()
+   const mockErrorMsgCallBack = jest.fn()
+   const mockHandleChangeCallBack = jest.fn()
 
    const fakeCities = {
       1: { key: 1, name: 'Calgary', latitude: 5, longitude: 10, population: 1000 }
    };
 
-   let wrapper = mount(<CityCards
-      cityCtrl={cityCtrl}
-      cities={fakeCities}
-      userMsg={mockMsgCallBack}
-      moveIn={mockMoveInCallBack}
-      moveOut={mockMoveOutCallBack}
-      deleteCard={mockDeleteCallBack}
-   />)
-
-   it('should match snapshot?', () => {
-      expect(wrapper).toMatchSnapshot()
-   })
-
-   it('card should show name, lat, long, pop, etc.', () => {
-      // wrapper.find('#inputChange').simulate('change', { target: { value: 5 } });
-      console.log(wrapper.debug())
-
-      // screen.getByText('Calgary')
-
-      // expect(getValue('inputChange')).toBe(5)
-
-      // click(/Moved In/i)
-
-      // expect(mockMsgCallBack.mock.calls.length).toBe(1)
-
-   })
-});
-
-
-test('Test the Create City form', () => {
-   const cityCtrl = new funcs.Community()
-
-   const mockMoveInCallBack = jest.fn()
-   const mockMoveOutCallBack = jest.fn()
-   const mockDeleteCallBack = jest.fn()
-   const mockMsgCallBack = jest.fn()
-   const mockHandleInput = jest.fn()
-
-   const fakeCities = {
-      1: { key: 1, name: 'Calgary', latitude: 5, longitude: 10, population: 1000 }
-   };
+   cityCtrl.cities = fakeCities
 
    render(<CityCards
       cityCtrl={cityCtrl}
-      cities={fakeCities}
+      cities={cityCtrl.cities}
       userMsg={mockMsgCallBack}
+      errorMsg={mockErrorMsgCallBack}
       moveIn={mockMoveInCallBack}
       moveOut={mockMoveOutCallBack}
       deleteCard={mockDeleteCallBack}
+      handleInputChange={mockHandleChangeCallBack}
    />)
 
    screen.getByText('Calgary')
 
-   updateValue('inputChange', 5)
-   // expect(getValue('input')).toBe(5)
+   click(/Moved In/i)
+
+   expect(mockErrorMsgCallBack.mock.calls.length).toBe(1)
+   expect(mockErrorMsgCallBack.mock.calls[0][0]).toBe('Population increase must be atleast 1')
+
+   let input = screen.getByTestId('content-input')
+   fireEvent.change(input, { target: { value: '23' } })
 
    click(/Moved In/i)
 
-   expect(mockMsgCallBack.mock.calls.length).toBe(1)
-   expect(mockMsgCallBack.mock.calls[0][0]).toBe('')
+   expect(mockMsgCallBack.mock.calls.length).toBe(2)
+   expect(mockMsgCallBack.mock.calls[1][0]).toBe('23 moved to Calgary')
 
-   expect(mockMoveInCallBack.mock.calls.length).toBe(1)
+   click(/Moved Out/i)
+   expect(mockErrorMsgCallBack.mock.calls.length).toBe(3)
+   expect(mockErrorMsgCallBack.mock.calls[2][0]).toBe('Please enter a value to move out')
+
+   fireEvent.change(input, { target: { value: '5' } })
+
+   click(/Moved Out/i)
+
+   expect(mockMsgCallBack.mock.calls.length).toBe(4)
+   expect(mockMsgCallBack.mock.calls[3][0]).toBe('5 moved out from Calgary')
+
+   click(/Delete/i)
+
+   expect(mockMsgCallBack.mock.calls.length).toBe(5)
+   expect(mockMsgCallBack.mock.calls[4][0]).toBe('Deleted city')
 })
-
-function getValue(name) {
-   return document.querySelector(`[name=${name}]`).value;
-}
-
-function updateValue(name, value) {
-   document.querySelector(`[name=${name}]`).value = value;
-}
 
 function click(txt) {
    fireEvent.click(

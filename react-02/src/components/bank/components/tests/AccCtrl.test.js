@@ -8,39 +8,54 @@ test('Test depositing/withdrawing to accounts', () => {
    const accounts = acctCtrl.accounts
 
    const mockUserMsgCallBack = jest.fn()
+   const mockEditMsgCallBack = jest.fn()
+   const mockUpdateSumCallBack = jest.fn()
 
    acctCtrl.addAccount({ accountName: 'Kitty', balance: 100 })
    acctCtrl.addAccount({ accountName: 'Doggy', balance: 10 })
 
    render(<AccCtrl
+      acctCtrl={acctCtrl}
       accounts={accounts}
-      userEditMsg={mockUserMsgCallBack}
+      userMsg={mockUserMsgCallBack}
+      userEditMsg={mockEditMsgCallBack}
+      updateSummary={mockUpdateSumCallBack}
    />)
 
    screen.getByText('Kitty - $100')
    screen.getByText('Doggy - $10')
 
-   // fireEvent.change(screen.getByLabelText('Select Account:'), {
-   //    target: { value: 'Doggy' }
-   // })
-
    updateValue('amount', 100)
+
+   let e = document.getElementById('dropdown')
+   let value = e.options[e.selectedIndex].value
+   expect(value).toBe('Kitty')
 
    click('Deposit')
 
-   expect(mockUserMsgCallBack.mock.calls.length).toBe(1)
-   expect(mockUserMsgCallBack.mock.calls[0][0]).toBe('Deposited $100 to Kitty')
+   expect(mockEditMsgCallBack.mock.calls.length).toBe(1)
+   expect(mockEditMsgCallBack.mock.calls[0][0]).toBe('Deposited $100 to Kitty')
 
-   screen.getByText('Kitty - $200')
+   fireEvent.change(screen.getByLabelText('Select Account:'), {
+      target: { value: 'Doggy' }
+   })
+
+   updateValue('amount', 2)
+
+   click('Withdraw')
+
+   expect(mockEditMsgCallBack.mock.calls.length).toBe(2)
+   expect(mockEditMsgCallBack.mock.calls[1][0]).toBe('Withdrawed $2 to Doggy')
 })
 
 test('Test dropdown, renaming accounts & validation', () => {
    const acctCtrl = new AccountController()
    const accounts = acctCtrl.accounts
 
-   const mockUserMsgCallBack = jest.fn()
    const mockRenameCallBack = jest.fn()
-   // const mockLengthState = ''
+   const mockUserMsgCallBack = jest.fn()
+   const mockEditMsgCallBack = jest.fn()
+   const mockUpdateSumCallBack = jest.fn()
 
    acctCtrl.addAccount({ accountName: 'Kitty', balance: 100 })
    acctCtrl.addAccount({ accountName: 'Doggy', balance: 10 })
@@ -48,18 +63,16 @@ test('Test dropdown, renaming accounts & validation', () => {
    expect(Object.values(acctCtrl.accounts)[1]).toEqual({ "accountName": "Doggy", "balance": 10, "key": 2 })
 
    render(<AccCtrl
+      acctCtrl={acctCtrl}
       accounts={accounts}
-      userEditMsg={mockUserMsgCallBack}
       rename={mockRenameCallBack}
-   // accLength={mockLengthState}
+      userMsg={mockUserMsgCallBack}
+      userEditMsg={mockEditMsgCallBack}
+      updateSummary={mockUpdateSumCallBack}
    />)
 
    screen.getByText('Kitty - $100')
    screen.getByText('Doggy - $10')
-
-   // fireEvent.change(screen.getByLabelText('Select Account:'), {
-   //    target: { value: 'Kitty' }
-   // })
 
    let e = document.getElementById('dropdown')
    let value = e.options[e.selectedIndex].value
@@ -67,32 +80,48 @@ test('Test dropdown, renaming accounts & validation', () => {
 
    click('Change Name')
 
-   expect(mockRenameCallBack.mock.calls.length).toBe(1)
-   expect(mockUserMsgCallBack.mock.calls.length).toBe(1)
-   expect(mockUserMsgCallBack.mock.calls[0][0]).toBe('Please enter a new name')
+   expect(mockRenameCallBack.mock.calls.length).toBe(0)
+   expect(mockEditMsgCallBack.mock.calls.length).toBe(1)
+   expect(mockEditMsgCallBack.mock.calls[0][0]).toBe('Please enter a new name')
 
    updateValue('renameField', 'Cats')
    click('Change Name')
 
    expect(mockRenameCallBack.mock.calls.length).toBe(1)
-   expect(mockUserMsgCallBack.mock.calls.length).toBe(2)
-   expect(mockUserMsgCallBack.mock.calls[1][0]).toBe('Renamed Kitty')
+   expect(mockEditMsgCallBack.mock.calls.length).toBe(2)
+   expect(mockEditMsgCallBack.mock.calls[1][0]).toBe('Renamed Kitty')
+
+   fireEvent.change(screen.getByLabelText('Select Account:'), {
+      target: { value: 'Doggy' }
+   })
+
+   updateValue('renameField', 'PUPPERS')
+   click('Change Name')
+
+   expect(mockRenameCallBack.mock.calls.length).toBe(2)
+   expect(mockEditMsgCallBack.mock.calls.length).toBe(3)
+   expect(mockEditMsgCallBack.mock.calls[2][0]).toBe('Renamed Doggy')
 })
 
 test('Test deleting accounts', () => {
    const acctCtrl = new AccountController()
    const accounts = acctCtrl.accounts
 
-   const mockUserMsgCallBack = jest.fn()
    const mockDeleteCallBack = jest.fn()
+   const mockUserMsgCallBack = jest.fn()
+   const mockEditMsgCallBack = jest.fn()
+   const mockUpdateSumCallBack = jest.fn()
 
    acctCtrl.addAccount({ accountName: 'Kitty', balance: 100 })
    acctCtrl.addAccount({ accountName: 'Doggy', balance: 10 })
 
    render(<AccCtrl
+      acctCtrl={acctCtrl}
       accounts={accounts}
-      userEditMsg={mockUserMsgCallBack}
       delete={mockDeleteCallBack}
+      userMsg={mockUserMsgCallBack}
+      userEditMsg={mockEditMsgCallBack}
+      updateSummary={mockUpdateSumCallBack}
    />)
 
    screen.getByText('Kitty - $100')
@@ -105,8 +134,8 @@ test('Test deleting accounts', () => {
    click('Delete Account')
 
    expect(mockDeleteCallBack.mock.calls.length).toBe(1)
-   expect(mockUserMsgCallBack.mock.calls.length).toBe(1)
-   expect(mockUserMsgCallBack.mock.calls[0][0]).toBe('Deleted Kitty')
+   expect(mockEditMsgCallBack.mock.calls.length).toBe(1)
+   expect(mockEditMsgCallBack.mock.calls[0][0]).toBe('Deleted Kitty')
 
    fireEvent.change(screen.getByLabelText('Select Account:'), {
       target: { value: 'Doggy' }
@@ -115,16 +144,12 @@ test('Test deleting accounts', () => {
    click('Delete Account')
 
    expect(mockDeleteCallBack.mock.calls.length).toBe(2)
-   expect(mockUserMsgCallBack.mock.calls.length).toBe(2)
-   expect(mockUserMsgCallBack.mock.calls[1][0]).toBe('Deleted Doggy')
+   expect(mockEditMsgCallBack.mock.calls.length).toBe(2)
+   expect(mockEditMsgCallBack.mock.calls[1][0]).toBe('Deleted Doggy')
 })
 
 function getValue(name) {
    return document.querySelector(`[name=${name}]`).value
-}
-
-function getTextContent(name) {
-   return document.getElementById(`${name}`).textContent;
 }
 
 function updateValue(name, value) {

@@ -19,8 +19,12 @@ const useStyles = makeStyles({
       borderRadius: 15,
       margin: 10,
       backgroundColor: '#ffebf0',
-      height: 300,
-      minWidth: 154
+      height: '50%',
+      minWidth: 154,
+   },
+   sumStuff: {
+      wordBreak: 'break-word',
+      width: 150,
    },
    credit: {
       fontSize: 12,
@@ -115,17 +119,17 @@ function CitiesApp() {
             </Grid>
             <Grid item sm={1} className={classes.summary}>
                <List>
-                  <ListItem>
+                  <ListItem className={classes.sumStuff}>
                      <ListItemText id='total' primary='Total Population:'
                         secondary={total}
                      />
                   </ListItem>
-                  <ListItem>
+                  <ListItem className={classes.sumStuff}>
                      <ListItemText id='north' primary='Most Northern City:'
                         secondary={northest}
                      />
                   </ListItem>
-                  <ListItem>
+                  <ListItem className={classes.sumStuff}>
                      <ListItemText id='south' primary='Most Southern City:'
                         secondary={southest}
                      />
