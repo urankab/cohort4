@@ -12,7 +12,7 @@ import Home from './Home'
 import Game from './Game/TicTacToe'
 import AccountsApp from './Bank/components/AccountsApp';
 import CitiesApp from './Cities/components/CitiesApp'
-// import LinkedListDisplay from './LinkedList/LinkedListDisplay'
+import LinkedListDisplay from './LinkedList/LinkedListDisplay'
 
 const Icons = ({ getIcon }) => {
    return (
@@ -22,7 +22,7 @@ const Icons = ({ getIcon }) => {
             <Link to='/game'><img alt='tictactoe' className='tic' src={ticLogo} onClick={getIcon} /></Link>
             <Link to='/bank'><img alt='taco' className='foodLogos' src={tacoLogo} onClick={getIcon} /></Link>
             <Link to='/cities'><img alt='kebab' className='foodLogos' src={kebabLogo} onClick={getIcon} /></Link>
-            {/* <Link to='/linkedlist'><img alt='chicken' className='chicken' src={chickenLogo} onClick={getIcon} /></Link> */}
+            <Link to='/linkedlist'><img alt='chicken' className='chicken' src={chickenLogo} onClick={getIcon} /></Link>
             <img alt='pizza' className='pizza' src={pizzaLogo} onClick={getIcon} />
             <img alt='noodles' className='foodLogos' src={noodleLogo} onClick={getIcon} />
          </div>
@@ -30,7 +30,7 @@ const Icons = ({ getIcon }) => {
          <Route exact path='/game' component={Game} />
          <Route exact path='/bank' component={AccountsApp} />
          <Route exact path='/cities' component={CitiesApp} />
-         {/* <Route exact path='/linkedlist' component={LinkedListDisplay} /> */}
+         <Route exact path='/linkedlist' component={LinkedListDisplay} />
       </Router >
    )
 }

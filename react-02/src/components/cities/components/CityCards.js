@@ -121,7 +121,7 @@ function CityCards(props) {
                   <List className={classes.list}>
                      <ListItem className={classes.listItemInput} >
                         <TextField label='#' htmlFor='hi' type='number' onChange={handleInputChange}
-                           inputProps={{
+                           name='inputChange' inputProps={{
                               "data-testid": "content-input",
                               style: { textAlign: 'center' }
                            }} />

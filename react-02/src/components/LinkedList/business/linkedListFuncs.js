@@ -1,11 +1,12 @@
 class ListNode {
-   constructor(element) {
-      this.next = null
-      this.element = element
+   constructor(subject, amount, prev, next) {
+      this.subject = subject //Holds the data of a node
       this.amount = amount
+      this.prev = null
+      this.next = null //Pointer to next node
    }
    show() {
-      return `${this.element} amount: ${this.amount}`
+      return `${this.subject} amount: ${this.amount}`
    }
 }
 
@@ -17,46 +18,46 @@ class ListNode {
 // insert ⇒ inserts a new node after the current node (which node will be the current node after the insertion?)
 // delete ⇒ delete the current node (which node will be the current node after the deletion?)
 
-
 class LinkedList {
    constructor() {
-      this.head = null;
-      this.size = 0.
+      this.head = null; //Stores first node
+      this.tail = null
+      this.size = 0 //# of nodes in a list
    }
 
-   insert(element) {
-      let node = new ListNode(element)
-      let current
+   //Adds an element at the end of list
+   insert(subject, amount) {
+      let node = new ListNode(subject, amount) //New node
+      let current //To store current ndoe
       //If list is empty, add the element to make it head
       if (this.head == null) {
          this.head = node
+         this.tail = node
       }
       else {
-         current = this.head
-         //Iterate to the end of the list
-         while (current.next) {
-            current = current.next
-         }
-         //Add node
-         current.next = node
+         let temp = this.tail
+         this.tail = node
+         node.prev = temp
+         temp.next = node
       }
       this.size++
+      return this
    }
 
-   delete(element) {
+   delete(subject) {
       let current = this.head
       let prev = null
       //Iterate over list
       while (current != null) {
          //Compare element with current, if found, then remove 
-         if (current.element === element) {
+         if (current.subject === subject) {
             if (prev == null) {
                this.head = current.next
             } else {
                prev.next = current.next
             }
             this.size--
-            return current.element
+            return current.subject
          }
          prev = current
          current = current.ext
@@ -64,36 +65,45 @@ class LinkedList {
       return -1
    }
 
-   next(element) {
+   next() {
 
    }
 
-   previous(element) {
-
+   previous() {
+      let counter = 0
+      let node = this.head
+      while (node) {
+         if (counter === index) {
+            return node
+         }
+         counter++
+         node = node.next
+      }
+      return null
    }
 
-   first(element) {
-      let node = new Node(element)
+   first() {
+      return this.head
    }
 
-   last(element) {
-
+   last() {
+      return this.tail
    }
 
    total() {
       return this.size
    }
+
+   // Prints the list items 
+   printList() {
+      let curr = this.head;
+      let str = "";
+      while (curr) {
+         str += curr.element + " ";
+         curr = curr.next;
+      }
+      console.log(str);
+   }
 }
 
 export { ListNode, LinkedList };
-
-//Linked list: Successful nodes are connected by pointers, last node returns null
-// Allocates memory as it grows unless arrays which have a fixed size
-// A linked list can easily insert or remove nodes from a list without reorganization
-// of the entire dat structure
-
-// Drawbacks: Random access of elements is not allowed, nodes must be accessed 
-// starting from the first onemptied, so it is slow
-// It uses more memory than arrays because of using pointers
-
-//Single linked list: 2 parts: data and a pointer to the next node, terminates at null
