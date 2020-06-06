@@ -58,6 +58,12 @@ function CitiesApp() {
       fetchData();
    }, [count]);
 
+   useEffect(() => { //Added this to get rid of an error, this code works without it
+      return () => {
+         console.log('cleaned up')
+      }
+   }, [])
+
    async function onSave(city) {
       await cityCtrl.addOrUpdate(city)
       setCount(count + 1)

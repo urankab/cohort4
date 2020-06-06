@@ -56,6 +56,8 @@ test('Test the card Move In/Out functionality', () => {
    expect(mockMsgCallBack.mock.calls.length).toBe(4)
    expect(mockMsgCallBack.mock.calls[3][0]).toBe('5 moved out from Calgary')
 
+   // console.log(cityCtrl)
+
    click(/Delete/i)
 
    expect(mockMsgCallBack.mock.calls.length).toBe(5)

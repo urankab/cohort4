@@ -43,16 +43,16 @@ const useStyles = makeStyles({
 function LinkedListDisplay() {
    const classes = useStyles();
 
-   const [head, setHead] = useState(null)
-   const [tail, setTail] = useState(null)
    const [currentPosition, setCurrentP] = useState(null)
+   const [size, setSize] = useState(0)
 
    const [message, setMessage] = useState('')
    const [posMessage, setPosMsg] = useState('')
 
-   const [showList, setShowList] = useState(false)
-   const [sortBySub, setSortBySub] = useState(false)
-   const [sortByAmount, setSortByAmount] = useState(false)
+   const [showList, setShowList] = useState('')
+
+   let prevBtn = document.getElementById('prevBtn')
+   let nextBtn = document.getElementById('nextBtn')
 
    function focusElement(name) {
       const el = document.getElementById(name);
@@ -60,9 +60,10 @@ function LinkedListDisplay() {
       el.select();
    }
 
-   function addAtStart(e) {
+   function addNode(e) {
       let subject = document.getElementById('subject').value
       let amount = document.getElementById('amount').value
+      setShowList('all')
       try {
          if (subject === '') {
             focusElement('subject');
@@ -72,9 +73,11 @@ function LinkedListDisplay() {
             focusElement('amount');
             throw new Error('Please enter an amount')
          }
-         linky.prepend(subject, amount)
-         setShowList(true)
-         updatePosition()
+         linky.insert(subject, amount)
+         setSize(linky.size)
+         setCurrentP(`Current Node: ${linky.currentNode.subject} ~ ${linky.currentNode.amount}`)
+         userMsg(`Created ${linky.currentNode.subject}`)
+         posMsg(`Current Node: ${linky.currentNode.show()}`)
          clearFields()
       } catch (e) {
          userMsg(e.message, 'error')
@@ -82,44 +85,92 @@ function LinkedListDisplay() {
       e.preventDefault(); //What is this?
    }
 
-   function deleteAtEnd() {
-      userMsg(linky.deleteTail())
-      setShowList(true)
-      updatePosition()
+   function deleteNode() {
+      userMsg(linky.delete())
+      setShowList('all')
+      if (linky.size >= 1) {
+         setSize(linky.size)
+         setCurrentP(`Current Node: ${linky.currentNode.subject} ~ ${linky.currentNode.amount}`)
+         posMsg(`Current Node: ${linky.currentNode.show()}`)
+      }
+      else {
+         setCurrentP(null)
+         posMsg(`Current Node: None`)
+      }
    }
-
-   // function addAtEnd(e) {
-   //    let subject = document.getElementById('subject').value
-   //    let amount = document.getElementById('amount').value
-   //    try {
-   //       if (subject === '') {
-   //          focusElement('subject');
-   //          throw new Error('Please enter a subject/value')
-   //       }
-   //       if (amount === '') {
-   //          focusElement('amount');
-   //          throw new Error('Please enter an amount')
-   //       }
-   //       linky.append(subject, amount)
-   //       setShowList(true)
-   //       updatePosition()
-   //       updateSize()
-   //       clearFields()
-   //    } catch (e) {
-   //       userMsg(e.message, 'error')
-   //    }
-   //    e.preventDefault(); //What is this?
-   // }
 
    function onPrev() {
-      setCurrentP(linky.prev())
-      userMsg(currentPosition)
+      setShowList('all')
+      if (linky.size >= 2) {
+         prevBtn.disabled = false
+         linky.prev()
+         if (linky.currentNode === linky.head) { //If CN is head, disable prev button
+            setCurrentP(`Current Node: ${linky.currentNode.subject} ~ ${linky.currentNode.amount}`)
+            posMsg(`Current Node (Head): ${linky.currentNode.show()}`)
+            prevBtn.disabled = true
+            nextBtn.disabled = false
+         }
+         else if (linky.currentNode !== linky.head) {
+            setCurrentP(`Current Node: ${linky.currentNode.subject} ~ ${linky.currentNode.amount}`)
+            nextBtn.disabled = false
+            posMsg(`Current Node: ${linky.currentNode.show()}`)
+         }
+      } else {
+         userMsg('Nothing to move back too')
+      }
    }
 
-
    function onNext() {
-      setCurrentP(linky.next())
-      userMsg(currentPosition)
+      setShowList('all')
+      if (linky.size >= 2) {
+         nextBtn.disabled = false
+         linky.next()
+         if (linky.currentNode === linky.tail) { //If CN is tail, disable next button
+            setCurrentP(`Current Node: ${linky.currentNode.subject} ~ ${linky.currentNode.amount}`)
+            posMsg(`Current Node (Tail): ${linky.currentNode.show()}`)
+            nextBtn.disabled = true
+            prevBtn.disabled = false
+         }
+         else if (linky.currentNode !== linky.tail) {
+            setCurrentP(`Current Node: ${linky.currentNode.subject} ~ ${linky.currentNode.amount}`)
+            prevBtn.disabled = false
+            posMsg(`Current Node: ${linky.currentNode.show()}`)
+         }
+      } else {
+         userMsg('Nothing to move next too')
+      }
+   }
+
+   function onFirst() {
+      setShowList('all')
+      if (linky.size >= 2) {
+         setCurrentP(`Current Node: ${linky.first().subject} ~ ${linky.first().amount}`)
+         posMsg(`Current Node (First): ${linky.currentNode.show()}`)
+         prevBtn.disabled = true
+         nextBtn.disabled = false
+      }
+      if (linky.size === 1) {
+         userMsg('Only 1 item in list')
+      }
+      else {
+         userMsg('Nothing in list')
+      }
+   }
+
+   function onLast() {
+      setShowList('all')
+      if (linky.size >= 2) {
+         setCurrentP(`Current Node: ${linky.last().subject} ~ ${linky.last().amount}`)
+         posMsg(`Current Node (Last): ${linky.currentNode.show()}`)
+         nextBtn.disabled = true
+         prevBtn.disabled = false
+      }
+      if (linky.size === 1) {
+         userMsg('Only 1 item in list')
+      }
+      else {
+         userMsg('Nothing in list')
+      }
    }
 
    function userMsg(msg) {
@@ -130,30 +181,32 @@ function LinkedListDisplay() {
       setPosMsg({ text: msg })
    }
 
-   function updatePosition() {
-      setHead(linky.head)
-      setTail(linky.tail)
-   }
-
    function clearFields() {
       document.getElementById('subject').value = ''
       document.getElementById('amount').value = ''
    }
 
+   // function searchBySubject() {
+   //    setShowList('subject')
+   // }
+
+   // function searchByAmount() {
+   //    setShowList('amount')
+   // }
+
    let output;
-   if (showList) {
+
+   if (showList === 'all') {
       output = linky.printList()
    }
-   else if (sortBySub) {
-      output = linky.searchBySubject()
+   else if (showList === 'subject') {
+      let sub = document.getElementById('searchInput').value
+      output = linky.searchBySubject(sub)
    }
-   else if (sortByAmount) {
-      output = linky.searchByAmount()
+   else if (showList === 'amount') {
+      let amt = document.getElementById('searchInput').value
+      output = linky.searchByAmount(amt)
    }
-   else {
-      output = ''
-   }
-
 
    return (
       <div className={classes.root}>
@@ -166,20 +219,27 @@ function LinkedListDisplay() {
             <label htmlFor='amount' className={classes.label}>Amount: </label>
             <input id='amount' className={classes.input} type='number' placeholder='#'></input>
             <br></br>
-            <button className={classes.btn} onClick={addAtStart}>Add</button>
-            <button className={classes.btn} onClick={deleteAtEnd}>Delete</button>
-            <p>{posMessage.text}</p>
-            <button className={classes.btn} onClick={onPrev}>Prev Node</button>
-            <button className={classes.btn} onClick={onNext}>Next Node</button>
+            <button id='addBtn' className={classes.btn} onClick={addNode}>Add</button>
+            <button id='delBtn' className={classes.btn} onClick={deleteNode}>Delete</button>
+            <p id='currentNode'>{posMessage.text}</p>
+            <button id='prevBtn' className={classes.btn} onClick={onPrev}>Prev Node</button>
+            <button id='nextBtn' className={classes.btn} onClick={onNext}>Next Node</button>
+            <br></br>
+            <button className={classes.btn} onClick={onFirst}>First Node</button>
+            <button className={classes.btn} onClick={onLast}>Last Node</button>
          </div>
          <div className={classes.container}>
-            <p className={classes.summary}>Size: {linky.size}</p>
+            <p className={classes.summary}>Size: {size}</p>
             <p className={classes.summary}>Total Amount: {linky.totalAmounts()}</p>
-            <p className={classes.list}>
+            <p className={classes.summary}>{currentPosition}</p>
+            <p id='list' className={classes.list}>
                {output}
             </p>
-            <button className={classes.btn}>Sort by Subject</button>
-            <button className={classes.btn}>Sort by Amount</button>
+            <input id='searchInput' placeholder='Enter subject or amount'></input>
+            <br></br>
+            <button className={classes.btn} onClick={() => setShowList('all')}>Show All</button>
+            <button className={classes.btn} onClick={() => setShowList('subject')}>Sort by Subject</button>
+            <button className={classes.btn} onClick={() => setShowList('amount')}>Sort by Amount</button>
          </div>
       </div >
    )
