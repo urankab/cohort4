@@ -1,22 +1,19 @@
 import React, { useState } from 'react'
 
 function FIFO() {
-    const [first, setFirst] = useState()
-    const [last, setLast] = useState()
-
 
 
     function onTakeOut() {
-        
+
     }
 
     return (
         <div id='fifoBox'>
             <h2>FIFO</h2>
-            <ol>
+            <ol className='olz'>
 
             </ol>
-            <button onClick={onTakeOut}>Take Out</button>
+            <button className='buttonz' onClick={onTakeOut}>Take Out</button>
         </div>
     )
 }

@@ -8,7 +8,7 @@ import {
 
 const useStyles = makeStyles({
    root: {
-      flexGrow: 1,
+      // flexGrow: 1,
    },
    header: {
       backgroundColor: '#ff9b98',
@@ -29,6 +29,9 @@ const useStyles = makeStyles({
    credit: {
       fontSize: 12,
       color: 'grey'
+   },
+   divWidth: {
+      minWidth: 'fit-content'
    }
 });
 
@@ -58,11 +61,11 @@ function CitiesApp() {
       fetchData();
    }, [count]);
 
-   useEffect(() => { //Added this to get rid of an error, this code works without it
-      return () => {
-         console.log('cleaned up')
-      }
-   }, [])
+   // useEffect(() => { //Added this to get rid of an error, this code works without it
+   //    return () => {
+   //       console.log('cleaned up')
+   //    }
+   // }, [])
 
    async function onSave(city) {
       await cityCtrl.addOrUpdate(city)
@@ -112,7 +115,7 @@ function CitiesApp() {
       <div className={classes.root}>
          <h1 className={classes.header}>Cities</h1>
          <Grid container>
-            <Grid item sm={2}>
+            <Grid item sm={2} className={classes.divWidth}>
                <CityForm
                   city={cityCtrl.getNewCity()}
                   save={onSave}

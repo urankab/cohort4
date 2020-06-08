@@ -32,7 +32,7 @@ function ListDisplay() {
         setMessage({ text: msg })
     }
 
-    
+
     function LIFOMsg(msg) {
         setLIFOMessage({ text: msg })
     }
@@ -41,7 +41,7 @@ function ListDisplay() {
         <div>
             <h1 id='listHeader'>FIFO ~ LIFO</h1>
             <h3 id='listHeader2'>Create your Elephant</h3>
-            <div id='container'>
+            <div id='container2'>
                 <LIFO
                     LIFOelephants={lifo.storage}
                     LIFOMessage={LIFOMessage}

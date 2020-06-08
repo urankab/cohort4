@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import getElephant from '../business/fifo_lifo.js'
 
 function CreateItem(props) {
-    
+
     function onGetRandom() {
         getElephant()
     }
@@ -18,7 +18,7 @@ function CreateItem(props) {
         const inputs = document.getElementsByTagName('input')
         const aboutTxt = document.getElementById('about')
 
-        for (let i = 0; i < inputs.length; i++){
+        for (let i = 0; i < inputs.length; i++) {
             elephant[inputs[i].id] = inputs[i].value
         }
 
@@ -60,23 +60,23 @@ function CreateItem(props) {
     return (
         <div id='createBox'>
             <p>{props.message}</p>
-            <label htmlFor='name'>Name: </label>
-            <input id='name' type='text' placeholder='Enter name'></input>
+            <label className='labelz' htmlFor='name'>Name: </label>
+            <input className='inputz' id='name' type='text' placeholder='Enter name'></input>
             <br></br>
-            <label htmlFor='species'>Species: </label>
-            <input id='species' type='text' placeholder='Enter species'></input>
+            <label className='labelz' htmlFor='species'>Species: </label>
+            <input className='inputz' id='species' type='text' placeholder='Enter species'></input>
             <br></br>
-            <label htmlFor='gender'>Gender: </label>
-            <input id='gender' type='text' placeholder='Enter gender'></input>
+            <label className='labelz' htmlFor='gender'>Gender: </label>
+            <input className='inputz' id='gender' type='text' placeholder='Enter gender'></input>
             <br></br>
-            <label htmlFor='about'>About: </label>
-            <textarea id='about' type='text' placeholder='Enter about'></textarea>
+            <label className='labelz' htmlFor='about'>About: </label>
+            <textarea className='textareaz' id='about' type='text' placeholder='Talk about your elephant!'></textarea>
             <br></br>
-            <button onClick={onGetRandom}>Get Random</button>
-            <button onClick={clear}>Reset</button>
+            <button className='buttonz' onClick={onGetRandom}>Get Random</button>
+            <button className='buttonz' onClick={clear}>Reset</button>
             <br></br>
-            <button>Add FIFO</button>
-            <button onClick={onLIFO}>Add LIFO</button>
+            <button className='buttonz'>Add FIFO</button>
+            <button className='buttonz' onClick={onLIFO}>Add LIFO</button>
         </div>
     )
 }

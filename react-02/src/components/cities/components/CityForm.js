@@ -9,7 +9,8 @@ const useStyles = makeStyles({
       borderRadius: 15,
       margin: 10,
       backgroundColor: '#ffd6e1',
-      minWidth: 173,
+      // minWidth: '50%',
+      // minWidth: 173,
    },
    item: {
       padding: 15,
@@ -34,7 +35,7 @@ const useStyles = makeStyles({
       paddingBottom: 15,
       fontSize: 14,
       color: 'red'
-   },
+   }
 });
 
 function CityForm(props) {
@@ -130,16 +131,36 @@ function CityForm(props) {
                {props.errorMessage}
             </Typography>
             <TextField name='name' label='City Name:' className={classes.item}
+               InputLabelProps={{
+                  style: {
+                     width: '-webkit-fill-available'
+                  }
+               }}
                error={errorName} inputProps={{ style: { textAlign: 'center' } }}
                defaultValue={city.name} />
             <TextField name='population' label='Population:' type='number' className={classes.item}
+               InputLabelProps={{
+                  style: {
+                     width: '-webkit-fill-available'
+                  }
+               }}
                error={errorPop} inputProps={{ style: { textAlign: 'center' } }}
                defaultValue={city.population} />
             <br></br>
             <TextField name='latitude' label='Latitude:' type='number' className={classes.item}
+               InputLabelProps={{
+                  style: {
+                     width: '-webkit-fill-available'
+                  }
+               }}
                error={errorLat} inputProps={{ style: { textAlign: 'center' } }}
                defaultValue={city.latitude} />
             <TextField name='longitude' label='Longitude:' type='number' className={classes.item}
+               InputLabelProps={{
+                  style: {
+                     width: '-webkit-fill-available'
+                  }
+               }}
                error={errorLong} inputProps={{ style: { textAlign: 'center' } }}
                defaultValue={city.longitude} />
             <br></br>

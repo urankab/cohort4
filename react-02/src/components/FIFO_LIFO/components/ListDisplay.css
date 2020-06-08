@@ -1,7 +1,7 @@
-#container{
+#container2{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas: 'header header header'
+    /* grid-template-areas: 'header header header' */
 }
 
 #listHeader{
@@ -41,17 +41,17 @@
     margin-right: 25px;
 }
 
-label{
+.labelz{
     width: 70px;
     padding: 8px;
     text-align: left;
 }
 
-input{
+.inputz{
     margin: 8px;
 }
 
-textarea{
+.textareaz{
     margin: 8px;
     margin-right: 15px;
     vertical-align: middle;
@@ -59,16 +59,16 @@ textarea{
     min-width: 200px;
 }
 
-button{
+.buttonz{
     padding: 5px;
     margin: 8px;
     margin-bottom: 15px;
 }
 
-ol{
+.olz{
     list-style-position: inside;
 }
 
-li{
+.liz{
     padding: 10px;
 }
