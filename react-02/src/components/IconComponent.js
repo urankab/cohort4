@@ -13,6 +13,7 @@ import Game from './Game/TicTacToe'
 import AccountsApp from './Bank/components/AccountsApp';
 import CitiesApp from './Cities/components/CitiesApp'
 import LinkedListDisplay from './LinkedList/LinkedListDisplay'
+import ListDisplay from './FIFO_LIFO/components/ListDisplay'
 
 const Icons = ({ getIcon }) => {
    return (
@@ -23,7 +24,7 @@ const Icons = ({ getIcon }) => {
             <Link to='/bank'><img alt='taco' className='foodLogos' src={tacoLogo} onClick={getIcon} /></Link>
             <Link to='/cities'><img alt='kebab' className='foodLogos' src={kebabLogo} onClick={getIcon} /></Link>
             <Link to='/linkedlist'><img alt='chicken' className='chicken' src={chickenLogo} onClick={getIcon} /></Link>
-            <img alt='pizza' className='pizza' src={pizzaLogo} onClick={getIcon} />
+            <Link to='/lifo_fifo'><img alt='pizza' className='pizza' src={pizzaLogo} onClick={getIcon} /></Link>
             <img alt='noodles' className='foodLogos' src={noodleLogo} onClick={getIcon} />
          </div>
          <Route exact path='/' component={Home} />
@@ -31,6 +32,7 @@ const Icons = ({ getIcon }) => {
          <Route exact path='/bank' component={AccountsApp} />
          <Route exact path='/cities' component={CitiesApp} />
          <Route exact path='/linkedlist' component={LinkedListDisplay} />
+         <Route exact path='/lifo_fifo' component={ListDisplay} />
       </Router >
    )
 }

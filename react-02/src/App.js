@@ -10,6 +10,7 @@ import ticLogo from './components/svgs/tic.svg';
 
 import './App.css';
 import './components/Bank/AccountsApp.css'
+import './components/FIFO_LIFO/components/ListDisplay.css'
 
 class App extends Component {
    constructor() {
