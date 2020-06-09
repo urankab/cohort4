@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import getElephant from '../business/fifo_lifo.js'
 
 function CreateItem(props) {
 
-    function onGetRandom() {
-        getElephant()
+    async function onGetRandom() {
+        await getElephant()
     }
 
     function focusElement(name) {
@@ -50,6 +50,43 @@ function CreateItem(props) {
         }
     }
 
+    function onFIFO() {
+        const elephant = {}
+        const inputs = document.getElementsByTagName('input')
+        const aboutTxt = document.getElementById('about')
+
+        for (let i = 0; i < inputs.length; i++) {
+            elephant[inputs[i].id] = inputs[i].value
+        }
+
+        elephant[aboutTxt.id] = aboutTxt.value
+
+        try {
+            if (!elephant.name) {
+                focusElement('name')
+                throw new Error('Please enter a name')
+            }
+            if (!elephant.species) {
+                focusElement('species')
+                throw new Error('Please enter a species')
+            }
+            if (!elephant.gender) {
+                focusElement('gender')
+                throw new Error('Please enter a gender')
+            }
+            if (!aboutTxt.value) {
+                focusElement('about')
+                throw new Error('Please enter some info')
+            }
+            props.addToFIFO(elephant)
+            props.userMsg(`Added ${elephant.name} to FIFO`)
+            props.FIFOMsg('')
+            clear()
+        } catch (e) {
+            props.userMsg(e.message, 'error')
+        }
+    }
+
     function clear() {
         document.getElementById('name').value = ''
         document.getElementById('gender').value = ''
@@ -75,8 +112,8 @@ function CreateItem(props) {
             <button className='buttonz' onClick={onGetRandom}>Get Random</button>
             <button className='buttonz' onClick={clear}>Reset</button>
             <br></br>
-            <button className='buttonz'>Add FIFO</button>
             <button className='buttonz' onClick={onLIFO}>Add LIFO</button>
+            <button className='buttonz' onClick={onFIFO}>Add FIFO</button>
         </div>
     )
 }

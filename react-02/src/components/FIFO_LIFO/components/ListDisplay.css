@@ -28,7 +28,7 @@
     margin: 8px;
     margin-bottom: 25px;
     margin-left: 25px;
-    height: 550px;
+    height: 600px;
     overflow-y: auto;
 }
 
@@ -39,6 +39,8 @@
     margin: 8px;
     margin-bottom: 25px;
     margin-right: 25px;
+    height: 600px;
+    overflow-y: auto;
 }
 
 .labelz{
@@ -65,8 +67,14 @@
     margin-bottom: 15px;
 }
 
+.boxBtns{
+    padding: 5px;
+}
+
 .olz{
     list-style-position: inside;
+    padding-inline-start: 0;
+    padding-top: .5em;
 }
 
 .liz{

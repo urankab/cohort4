@@ -10,31 +10,45 @@ const lifo = new Stacks()
 
 function ListDisplay() {
     const [LIFOTail, setLIFOTail] = useState('')
+    const [FIFOHead, setFIFOHead] = useState('')
+
     const [message, setMessage] = useState('')
     const [LIFOMessage, setLIFOMessage] = useState('')
+    const [FIFOMessage, setFIFOMessage] = useState('')
 
+    //LIFO----------------------------
     function addToLIFO(elephant) {
         lifo.push(elephant)
         setLIFOTail(lifo.peek())
     }
 
     function removedFromLIFO() {
-        if (lifo.size >= 1) {
-            LIFOMsg(`Removed ${lifo.pop()}`)
-            userMsg('')
-        } else {
-            LIFOMsg('Nothing to remove')
-            userMsg('')
-        }
+        lifo.pop()
+        setLIFOTail(lifo.peek())
+    }
+
+    //FIFO ----------------------------
+
+    function addToFIFO(elephant) {
+        fifo.enqueue(elephant)
+        setFIFOHead(fifo.peek())
+    }
+
+    function removedFromFIFO() {
+        fifo.dequeue()
+        setFIFOHead(fifo.peek())
     }
 
     function userMsg(msg) {
         setMessage({ text: msg })
     }
 
-
     function LIFOMsg(msg) {
         setLIFOMessage({ text: msg })
+    }
+
+    function FIFOMsg(msg) {
+        setFIFOMessage({ text: msg })
     }
 
     return (
@@ -44,18 +58,33 @@ function ListDisplay() {
             <div id='container2'>
                 <LIFO
                     LIFOelephants={lifo.storage}
-                    LIFOMessage={LIFOMessage}
-                    LIFOTail={lifo.peek()}
+                    LIFOTail={LIFOTail}
+                    LIFOSize={lifo.size}
+
+                    LIFOMsg={LIFOMsg}
+                    userMsg={userMsg}
+                    LIFOMessage={LIFOMessage.text}
+
                     remove={removedFromLIFO}
                 />
                 <CreateItem
                     addToLIFO={addToLIFO}
+                    addToFIFO={addToFIFO}
                     userMsg={userMsg}
                     LIFOMsg={LIFOMsg}
+                    FIFOMsg={FIFOMsg}
                     message={message.text}
                 />
                 <FIFO
+                    FIFOelephants={fifo.storage}
+                    FIFOHead={FIFOHead}
+                    FIFOSize={fifo.size}
 
+                    FIFOMsg={FIFOMsg}
+                    userMsg={userMsg}
+                    FIFOMessage={FIFOMessage.text}
+
+                    remove={removedFromFIFO}
                 />
             </div>
         </div>

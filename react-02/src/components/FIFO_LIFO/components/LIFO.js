@@ -15,18 +15,25 @@ function LIFO(props) {
     }
 
     function onTakeOut() {
-        props.remove()
+        if (props.LIFOSize >= 1) {
+            props.remove()
+            props.userMsg('')
+            props.LIFOMsg(`Removed ${props.LIFOTail}`)
+        } else {
+            props.userMsg('')
+            props.LIFOMsg('Nothing to remove')
+        }
     }
 
     return (
         <div id='lifoBox'>
             <h2>LIFO</h2>
             <p>Tail: {props.LIFOTail}</p>
-            <p>{props.LIFOMessage.text}</p>
+            <p>{props.LIFOMessage}</p>
+            <button className='boxBtns' onClick={onTakeOut}>Take Out LIFO</button>
             <ol className='olz'>
                 {LIFOList}
             </ol>
-            <button className='buttonz' onClick={onTakeOut}>Take Out</button>
         </div>
     )
 }
