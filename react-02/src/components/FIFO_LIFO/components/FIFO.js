@@ -32,9 +32,12 @@ function FIFO(props) {
 
     return (
         <div id='fifoBox'
-            style={{ backgroundColor: `${currentTheme.backgroundColor}` }}
-        >
-            <h2 style={{ backgroundColor: `${currentTheme.backgroundColor}` }}>FIFO</h2>
+            style={{
+                backgroundColor: `${currentTheme.backgroundColor}`,
+                color: `${currentTheme.color}`,
+                boxShadow: `${currentTheme.boxShadow}`
+            }}>
+            <h2>FIFO</h2>
             <p>Head: {props.FIFOHead}</p>
             <p>{props.FIFOMessage}</p>
             <button className='boxBtns' onClick={onTakeOut}>Take Out FIFO</button>

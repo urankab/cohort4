@@ -48,18 +48,45 @@ function CitiesApp() {
    const [northest, setNorthest] = useState()
    const [southest, setSouthest] = useState()
 
+   // const [loaded, isLoaded] = useState()
+
    useEffect(() => {
       //Load cities from the API - re-render when count is updated
-      async function fetchData() {
+
+      // async function fetchData() {
+      //    try {
+      //       await cityCtrl.loadCities()
+      //       updateSummary()
+      //       console.log('Loaded cities')
+      //    } catch (e) {
+      //       userMsg('Turn on the server')
+      //       console.log(e)
+      //    }
+      // }
+      // fetchData();
+
+      let isCancelled = false
+
+      const fetchData = async () => {
          try {
             await cityCtrl.loadCities()
-            updateSummary()
-            console.log('Loaded cities')
+            if (!isCancelled) {
+               updateSummary()
+               console.log('Loaded cities')
+            }
          } catch (e) {
-            userMsg('Turn on the server')
+            if (!isCancelled) {
+               userMsg('Turn on the server')
+               console.log(e)
+            }
          }
       }
       fetchData();
+
+      return () => {
+         isCancelled = true
+      }
+
    }, [count]);
 
    async function onSave(city) {

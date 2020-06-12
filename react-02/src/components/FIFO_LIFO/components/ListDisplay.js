@@ -59,7 +59,10 @@ function ListDisplay() {
 
     return (
         <div>
-            <h1 style={{ backgroundColor: `${currentTheme.backgroundColor}` }}
+            <h1 style={{
+                backgroundColor: `${currentTheme.backgroundColor}`,
+                color: `${currentTheme.color}`,
+            }}
                 id='listHeader'>FIFO ~ LIFO</h1>
             <h3 id='listHeader2'>Create your Elephant</h3>
             <div id='container2'>

@@ -213,7 +213,10 @@ function LinkedListDisplay() {
 
    return (
       <div className={classes.root}>
-         <h1 style={{ backgroundColor: `${currentTheme.backgroundColor}` }}>Linked List</h1>
+         <h1 style={{
+            backgroundColor: `${currentTheme.backgroundColor}`,
+            color: `${currentTheme.color}`,
+         }}>Linked List</h1>
          <div className={classes.container}>
             <p id='msg'>{message.text}</p>
             <label htmlFor='subject' className={classes.label}>Subject:</label>
@@ -231,7 +234,10 @@ function LinkedListDisplay() {
             <button className={classes.btn} onClick={onFirst}>First Node</button>
             <button className={classes.btn} onClick={onLast}>Last Node</button>
          </div>
-         <div className={classes.container} style={{ backgroundColor: `${currentTheme.backgroundColor}` }}>
+         <div className={classes.container} style={{
+            backgroundColor: `${currentTheme.backgroundColor}`,
+            boxShadow: `${currentTheme.boxShadow}`
+         }}>
             <p className={classes.summary}>Size: {size}</p>
             <p className={classes.summary}>Total Amount: {linky.totalAmounts()}</p>
             <p className={classes.summary}>{currentPosition}</p>

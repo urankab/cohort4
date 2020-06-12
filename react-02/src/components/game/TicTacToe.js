@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './TicTacToe.css';
 import { Link } from 'react-router-dom'
 import ThemeContext from '../../contexts/ThemeContext';
@@ -30,7 +30,10 @@ class Board extends React.Component {
                   const currentTheme = AppTheme[theme];
                   return (
                      <div>
-                        <h1 style={{ backgroundColor: `${currentTheme.backgroundColor}` }} > Tic Tac Toe</h1>
+                        <h1 style={{
+                           backgroundColor: `${currentTheme.backgroundColor}`,
+                           color: `${currentTheme.color}`
+                        }} > Tic Tac Toe</h1>
                         <Link to='/'><h4>Go Back</h4></Link>
                         <div className="board-row">
                            {this.renderSquare(0)}

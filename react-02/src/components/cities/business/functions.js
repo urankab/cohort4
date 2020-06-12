@@ -70,7 +70,6 @@ class Community {
             cities[x.key] = x;
             this.lastKey = (x.key > this.lastKey) ? x.key : this.lastKey;
         });
-
         this.cities = cities;
     }
 

@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import Icons from './components/IconComponent'
 import pizzaLogo from './components/svgs/pizza.svg';
@@ -22,7 +22,7 @@ function App() {
 
    function iconPressed(e) {
       setMessage({
-         msg: `You pressed ... ${e.target.alt}`,
+         msg: `You pressed ... ${e.target.alt}!`,
          img: true
       })
       switch (e.target.alt) {

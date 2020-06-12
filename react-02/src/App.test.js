@@ -28,7 +28,7 @@ test('Test viewing the AccountsApp component', () => {
 
   clickIcon('chicken')
   screen.getByText(/you pressed ... chicken!/i)
-  screen.getByText(/linked list fun!/i)
+  screen.getByText(/linked list/i)
 
   clickIcon('pizza')
   screen.getByText(/you pressed ... pizza!/i)
