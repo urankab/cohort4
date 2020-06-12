@@ -39,11 +39,6 @@ class City {
         this.key = data.key;
     }
 
-    newKey() {
-        City.lastKey++;
-        this.key = City.lastKey;
-    }
-
     show() {
         return `${this.name}\nLatitude: ${this.latitude}\nLongitude: ${this.longitude}\nPopulation: ${this.population}\nKey: ${this.key}`;
     }
@@ -135,7 +130,7 @@ class Community {
     }
 
     getMostNorthern() {
-        if (this.length() <= 0) return '';
+        // if (this.length() <= 0) return '';
         let mostNorthernCity;
         for (const key in this.cities) {
             if (!mostNorthernCity) {
@@ -145,6 +140,9 @@ class Community {
             if (this.cities[key].latitude > mostNorthernCity.latitude) {
                 mostNorthernCity = this.cities[key];
             }
+        }
+        if (this.length() <= 0) {
+            return null
         }
         return `${mostNorthernCity.name} at ${mostNorthernCity.latitude}°`;
     }

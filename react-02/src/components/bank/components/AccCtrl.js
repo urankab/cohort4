@@ -37,9 +37,6 @@ function AccCtrl(props) {
                props.userMsg('')
                props.userEditMsg('Please enter an amount to deposit')
             }
-         } else {
-            props.userMsg('')
-            props.userEditMsg('Select account to deposit')
          }
       } else {
          props.userEditMsg('No accounts to deposit too')
@@ -64,9 +61,6 @@ function AccCtrl(props) {
                props.userMsg('')
                props.userEditMsg('Please enter an amount to withdraw')
             }
-         } else {
-            props.userMsg('')
-            props.userEditMsg('Select account to withdraw from')
          }
       } else {
          props.userEditMsg('No accounts to withdraw from')

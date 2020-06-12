@@ -49,12 +49,15 @@ test('Test the card Move In/Out functionality', () => {
    expect(mockErrorMsgCallBack.mock.calls.length).toBe(3)
    expect(mockErrorMsgCallBack.mock.calls[2][0]).toBe('Please enter a value to move out')
 
-   fireEvent.change(input, { target: { value: '5' } })
-
+   fireEvent.change(input, { target: { value: '5000' } }) //Input a # that would make pop negative
    click(/Moved Out/i)
+   expect(mockMsgCallBack.mock.calls.length).toBe(3)
+   expect(mockErrorMsgCallBack.mock.calls[3][0]).toBe('City population cannot be negative')
 
+   fireEvent.change(input, { target: { value: '100' } }) //Input a # that would make pop negative
+   click(/Moved Out/i)
    expect(mockMsgCallBack.mock.calls.length).toBe(4)
-   expect(mockMsgCallBack.mock.calls[3][0]).toBe('5 moved out from Calgary')
+   expect(mockMsgCallBack.mock.calls[3][0]).toBe('100 moved out from Calgary')
 
    // console.log(cityCtrl)
 

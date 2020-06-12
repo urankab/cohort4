@@ -240,6 +240,8 @@ test('Test most northern, southern and total population', async () => {
     const cityCtrl = new funcs.Community();
     await funcs.postData(funcs.url + 'clear');
 
+    expect(cityCtrl.getMostNorthern()).toBe(null)
+
     let city1 = cityCtrl.getNewCity()
     city1.name = "Gangster's Paradise"
     city1.latitude = -15

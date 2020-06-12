@@ -24,27 +24,50 @@ test('Testing CitiesApp', async () => {
    expect(document.getElementById('south').textContent).toBe('Most Southern City:Calgary at 5°')
 
    click('Save')
-
    screen.getByText(/Please enter a city name/)
-
    expect(document.getElementById('errorMsg').textContent).toBe('*Please enter a city name')
 
-   ///--------------------------
-
    screen.getByText('Calgary')
-
    click(/Moved In/i)
-
    expect(document.getElementById('errorMsg').textContent).toBe('Population increase must be atleast 1')
 
    let input = screen.getByTestId('content-input')
-   fireEvent.change(input, { target: { value: '23' } })
 
+   fireEvent.change(input, { target: { value: '23' } })
    await act(async () => {
       click(/Moved In/i)
    })
    expect(document.getElementById('addMsg').textContent).toBe('23 moved to Calgary')
+
+   fireEvent.change(input, { target: { value: '2' } })
+   await act(async () => {
+      click(/Moved Out/i)
+   })
+   expect(document.getElementById('addMsg').textContent).toBe('2 moved out from Calgary')
+
+   await act(async () => {
+      click(/Delete/i)
+   })
+   expect(document.getElementById('addMsg').textContent).toBe('Deleted city')
+
+   await act(async () => {
+      click(/Random City/i)
+   })
+   screen.getByText('Loaded a random city')
+
+   updateValue('name', 'Doggy City')
+   updateValue('population', 2000)
+   updateValue('latitude', 20)
+   updateValue('longitude', 2)
+   await act(async () => {
+      click(/Save/i)
+   })
+   expect(document.getElementById('addMsg').textContent).toBe('Saved Doggy City')
 })
+
+function updateValue(name, value) {
+   document.querySelector(`[name=${name}]`).value = value;
+}
 
 function click(txt) {
    fireEvent.click(

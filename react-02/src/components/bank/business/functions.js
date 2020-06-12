@@ -9,11 +9,6 @@ export class Account {
         this.key = data.key;
     }
 
-    newKey() {
-        Account.lastKey++;
-        this.key = Account.lastKey;
-    }
-
     deposit(valueIn) {
         this.balance += Number(valueIn)
     }

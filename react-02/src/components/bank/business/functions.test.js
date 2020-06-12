@@ -98,6 +98,8 @@ test('Depositing and withdrawing to accounts', () => {
     acc.getAccountByKey(1).withdraw(15)
     expect(acc.getAccountByKey(1)).toEqual({ "accountName": "Jiggly Puff", "balance": 95, "key": 1 })
     expect((acc.accounts[1]).balance).toBe(95)
+    expect(acc.getAccountNameByKey(1)).toBe('Jiggly Puff')
+    expect(acc.checkName('Nugget')).toBe(false)
 })
 
 test('Test getting total of all accounts', () => {

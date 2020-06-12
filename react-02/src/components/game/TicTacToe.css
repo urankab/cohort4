@@ -37,7 +37,7 @@ ul {
 }
 
 .game {
-    display: flex;
+    display: grid;
     flex-direction: row;
     justify-content: center;
 }

@@ -160,6 +160,7 @@ function CityCards(props) {
          setInputChange('')
       } else {
          props.userMsg('')
+         clearField()
          props.errorMsg('Population increase must be atleast 1')
       }
    }
@@ -176,6 +177,7 @@ function CityCards(props) {
             clearField()
             setInputChange('')
          } else {
+            clearField()
             props.errorMsg('City population cannot be negative')
          }
       } else {

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './TicTacToe.css';
 import { Link } from 'react-router-dom'
+import ThemeContext from '../../contexts/ThemeContext';
+import AppTheme from '../../contexts/Colors'
 
 function Square(props) {
    return (
@@ -22,26 +24,59 @@ class Board extends React.Component {
 
    render() {
       return (
-         <div>
-            <Link to='/'><h4>Go Back</h4></Link>
-            <div className="board-row">
-               {this.renderSquare(0)}
-               {this.renderSquare(1)}
-               {this.renderSquare(2)}
-            </div>
-            <div className="board-row">
-               {this.renderSquare(3)}
-               {this.renderSquare(4)}
-               {this.renderSquare(5)}
-            </div>
-            <div className="board-row">
-               {this.renderSquare(6)}
-               {this.renderSquare(7)}
-               {this.renderSquare(8)}
-            </div>
-         </div>
+         <ThemeContext.Consumer>
+            {
+               ([theme]) => {
+                  const currentTheme = AppTheme[theme];
+                  return (
+                     <div>
+                        <h1 style={{ backgroundColor: `${currentTheme.backgroundColor}` }} > Tic Tac Toe</h1>
+                        <Link to='/'><h4>Go Back</h4></Link>
+                        <div className="board-row">
+                           {this.renderSquare(0)}
+                           {this.renderSquare(1)}
+                           {this.renderSquare(2)}
+                        </div>
+                        <div className="board-row">
+                           {this.renderSquare(3)}
+                           {this.renderSquare(4)}
+                           {this.renderSquare(5)}
+                        </div>
+                        <div className="board-row">
+                           {this.renderSquare(6)}
+                           {this.renderSquare(7)}
+                           {this.renderSquare(8)}
+                        </div>
+                     </div>
+                  )
+               }
+            }
+         </ThemeContext.Consumer>
       );
    }
+
+   // render() {
+   //    return (
+   //       <div>
+   //          <Link to='/'><h4>Go Back</h4></Link>
+   //          <div className="board-row">
+   //             {this.renderSquare(0)}
+   //             {this.renderSquare(1)}
+   //             {this.renderSquare(2)}
+   //          </div>
+   //          <div className="board-row">
+   //             {this.renderSquare(3)}
+   //             {this.renderSquare(4)}
+   //             {this.renderSquare(5)}
+   //          </div>
+   //          <div className="board-row">
+   //             {this.renderSquare(6)}
+   //             {this.renderSquare(7)}
+   //             {this.renderSquare(8)}
+   //          </div>
+   //       </div>
+   //    );
+   // }
 }
 
 export default class Game extends React.Component {

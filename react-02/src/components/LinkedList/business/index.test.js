@@ -169,10 +169,14 @@ test('Testing prev, next then deleting', () => {
    expect(list.currentNode.subject).toBe('Noo')
 
    list.delete()
-
    expect(list.size).toBe(3)
    expect(list.currentNode.subject).toBe('Jumpers')
-   // list.printList()
+
+   list.delete() //Deleted Jumpers
+   list.delete() //Deleted Moose
+   expect(list.delete()).toBe('Deleted last item: Dogs')
+   expect(list.size).toBe(0)
+   expect(list.delete()).toBe('Nothing to delete')
 })
 
 test('Testing searching by subject and amount', () => {
@@ -190,4 +194,15 @@ test('Testing searching by subject and amount', () => {
    expect(list.searchBySubject('Mice')).toContain('| Mice ~ 1\n | Mice ~ 5\n | Mice ~ 3')
 
    expect(list.searchByAmount(5)).toContain('| Mice ~ 5\n | Cats ~ 5\n | Dogs ~ 5')
+})
+
+test('Testing searching by subject and amount', () => {
+   const list = new LinkedList()
+
+   list.insert('Dogs', 5)
+   list.insert('Cats', 10)
+   list.insert('Cats', 5)
+
+   expect(list.search('Cats', 5)).toContain('Cats - 5 is now the Current Node')
+   expect(list.search('Mice', 5)).toBe(null)
 })

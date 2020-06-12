@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Queues from '../business/fifo.js'
 import Stacks from '../business/lifo.js'
 import CreateItem from './CreateItem'
 import LIFO from './LIFO'
 import FIFO from './FIFO'
+
+import ThemeContext from '../../../contexts/ThemeContext'
+import AppTheme from '../../../contexts/Colors'
 
 const fifo = new Queues()
 const lifo = new Stacks()
@@ -15,6 +18,9 @@ function ListDisplay() {
     const [message, setMessage] = useState('')
     const [LIFOMessage, setLIFOMessage] = useState('')
     const [FIFOMessage, setFIFOMessage] = useState('')
+
+    const theme = useContext(ThemeContext)[0];
+    const currentTheme = AppTheme[theme];
 
     //LIFO----------------------------
     function addToLIFO(elephant) {
@@ -53,7 +59,8 @@ function ListDisplay() {
 
     return (
         <div>
-            <h1 id='listHeader'>FIFO ~ LIFO</h1>
+            <h1 style={{ backgroundColor: `${currentTheme.backgroundColor}` }}
+                id='listHeader'>FIFO ~ LIFO</h1>
             <h3 id='listHeader2'>Create your Elephant</h3>
             <div id='container2'>
                 <LIFO

@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { LinkedList } from './business/index'
 import { makeStyles } from '@material-ui/core';
+
+import ThemeContext from '../../contexts/ThemeContext'
+import AppTheme from '../../contexts/Colors'
 
 const linky = new LinkedList()
 
 const useStyles = makeStyles({
-   root: {
-
-   },
    header: {
       backgroundColor: '#45b6fe',
       fontSize: 40,
@@ -51,6 +51,9 @@ function LinkedListDisplay() {
 
    const [showList, setShowList] = useState('')
 
+   const theme = useContext(ThemeContext)[0];
+   const currentTheme = AppTheme[theme];
+
    let prevBtn = document.getElementById('prevBtn')
    let nextBtn = document.getElementById('nextBtn')
 
@@ -82,11 +85,15 @@ function LinkedListDisplay() {
       } catch (e) {
          userMsg(e.message, 'error')
       }
-      e.preventDefault(); //What is this?
+      if (linky.size >= 2) {
+         prevBtn.disabled = false
+         nextBtn.disabled = false
+      }
    }
 
    function deleteNode() {
       userMsg(linky.delete())
+      document.getElementById('list').textContent = linky.printList()
       setShowList('all')
       if (linky.size >= 1) {
          setSize(linky.size)
@@ -149,7 +156,7 @@ function LinkedListDisplay() {
          prevBtn.disabled = true
          nextBtn.disabled = false
       }
-      if (linky.size === 1) {
+      else if (linky.size === 1) {
          userMsg('Only 1 item in list')
       }
       else {
@@ -165,7 +172,7 @@ function LinkedListDisplay() {
          nextBtn.disabled = true
          prevBtn.disabled = false
       }
-      if (linky.size === 1) {
+      else if (linky.size === 1) {
          userMsg('Only 1 item in list')
       }
       else {
@@ -186,33 +193,29 @@ function LinkedListDisplay() {
       document.getElementById('amount').value = ''
    }
 
-   // function searchBySubject() {
-   //    setShowList('subject')
-   // }
+   function onAll() {
+      document.getElementById('list').textContent = linky.printList()
+   }
 
-   // function searchByAmount() {
-   //    setShowList('amount')
-   // }
+   function onSub() {
+      let sub = document.getElementById('searchInput').value
+      document.getElementById('list').textContent = linky.searchBySubject(sub)
+   }
 
-   let output;
+   function onAmt() {
+      let amt = document.getElementById('searchInput').value
+      document.getElementById('list').textContent = linky.searchByAmount(amt)
+   }
 
    if (showList === 'all') {
-      output = linky.printList()
-   }
-   else if (showList === 'subject') {
-      let sub = document.getElementById('searchInput').value
-      output = linky.searchBySubject(sub)
-   }
-   else if (showList === 'amount') {
-      let amt = document.getElementById('searchInput').value
-      output = linky.searchByAmount(amt)
+      document.getElementById('list').textContent = linky.printList()
    }
 
    return (
       <div className={classes.root}>
-         <h1 className={classes.header}>Linked List Fun!</h1>
+         <h1 style={{ backgroundColor: `${currentTheme.backgroundColor}` }}>Linked List</h1>
          <div className={classes.container}>
-            <p>{message.text}</p>
+            <p id='msg'>{message.text}</p>
             <label htmlFor='subject' className={classes.label}>Subject:</label>
             <input id='subject' className={classes.input} type='text' placeholder='Subject'></input>
             <br></br>
@@ -228,18 +231,18 @@ function LinkedListDisplay() {
             <button className={classes.btn} onClick={onFirst}>First Node</button>
             <button className={classes.btn} onClick={onLast}>Last Node</button>
          </div>
-         <div className={classes.container}>
+         <div className={classes.container} style={{ backgroundColor: `${currentTheme.backgroundColor}` }}>
             <p className={classes.summary}>Size: {size}</p>
             <p className={classes.summary}>Total Amount: {linky.totalAmounts()}</p>
             <p className={classes.summary}>{currentPosition}</p>
             <p id='list' className={classes.list}>
-               {output}
+               {/* {output} */}
             </p>
             <input id='searchInput' placeholder='Enter subject or amount'></input>
             <br></br>
-            <button className={classes.btn} onClick={() => setShowList('all')}>Show All</button>
-            <button className={classes.btn} onClick={() => setShowList('subject')}>Sort by Subject</button>
-            <button className={classes.btn} onClick={() => setShowList('amount')}>Sort by Amount</button>
+            <button className={classes.btn} onClick={onAll}>Show All</button>
+            <button className={classes.btn} onClick={onSub}>Sort by Subject</button>
+            <button className={classes.btn} onClick={onAmt}>Sort by Amount</button>
          </div>
       </div >
    )

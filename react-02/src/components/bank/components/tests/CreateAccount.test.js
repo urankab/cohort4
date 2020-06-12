@@ -67,12 +67,16 @@ test('Test validation of the form', () => {
    expect(mockMsgCallBack.mock.calls.length).toBe(2)
    expect(mockMsgCallBack.mock.calls[1][0]).toMatch(/Please enter a starting balance/)
 
+   updateValue('balance', '-5')
+   click('Create Account')
+   expect(mockMsgCallBack.mock.calls[2][0]).toMatch(/Please enter an amount greater than 0/)
+
    updateValue('balance', '100')
    click('Create Account')
 
    expect(mockAddCallBack.mock.calls.length).toBe(1)
-   expect(mockMsgCallBack.mock.calls.length).toBe(3)
-   expect(mockMsgCallBack.mock.calls[2][0]).toMatch(/Created House account/)
+   expect(mockMsgCallBack.mock.calls.length).toBe(4)
+   expect(mockMsgCallBack.mock.calls[3][0]).toMatch(/Created House account/)
 
    const fakeAccount = mockAddCallBack.mock.calls[0][0]
    expect(fakeAccount.accountName).toBe('House')

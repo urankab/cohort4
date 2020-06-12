@@ -54,18 +54,13 @@ function CitiesApp() {
          try {
             await cityCtrl.loadCities()
             updateSummary()
+            console.log('Loaded cities')
          } catch (e) {
             userMsg('Turn on the server')
          }
       }
       fetchData();
    }, [count]);
-
-   // useEffect(() => { //Added this to get rid of an error, this code works without it
-   //    return () => {
-   //       console.log('cleaned up')
-   //    }
-   // }, [])
 
    async function onSave(city) {
       await cityCtrl.addOrUpdate(city)

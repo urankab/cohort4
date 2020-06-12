@@ -3,7 +3,86 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import AccCtrl from '../AccCtrl'
 import { AccountController } from '../../business/functions'
 
-test('Test depositing/withdrawing to accounts', () => {
+
+test('Testing some validation - missing dep/withdraw fields', () => {
+   const acctCtrl = new AccountController()
+   const accounts = acctCtrl.accounts
+
+   const mockUserMsgCallBack = jest.fn()
+   const mockEditMsgCallBack = jest.fn()
+   const mockUpdateSumCallBack = jest.fn()
+
+   const mockDeleteCallBack = jest.fn()
+   const mockRenameCallBack = jest.fn()
+
+   acctCtrl.addAccount({ accountName: 'Doggy', balance: 10 })
+
+   render(<AccCtrl
+      acctCtrl={acctCtrl}
+      accounts={accounts}
+      userMsg={mockUserMsgCallBack}
+      userEditMsg={mockEditMsgCallBack}
+
+      updateSummary={mockUpdateSumCallBack}
+      delete={mockDeleteCallBack}
+      rename={mockRenameCallBack}
+   />)
+
+   screen.getByText('Doggy - $10')
+
+   click('Deposit')
+
+   expect(mockEditMsgCallBack.mock.calls.length).toBe(1)
+   expect(mockEditMsgCallBack.mock.calls[0][0]).toBe('Please enter an amount to deposit')
+
+   click('Withdraw')
+   expect(mockEditMsgCallBack.mock.calls[1][0]).toBe('Please enter an amount to withdraw')
+
+   let e = document.getElementById('dropdown')
+   let value = e.options[e.selectedIndex].value
+   expect(value).toBe('Doggy')
+
+   click('Delete Account')
+   expect(mockEditMsgCallBack.mock.calls[2][0]).toBe('Deleted Doggy')
+})
+
+test('Testing some validation - no accounts', () => {
+   const acctCtrl = new AccountController()
+   const accounts = acctCtrl.accounts
+
+   const mockUserMsgCallBack = jest.fn()
+   const mockEditMsgCallBack = jest.fn()
+   const mockUpdateSumCallBack = jest.fn()
+
+   const mockDeleteCallBack = jest.fn()
+   const mockRenameCallBack = jest.fn()
+
+   render(<AccCtrl
+      acctCtrl={acctCtrl}
+      accounts={accounts}
+      userMsg={mockUserMsgCallBack}
+      userEditMsg={mockEditMsgCallBack}
+
+      updateSummary={mockUpdateSumCallBack}
+      delete={mockDeleteCallBack}
+      rename={mockRenameCallBack}
+   />)
+
+   click('Deposit')
+
+   expect(mockEditMsgCallBack.mock.calls[0][0]).toBe('No accounts to deposit too')
+
+   click('Withdraw')
+   expect(mockEditMsgCallBack.mock.calls[1][0]).toBe('No accounts to withdraw from')
+
+   click('Delete Account')
+   expect(mockEditMsgCallBack.mock.calls[2][0]).toBe('No accounts to delete')
+
+   click('Change Name')
+   expect(mockEditMsgCallBack.mock.calls[3][0]).toBe('No accounts to rename')
+})
+
+test('Test validation, depositing/withdrawing to accounts', () => {
    const acctCtrl = new AccountController()
    const accounts = acctCtrl.accounts
 
@@ -147,10 +226,6 @@ test('Test deleting accounts', () => {
    expect(mockEditMsgCallBack.mock.calls.length).toBe(2)
    expect(mockEditMsgCallBack.mock.calls[1][0]).toBe('Deleted Doggy')
 })
-
-function getValue(name) {
-   return document.querySelector(`[name=${name}]`).value
-}
 
 function updateValue(name, value) {
    document.querySelector(`[id=${name}]`).value = value;

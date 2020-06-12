@@ -14,6 +14,7 @@ import AccountsApp from './Bank/components/AccountsApp';
 import CitiesApp from './Cities/components/CitiesApp'
 import LinkedListDisplay from './LinkedList/LinkedListDisplay'
 import ListDisplay from './FIFO_LIFO/components/ListDisplay'
+import Settings from './Settings/Settings'
 
 const Icons = ({ getIcon }) => {
    return (
@@ -25,7 +26,7 @@ const Icons = ({ getIcon }) => {
             <Link to='/cities'><img alt='kebab' className='foodLogos' src={kebabLogo} onClick={getIcon} /></Link>
             <Link to='/linkedlist'><img alt='chicken' className='chicken' src={chickenLogo} onClick={getIcon} /></Link>
             <Link to='/lifo_fifo'><img alt='pizza' className='pizza' src={pizzaLogo} onClick={getIcon} /></Link>
-            <img alt='noodles' className='foodLogos' src={noodleLogo} onClick={getIcon} />
+            <Link to='/settings'><img alt='noodles' className='foodLogos' src={noodleLogo} onClick={getIcon} /></Link>
          </div>
          <Route exact path='/' component={Home} />
          <Route exact path='/game' component={Game} />
@@ -33,6 +34,7 @@ const Icons = ({ getIcon }) => {
          <Route exact path='/cities' component={CitiesApp} />
          <Route exact path='/linkedlist' component={LinkedListDisplay} />
          <Route exact path='/lifo_fifo' component={ListDisplay} />
+         <Route exact path='/settings' component={Settings} />
       </Router >
    )
 }

@@ -1,3 +1,4 @@
+
 .foodLogos{
   height: 60px;
   padding:10px;
@@ -104,6 +105,22 @@
 }
 
 .App {
+  text-align: center;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap');
+
+.pink-mode{
+  font-family: 'Balsamiq Sans', cursive;
+  color: #3e5483;
+  background-color: #fdd8e8;
+  text-align: center;
+}
+
+.blue-mode{
+  font-family: 'Balsamiq Sans', cursive;
+  color: #3e5483;
+  background-color: #b3f0ff;
   text-align: center;
 }
 

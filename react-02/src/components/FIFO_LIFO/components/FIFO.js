@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+
+import ThemeContext from '../../../contexts/ThemeContext'
+import AppTheme from '../../../contexts/Colors'
 
 function FIFO(props) {
+    const theme = useContext(ThemeContext)[0];
+    const currentTheme = AppTheme[theme];
 
     let FIFOList
     if (props.FIFOelephants) {
@@ -26,8 +31,10 @@ function FIFO(props) {
     }
 
     return (
-        <div id='fifoBox'>
-            <h2>FIFO</h2>
+        <div id='fifoBox'
+            style={{ backgroundColor: `${currentTheme.backgroundColor}` }}
+        >
+            <h2 style={{ backgroundColor: `${currentTheme.backgroundColor}` }}>FIFO</h2>
             <p>Head: {props.FIFOHead}</p>
             <p>{props.FIFOMessage}</p>
             <button className='boxBtns' onClick={onTakeOut}>Take Out FIFO</button>
