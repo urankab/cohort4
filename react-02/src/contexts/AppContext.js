@@ -1,36 +1,21 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
 import { LinkedList } from '../components/LinkedList/business/index.js'
 import Stacks from '../components/FIFO_LIFO/business/lifo.js'
 import Queues from '../components/FIFO_LIFO/business/fifo.js'
 
-const AppContext = React.createContext()
+export const ThemeContext = React.createContext(['pink', () => { }])
 
-class AppContextProvider extends React.Component {
-   constructor() {
-      super()
-      this.state = {
-         linkedList: new LinkedList(),
-         stacks: new Stacks(),
-         queues: new Queues(),
-         // Linkedlist
-         currentPosition: null,
-         //FIFOLIFO
-         LIFOTail: '',
-         FIFOHead: ''
-      }
+export let AppLinkedList = new LinkedList()
+export const AppStacks = new Stacks()
+export const AppQueues = new Queues()
+
+export const AppStatesContext = React.createContext(
+   {
+      linky: AppLinkedList,
+      lifo: AppStacks,
+      fifo: AppQueues
    }
+)
 
-   render() {
-      return (
-         <AppContext.Provider
-            value={{
-               linkedList: this.state.linkedList,
-               stacks: this.state.stacks,
-               queues: this.state.queues
-            }}
-         />
-      )
-   }
-}
 
-export default AppContextProvider
+

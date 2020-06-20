@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 
-import ThemeContext from '../../../contexts/ThemeContext'
+import { ThemeContext } from '../../../contexts/AppContext'
 import AppTheme from '../../../contexts/Colors'
 
 function FIFO(props) {
@@ -37,7 +37,7 @@ function FIFO(props) {
                 color: `${currentTheme.color}`,
                 boxShadow: `${currentTheme.boxShadow}`
             }}>
-            <h2>FIFO</h2>
+            <h2>FIFO - Queues</h2>
             <p>Head: {props.FIFOHead}</p>
             <p>{props.FIFOMessage}</p>
             <button className='boxBtns' onClick={onTakeOut}>Take Out FIFO</button>

@@ -1,48 +1,40 @@
 import React, { useState, useContext } from 'react'
-import Queues from '../business/fifo.js'
-import Stacks from '../business/lifo.js'
 import CreateItem from './CreateItem'
 import LIFO from './LIFO'
 import FIFO from './FIFO'
 
-import ThemeContext from '../../../contexts/ThemeContext'
+import { ThemeContext, AppStatesContext } from '../../../contexts/AppContext'
 import AppTheme from '../../../contexts/Colors'
 
-const fifo = new Queues()
-const lifo = new Stacks()
-
 function ListDisplay() {
-    const [LIFOTail, setLIFOTail] = useState('')
-    const [FIFOHead, setFIFOHead] = useState('')
-
     const [message, setMessage] = useState('')
     const [LIFOMessage, setLIFOMessage] = useState('')
     const [FIFOMessage, setFIFOMessage] = useState('')
 
+    //Theme stuff
     const theme = useContext(ThemeContext)[0];
     const currentTheme = AppTheme[theme];
+    const context = useContext(AppStatesContext)
+    let lifo = context.lifo
+    let fifo = context.fifo
 
     //LIFO----------------------------
     function addToLIFO(elephant) {
         lifo.push(elephant)
-        setLIFOTail(lifo.peek())
     }
 
     function removedFromLIFO() {
         lifo.pop()
-        setLIFOTail(lifo.peek())
     }
 
     //FIFO ----------------------------
 
     function addToFIFO(elephant) {
         fifo.enqueue(elephant)
-        setFIFOHead(fifo.peek())
     }
 
     function removedFromFIFO() {
         fifo.dequeue()
-        setFIFOHead(fifo.peek())
     }
 
     function userMsg(msg) {
@@ -68,7 +60,7 @@ function ListDisplay() {
             <div id='container2'>
                 <LIFO
                     LIFOelephants={lifo.storage}
-                    LIFOTail={LIFOTail}
+                    LIFOTail={lifo.peek()}
                     LIFOSize={lifo.size}
 
                     LIFOMsg={LIFOMsg}
@@ -87,7 +79,7 @@ function ListDisplay() {
                 />
                 <FIFO
                     FIFOelephants={fifo.storage}
-                    FIFOHead={FIFOHead}
+                    FIFOHead={fifo.peek()}
                     FIFOSize={fifo.size}
 
                     FIFOMsg={FIFOMsg}

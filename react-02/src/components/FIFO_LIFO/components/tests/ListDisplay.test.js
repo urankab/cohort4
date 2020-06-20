@@ -7,8 +7,8 @@ test('Test that everything loaded as expected', async () => {
    render(<ListDisplay />)
 
    screen.getByText('Create your Elephant')
-   screen.getByText('LIFO')
-   screen.getByText('FIFO')
+   screen.getByText('LIFO - Stacks')
+   screen.getByText('FIFO - Queues')
 
    click('Take Out LIFO')
    click('Take Out FIFO')

@@ -36,12 +36,14 @@ ul {
     background: #ddd;
 }
 
+#ticHeader{
+    background-color: wheat;
+}
+
 .game {
-    display: grid;
-    flex-direction: row;
-    justify-content: center;
+    display: inline-flex;
 }
 
 .game-info {
     margin-left: 20px;
-}
+} 

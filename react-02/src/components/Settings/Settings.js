@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import ThemeContext from '../../contexts/ThemeContext'
+import { ThemeContext } from '../../contexts/AppContext'
 import AppTheme from '../../contexts/Colors'
 
 function Settings() {

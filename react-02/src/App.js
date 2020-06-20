@@ -7,18 +7,26 @@ import chickenLogo from './components/svgs/fried-chicken.svg';
 import noodleLogo from './components/svgs/noodles.svg';
 import tacoLogo from './components/svgs/taco.svg';
 import ticLogo from './components/svgs/tic.svg';
-
-import ThemeContext from './contexts/ThemeContext'
 import './App.css';
 import './components/Bank/AccountsApp.css'
 import './components/FIFO_LIFO/components/ListDisplay.css'
-
+import {
+   ThemeContext,
+   AppStatesContext,
+   AppLinkedList,
+   AppStacks,
+   AppQueues
+} from './contexts/AppContext'
 
 function App() {
    const [link, setLink] = useState('')
    const [alt, setAlt] = useState('')
    const [message, setMessage] = useState({ msg: 'Try pressing an icon!', img: false })
    const themeHook = useState('pink')
+
+   const [linky] = useState(AppLinkedList)
+   const [lifo] = useState(AppStacks)
+   const [fifo] = useState(AppQueues)
 
    function iconPressed(e) {
       setMessage({
@@ -61,82 +69,16 @@ function App() {
 
    return (
       <ThemeContext.Provider value={themeHook}>
-         <h2> {message.msg}
-            {message.img ?
-               (<img src={link}
-                  className='clickedLogo' alt={alt} />) : null}
-         </h2>
-         <Icons getIcon={iconPressed} />
+         <AppStatesContext.Provider value={{ linky, lifo, fifo }}>
+            <h2> {message.msg}
+               {message.img ?
+                  (<img src={link}
+                     className='clickedLogo' alt={alt} />) : null}
+            </h2>
+            <Icons getIcon={iconPressed} />
+         </AppStatesContext.Provider>
       </ThemeContext.Provider>
    );
 }
 
 export default App
-
-// class App extends Component {
-//    constructor() {
-//       super()
-//       this.link = ''
-//       this.alt = ''
-//       this.state = {
-//          msg: 'Try pressing an icon!',
-//          img: false
-//       }
-//    }
-
-//    iconPressed = (event) => {
-//       this.setState({
-//          msg: `You pressed ... ${event.target.alt}!`,
-//          img: true
-//       })
-
-//       switch (event.target.alt) {
-//          case 'chicken':
-//             this.link = chickenLogo
-//             this.alt = 'chicken'
-//             break;
-//          case 'icon':
-//             this.link = logo
-//             this.alt = 'react-icon'
-//             break;
-//          case 'pizza':
-//             this.link = pizzaLogo
-//             this.alt = 'pizza'
-//             break;
-//          case 'kebab':
-//             this.link = kebabLogo
-//             this.alt = 'kebab'
-//             break;
-//          case 'noodles':
-//             this.link = noodleLogo
-//             this.alt = 'noodles'
-//             break;
-//          case 'taco':
-//             this.link = tacoLogo
-//             this.alt = 'taco'
-//             break;
-//          case 'tictactoe':
-//             this.link = ticLogo
-//             this.alt = 'tictactoe'
-//             break;
-//          default:
-//             alert('?')
-//       }
-//    }
-
-//    render() {
-//       return (
-//          <div className='App' >
-//             <h2> {this.state.msg}
-//                {this.state.img ?
-//                   (<img src={this.link}
-//                      className='clickedLogo' alt='pressedImg' />) : null}
-//             </h2>
-//             <Icons getIcon={this.iconPressed} />
-//          </div>
-//       );
-//    }
-// }
-
-// export default App;
-

@@ -7,7 +7,7 @@ test('Test some validation', () => {
    render(<LinkedListDisplay
    />)
 
-   screen.getByText(/linked list fun!/i)
+   screen.getByText(/linked list/i)
 
    let subject = screen.getByPlaceholderText('Subject')
    let amount = screen.getByPlaceholderText('#')
@@ -21,7 +21,7 @@ test('Test some validation', () => {
    expect(getTextContent('msg')).toBe('Please enter an amount')
    click('Delete')
    expect(getTextContent('msg')).toBe('Nothing to delete')
-   expect(getTextContent('currentNode')).toBe('Current Node: None')
+   expect(getTextContent('currentNodeDisplay')).toBe('')
 
    click('Prev Node')
    expect(getTextContent('msg')).toBe('Nothing to move back too')
@@ -65,17 +65,17 @@ test('Test adding, deleting, next, prev, first, last, search', () => {
    click('Add')
 
    screen.getByText(/doggy - 10/i)
-   expect(getTextContent('currentNode')).toBe('Current Node: Jello ~ 50')
+   expect(getTextContent('currentNodeDisplay')).toBe('Current Node: Jello ~ 50')
 
    click('Delete')
-   expect(getTextContent('currentNode')).toBe('Current Node: Doggy ~ 10')
+   expect(getTextContent('currentNodeDisplay')).toBe('Current Node: Doggy ~ 10')
    screen.getByText(/size: 2/i)
 
    click('Prev Node')
-   expect(getTextContent('currentNode')).toBe('Current Node (Head): Doggy ~ 10')
+   expect(getTextContent('currentNodeDisplay')).toBe('Head Node: Doggy ~ 10')
 
    click('Next Node')
-   expect(getTextContent('currentNode')).toBe('Current Node (Tail): Cats ~ 50')
+   expect(getTextContent('currentNodeDisplay')).toBe('Tail Node: Cats ~ 50')
 
    fireEvent.change(subject, { target: { value: 'DOO' } })
    fireEvent.change(amount, { target: { value: 5 } })
@@ -86,13 +86,13 @@ test('Test adding, deleting, next, prev, first, last, search', () => {
    click('Add')
 
    screen.getByText(/size: 4/i)
-   expect(getTextContent('currentNode')).toBe('Current Node: DAA ~ 2')
+   expect(getTextContent('currentNodeDisplay')).toBe('Current Node: DAA ~ 2')
    click('First Node')
-   expect(getTextContent('currentNode')).toBe('Current Node (First): Doggy ~ 10')
+   expect(getTextContent('currentNodeDisplay')).toBe('First Node: Doggy ~ 10')
    click('Last Node')
-   expect(getTextContent('currentNode')).toBe('Current Node (Last): Cats ~ 50')
+   expect(getTextContent('currentNodeDisplay')).toBe('Last Node: Cats ~ 50')
    click('Delete')
-   expect(getTextContent('currentNode')).toBe('Current Node: DOO ~ 5')
+   expect(getTextContent('currentNodeDisplay')).toBe('Current Node: DOO ~ 5')
 
    fireEvent.change(subject, { target: { value: 'DAA' } })
    fireEvent.change(amount, { target: { value: 5 } })
@@ -115,11 +115,11 @@ test('Test adding, deleting, next, prev, first, last, search', () => {
 
    //| DOG | DAA | MIDDLE | DAA | DOO 
 
-   expect(getTextContent('currentNode')).toBe('Current Node: Middle ~ 2')
+   expect(getTextContent('currentNodeDisplay')).toBe('Current Node: Middle ~ 2')
    click('Next Node')
-   expect(getTextContent('currentNode')).toBe('Current Node: DAA ~ 5')
+   expect(getTextContent('currentNodeDisplay')).toBe('Current Node: DAA ~ 5')
    click('Prev Node')
-   expect(getTextContent('currentNode')).toBe('Current Node: Middle ~ 2')
+   expect(getTextContent('currentNodeDisplay')).toBe('Current Node: Middle ~ 2')
 })
 
 function click(txt) {

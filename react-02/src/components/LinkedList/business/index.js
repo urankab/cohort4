@@ -141,6 +141,15 @@ class LinkedList {
       return total
    }
 
+   showCurrent() {
+      let curr = this.currentNode
+      let str = ''
+      if (curr) {
+         str += this.currentNode.subject
+      }
+      return str
+   }
+
    printList() {
       let curr = this.head;
       let str = '';

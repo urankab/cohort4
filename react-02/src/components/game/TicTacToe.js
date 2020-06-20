@@ -1,8 +1,5 @@
 import React from 'react';
 import './TicTacToe.css';
-import { Link } from 'react-router-dom'
-import ThemeContext from '../../contexts/ThemeContext';
-import AppTheme from '../../contexts/Colors'
 
 function Square(props) {
    return (
@@ -24,62 +21,25 @@ class Board extends React.Component {
 
    render() {
       return (
-         <ThemeContext.Consumer>
-            {
-               ([theme]) => {
-                  const currentTheme = AppTheme[theme];
-                  return (
-                     <div>
-                        <h1 style={{
-                           backgroundColor: `${currentTheme.backgroundColor}`,
-                           color: `${currentTheme.color}`
-                        }} > Tic Tac Toe</h1>
-                        <Link to='/'><h4>Go Back</h4></Link>
-                        <div className="board-row">
-                           {this.renderSquare(0)}
-                           {this.renderSquare(1)}
-                           {this.renderSquare(2)}
-                        </div>
-                        <div className="board-row">
-                           {this.renderSquare(3)}
-                           {this.renderSquare(4)}
-                           {this.renderSquare(5)}
-                        </div>
-                        <div className="board-row">
-                           {this.renderSquare(6)}
-                           {this.renderSquare(7)}
-                           {this.renderSquare(8)}
-                        </div>
-                     </div>
-                  )
-               }
-            }
-         </ThemeContext.Consumer>
-      );
+         <div>
+            <div className="board-row">
+               {this.renderSquare(0)}
+               {this.renderSquare(1)}
+               {this.renderSquare(2)}
+            </div>
+            <div className="board-row">
+               {this.renderSquare(3)}
+               {this.renderSquare(4)}
+               {this.renderSquare(5)}
+            </div>
+            <div className="board-row">
+               {this.renderSquare(6)}
+               {this.renderSquare(7)}
+               {this.renderSquare(8)}
+            </div>
+         </div>
+      )
    }
-
-   // render() {
-   //    return (
-   //       <div>
-   //          <Link to='/'><h4>Go Back</h4></Link>
-   //          <div className="board-row">
-   //             {this.renderSquare(0)}
-   //             {this.renderSquare(1)}
-   //             {this.renderSquare(2)}
-   //          </div>
-   //          <div className="board-row">
-   //             {this.renderSquare(3)}
-   //             {this.renderSquare(4)}
-   //             {this.renderSquare(5)}
-   //          </div>
-   //          <div className="board-row">
-   //             {this.renderSquare(6)}
-   //             {this.renderSquare(7)}
-   //             {this.renderSquare(8)}
-   //          </div>
-   //       </div>
-   //    );
-   // }
 }
 
 export default class Game extends React.Component {
@@ -146,16 +106,19 @@ export default class Game extends React.Component {
       }
 
       return (
-         <div className="game">
-            <div className="game-board">
-               <Board
-                  squares={current.squares}
-                  onClick={i => this.handleClick(i)}
-               />
-            </div>
-            <div className="game-info">
-               <div>{status}</div>
-               <ol>{moves}</ol>
+         <div>
+            <h1 id='ticHeader'>Tic Tac Toe</h1>
+            <div className="game">
+               <div className="game-board">
+                  <Board
+                     squares={current.squares}
+                     onClick={i => this.handleClick(i)}
+                  />
+               </div>
+               <div className="game-info">
+                  <div>{status}</div>
+                  <ol>{moves}</ol>
+               </div>
             </div>
          </div>
       );
@@ -181,6 +144,3 @@ function calculateWinner(squares) {
    }
    return null;
 }
-
-
-// export { Game, Square, Board };

@@ -25,14 +25,4 @@ const AppTheme = {
    }
 }
 
-// const AppTheme = {
-//    pink: {
-//       // backgroundColor: '#FFDFDC',
-//       name: 'pink-mode'
-//    },
-//    blue: {
-//       name: 'blue-mode'
-//    }
-// }
-
 export default AppTheme;

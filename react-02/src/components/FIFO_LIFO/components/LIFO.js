@@ -27,7 +27,7 @@ function LIFO(props) {
 
     return (
         <div id='lifoBox'>
-            <h2>LIFO</h2>
+            <h2>LIFO - Stacks</h2>
             <p>Tail: {props.LIFOTail}</p>
             <p>{props.LIFOMessage}</p>
             <button className='boxBtns' onClick={onTakeOut}>Take Out LIFO</button>
