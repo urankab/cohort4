@@ -1,5 +1,5 @@
 const functions = {
-    buildCard (text) {
+    buildCard(text) {
         const div = document.createElement('div');
         div.classList.add("card") //Adds .card css to new cards
         div.appendChild(document.createTextNode(text));
@@ -17,7 +17,7 @@ const functions = {
         const addAfter = document.createElement('button');
         addAfter.appendChild(document.createTextNode("Add After"));
         div.appendChild(addAfter);
-            
+
         //DELETE BUTTON
         const deleteFunc = document.createElement('button');
         deleteFunc.appendChild(document.createTextNode("Delete"));
@@ -30,18 +30,18 @@ const functions = {
         // console.log(node);
         //console.log(node.parentElement);      
         const div = functions.buildCard(text);
-        node.parentElement.insertBefore(div,node);
+        node.parentElement.insertBefore(div, node);
     },
 
     addAfter(node, text) {
-        // console.log(node);
-        // console.log(node.parentElement);     
+        console.log(node);
+        console.log(node.parentElement);
         const div = functions.buildCard(text);
         node.after(div, node.nextSibling);
         //node.insertAdjacentElement('afterend', div); //Also works
     },
 
-    deleteFunc(node){
+    deleteFunc(node) {
         node.parentElement.removeChild(node);
     }
 }

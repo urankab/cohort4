@@ -1,6 +1,6 @@
 import cards from './cards.js'
 
-let counter = 2;
+let counter = 1;
 
 document.body.addEventListener("click", e => {
     // console.log("You Clicked, at your command");

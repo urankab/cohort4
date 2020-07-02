@@ -103,7 +103,7 @@ export class AccountController {
     }
 
     highestAccount() {
-        let highestBal = 0;
+        let highestBal = Number.NEGATIVE_INFINITY;
         let highestName;
         for (let key in this.accounts) {
             if (this.accounts[key].balance > highestBal) {
