@@ -238,3 +238,61 @@
 #     age_secs = user_age * 365 * 24 * 60 * 60
 #     print(f'Your age in seconds is {age_secs}')
 # user_age_sec()
+
+# Example 2 - Function parameters
+# def add(x, y):
+#     result = x + y
+#     print(result)
+
+
+# add(5, 3)
+
+# Example 3 - keywords
+# def divide(dividend, divisor):
+#     if divisor != 0:
+#         print(dividend / divisor)
+#     else:
+#         print('NO!')
+
+
+# divide(dividend=15, divisor=0)
+
+# 13 Returning values ~ ~ ~ ~ ~ ~
+# def add(x, y):
+#     return x + y
+
+
+# result = add(5, 8)
+# print(result)
+
+# Example 2
+# def divide(dividend, divisor):
+#     if divisor != 0:
+#         return dividend / divisor
+#     else:
+#         return 'NO!'
+
+
+# result = divide(15, 0)
+# print(result)
+
+# 14 Dictionary comprehension ~ ~ ~ ~ ~ ~
+# users = [
+#     (0, 'Bob', 'password'),
+#     (1, 'Rolf', '123'),
+#     (2, 'Jose', 'longpass123'),
+#     (3, 'username', '1234')
+# ]
+
+# username_mapping = {user[1]: user for user in users}
+# # print(username_mapping['Bob'])
+
+# user_input = input('Enter username: ')
+# pass_input = input('Enter password: ')
+
+# _, username, password = username_mapping[user_input]
+
+# if pass_input == password:
+#     print('Correct')
+# else:
+#     print('Incorrect')
