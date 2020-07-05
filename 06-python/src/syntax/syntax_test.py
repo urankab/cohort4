@@ -5,6 +5,10 @@ def test_helloworld():
     assert(syntax.hello() == 'hello')
 
 
+def test_email():
+    assert(syntax.email('Larry', 'Shumlich') == 'larry.shumlich@gmail.com')
+
+
 def test_multiply():
     assert(syntax.multiply(5, 5) == 25)
 
@@ -45,8 +49,13 @@ def test_arrayUpdate():
     assert(syntax.arrayUpdate([1, 2, 3], 0, 4) == [4, 2, 3])
 
 
-def test_dicList():
-    assert(syntax.dicList('Uranka', 23) == {'name': 'Uranka', 'age': 23})
+def test_dictList():
+    assert(syntax.dictList('Uranka', 23) == {'name': 'Uranka', 'age': 23})
+
+
+def test_dictList2():
+    assert(syntax.dictList2(
+        {'name': 'Uranka', 'age': 12}, 'name') == 'Uranka')
 
 
 def test_ifElseLoop():
@@ -60,3 +69,11 @@ def test_forInLoop():
 def test_whileLoop():
     assert(syntax.whileLoop(2) == 'You are under')
     assert(syntax.whileLoop(12) == 'You are over')
+
+# only works with -pytest -s
+# def test_whileLoop2():
+#     assert(syntax.whileLoop2() == 'You got it! 2 guesses')
+
+
+def test_whileLoop3():
+    assert(syntax.whileLoop3(1) == 3)
