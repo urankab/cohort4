@@ -106,4 +106,4 @@ def readCSV():
                 + f'East: {secEast} West: {secWest} Centre: {secCentre}')
 
             
-# readCSV()
+readCSV()
