@@ -75,8 +75,25 @@ def sheets_to_dict():
 
     return customer_list, invoice_list, invoice_line_list, product_list
 
-    # print(invoice_list)
-    # print(product_list)
-    # print(customer_list)
-    # print(invoice_line_list)
 
+
+def toTestCustomerValues():
+    sheets_to_dict()
+    return customer_list[1]['f_name']
+
+def toTestInvoiceValues():
+    sheets_to_dict()
+    return invoice_list[1]
+
+def toTestInvoiceLineValues():
+    sheets_to_dict()
+    return invoice_line_list[1]
+
+def toTestProductValues():
+    sheets_to_dict()
+    return product_list[100]
+
+toTestCustomerValues()
+toTestInvoiceValues()
+toTestInvoiceLineValues()
+toTestProductValues()
