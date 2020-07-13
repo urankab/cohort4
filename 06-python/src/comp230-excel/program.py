@@ -36,11 +36,14 @@ def requestInvoice():
             # print(product_ids)
 
             # Products
+            product_stuff = str()
             if len(product_ids) > 1:
                 for index in range(len(product_ids)):
                     ids = product_ids[index]
-                    product_name = functions.product_list[ids]['name']
-                    print(product_name)
+                    product_name = str(functions.product_list[ids]['name']) 
+                    product_desc = str(functions.product_list[ids]['description'])
+                    product_stuff = product_name + ' ' + product_desc
+            print(product_stuff)
 
 
             workbook = Workbook()
