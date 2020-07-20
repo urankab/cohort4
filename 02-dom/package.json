@@ -14,14 +14,15 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "@babel/cli": "^7.0.0",
-        "@babel/preset-env": "^7.0.0",
+        "@babel/cli": "^7.10.5",
+        "@babel/preset-env": "^7.10.4",
         "jest": "^24.9.0",
         "node-fetch": "^2.6.0",
-        "whatwg-fetch": "^3.0.0"
+        "whatwg-fetch": "^3.2.0"
     },
     "dependencies": {
         "kind-of": "6.0.3",
+        "lodash": "^4.17.19",
         "minimist": "1.2.3"
     }
 }
