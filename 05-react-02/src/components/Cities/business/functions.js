@@ -1,6 +1,7 @@
 import data from '../data.js'
 
 const url = 'http://localhost:5000/';
+// const url = 'https://bf40bw8dz2.execute-api.ca-central-1.amazonaws.com/dev/hello-world'
 
 async function postData(url = '', data = {}) {
     // Default options are marked with *
@@ -63,8 +64,15 @@ class Community {
     }
 
     async loadCities() {
-        const data = await postData(url + "all");
+        // Playing with AWS
+        // const data = await postData(url)
+        // console.log(data)
+
+        // const fetchData = await fetch(url)
+        // console.log(fetchData)
+
         //Create a dictionary of cities and keep track of the last key
+        const data = await postData(url + "all");
         const cities = {};
         data.forEach(x => {
             cities[x.key] = x;

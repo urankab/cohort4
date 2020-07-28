@@ -13,7 +13,6 @@ tax_brackets = [
 def tax_calc(gross):
     owed_int = 0
     lower_limit = 0
-    # (last_rate, last_max) = tax_brackets[0]
 
     for (rate, max) in tax_brackets:
         if gross > max:
@@ -23,6 +22,4 @@ def tax_calc(gross):
             x = (gross * 100 - lower_limit * 100)
             owed_int = (owed_int + (x * (rate) / 100))
             owed = owed_int / 100
-            # netSalary = gross - owed
-            # return round(netSalary, 2)
             return round(owed, 2)

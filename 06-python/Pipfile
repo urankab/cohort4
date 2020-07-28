@@ -7,6 +7,9 @@ verify_ssl = true
 
 [packages]
 pytest-watch = "*"
+openpyxl = "*"
+flask = "*"
+flask-restful = "*"
 
 [requires]
 python_version = "3.8"
