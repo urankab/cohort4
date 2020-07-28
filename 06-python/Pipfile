@@ -10,6 +10,7 @@ pytest-watch = "*"
 openpyxl = "*"
 flask = "*"
 flask-restful = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.8"

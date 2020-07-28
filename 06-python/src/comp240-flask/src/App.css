@@ -1,19 +1,31 @@
 body {
   text-align: center;
-  background-color: #282c34;
+}
+
+#listContainer {
+  display: inline-flex;
+}
+
+.listItems{
+  text-align: left;
+}
+
+.listHeader{
+  text-align: center;
+  margin: 20px;
+}
+
+ul{
+  list-style-type: none;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 30vmin;
   pointer-events: none;
 }
 
-
 .App-header {
-  background-color: #282c34;
-  /* min-height: 100vh; */
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
