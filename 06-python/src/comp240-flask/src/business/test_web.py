@@ -1,11 +1,6 @@
 import pytest
 from flask import json
 import web
-import read_db
-
-calgary = {"key": 1, "city": "Calgary", "lat": 51.05, "long": -114.05}
-edmonton = {"key": 2, "city": "Edmonton", "lat": 53.55, "long": -113.49}
-redDeer = {"key": 3, "city": "Red Deer", "lat": 52.28, "long": -113.81}
 
 
 @pytest.fixture
@@ -14,15 +9,7 @@ def client():
     client = web.app.test_client()
     yield client
 
-
-def test_root(client):
-    rv = client.get('/')
-    assert (rv.status_code == 200)
-    # assert (b'EvolveU Test API' in rv.data)
-
-
-
-# def test_add(client):
+# def test_get_customers(client):
 #     # clear out all the data
 #     rv = client.post('/clear')
 

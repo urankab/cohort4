@@ -1,15 +1,10 @@
 import openpyxl
 
-# Load data from worksheet
-# Use dictionaries to store customer, invoices, lines, product
-# Ask user for invoice to print
-# Allow for (don't code): total invoiced to each client
-# invoiced amount each day, invoices by client
 
-invoice_list = {}
-product_list = {}
 customer_list = {}
+invoice_list = {}
 invoice_line_list = {}
+product_list = {}
 
 def sheets_to_dict():
     path = r'C:\code\cohort4\06-python\src\comp230-excel\comp_230.xlsx'
@@ -22,12 +17,8 @@ def sheets_to_dict():
             'customer_id': row[1],
             'invoice_date': row[2],
             'payment_method': row[3],
-            'total_price': row[4]
         }
         invoice_list[row[0]] = invoices    
-    # print(invoice_list)
-    # return invoice_list
-
 
     sheet = wb['Products']
 
@@ -40,9 +31,6 @@ def sheets_to_dict():
             'cost': row[4]
         }
         product_list[row[0]] = products
-    # print(product_list)
-    # return product_list
-
 
     sheet = wb['Customers']
 
@@ -58,8 +46,6 @@ def sheets_to_dict():
             'zipcode': row[7]
         }
         customer_list[row[0]] = customer
-    # print(customer_list)
-    # return customer_list
 
     sheet = wb['Line Items']
 
@@ -93,7 +79,9 @@ def toTestProductValues():
     sheets_to_dict()
     return product_list[100]
 
-toTestCustomerValues()
-toTestInvoiceValues()
-toTestInvoiceLineValues()
-toTestProductValues()
+
+if __name__ == "__main__":
+    toTestCustomerValues()
+    toTestInvoiceValues()
+    toTestInvoiceLineValues()
+    toTestProductValues()

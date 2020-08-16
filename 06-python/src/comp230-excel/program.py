@@ -148,9 +148,10 @@ def requestInvoice():
                 f'/code/cohort4/06-python/src/comp230-excel/invoice_{inv_no}.xlsx')
             print(f'Invoice has been written to invoice_{inv_no}.xlsx')
 
-    except:
-        print(f'There is no such invoice number')
+    except Exception as e:
+        print(e)
         return requestInvoice()
 
+if __name__ == "__main__":
+    requestInvoice()
 
-requestInvoice()

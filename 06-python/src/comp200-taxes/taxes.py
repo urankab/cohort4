@@ -54,3 +54,6 @@ def taxFunctions(salary):
         netSalary = salary - toDeduct
         print(round(netSalary, 2))
         return round(netSalary, 2)
+
+if __name__ == "__main__":
+    taxFunctions(48535)

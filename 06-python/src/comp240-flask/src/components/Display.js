@@ -43,7 +43,7 @@ function Display(props) {
                     <li><b>Invoice #: </b>{p.invoice_no}</li>
                     <li><b>Line ID: </b>{p.line_id}</li>
                     <li><b>Price: $</b>{p.price}</li>
-                    <li><b>Produce ID: </b>{p.product_id}</li>
+                    <li><b>Product ID: </b>{p.product_id}</li>
                     <li><b>Quantity: </b>{p.quantity}</li>
                 </ul>
             )

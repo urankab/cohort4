@@ -72,7 +72,7 @@ def sheets_to_dict():
 
 def toTestCustomerValues():
     sheets_to_dict()
-    return customer_list[1]["f_name"]
+    return customer_list[1]
 
 def toTestInvoiceValues():
     sheets_to_dict()

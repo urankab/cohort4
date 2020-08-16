@@ -1,11 +1,3 @@
-# total res_cnt by CLASS & SECTOR
-# do not use lists, sort file, just 1 loop
-# count number of lines for each independently, CLASS and SECTOR
-# count # of lines
-# print report
-# try with no if statements
-# write to a file called report.txt
-
 def readCSV():
     classCount = {'residential': 0,
         'industrial': 0,
@@ -105,5 +97,5 @@ def readCSV():
                 + f'South: {secSouth} SE: {secSE} SW: {secNE}\n'
                 + f'East: {secEast} West: {secWest} Centre: {secCentre}')
 
-            
-readCSV()
+if __name__ == "__main__":
+    readCSV()           

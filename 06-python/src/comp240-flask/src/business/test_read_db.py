@@ -1,10 +1,10 @@
-from business.read_db import functions
+import read_db
 
 
 def test_customer():
-    # assert (functions.toTestCustomerValues() == {'city': 'Waihibar', 'customer_id': 1, 'email': 'wtoor0@rambler.ru',
-    #     'f_name': 'Wilbert', 'l_name': 'Toor', 'phone': '457-218-5978', 'street': '9844 Eastlawn Point', 'zipcode': 32179})
-    assert (read_db.toTestCustomerValues() == 'Wilbert')
+    assert (read_db.toTestCustomerValues() == {'city': 'Waihibar', 'customer_id': 1, 'email': 'wtoor0@rambler.ru',
+        'f_name': 'Wilbert', 'l_name': 'Toor', 'phone': '457-218-5978', 'street': '9844 Eastlawn Point', 'zipcode': 32179})
+
 
 def test_invoice():
     assert (read_db.toTestInvoiceValues() == {'customer_id': 1, 'invoice_date': '2020-03-02', 'invoice_no': 1,

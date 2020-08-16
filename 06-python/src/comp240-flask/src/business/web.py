@@ -4,7 +4,6 @@ import read_db
 
 app = Flask(__name__)
 CORS(app)
-app.config["DEBUG"] = True
 
 
 @app.route('/', methods= ['GET'])
@@ -15,7 +14,6 @@ customerData = {}
 @app.route('/customers', methods = ['POST','GET'])
 def get_customers():
     print(read_db.customer_list)
-    # return jsonify(read_db.customer_list), 200
     customerData = read_db.customer_list
     return customerData, 200
 
@@ -44,3 +42,6 @@ def get_invoice_lines():
     return invoiceLineData, 200
 
 app.run(port=5000)
+
+if __name__ == '__main__':
+    app.run(debug=True)

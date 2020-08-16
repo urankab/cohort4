@@ -2,34 +2,26 @@ import os
 
 
 def countLines():
-    line = open('syntax.js').readlines()
-    count = len(line)
+    file = open('C:/code/cohort4/06-python/src/comp220-file-io/syntax.js', 'r')
+    count = len(file.readlines())
     return(f'Total number of lines is: {count}')
-
-
-# countLines()
 
 
 def countElse():
     count = 0
     searchFor = 'else'
-    with open('syntax.js') as file:
+    with open('C:/code/cohort4/06-python/src/comp220-file-io/syntax.js') as file:
         for line in file:
             if searchFor in line:
                 count += 1
     return(f'There are {count} else statements')
 
 
-# countElse()
-
 def countChars():
-    file = open('syntax.js', 'r')
+    file = open('C:/code/cohort4/06-python/src/comp220-file-io/syntax.js', 'r')
     data = file.read()
     charCount = len(data)
     return(f'There are {charCount} characters in syntax.js')
-
-
-# countChars()
 
 
 def listOfFiles():
@@ -50,4 +42,8 @@ def listOfFiles():
     return listofStuff
 
 
-# listOfFiles()
+if __name__ == "__main__":
+    countLines()      
+    countElse()
+    countChars()
+    listOfFiles()  
