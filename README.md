@@ -1,38 +1,20 @@
+# EvolveU Curriculum
 
-This file must be viewed from [github](https://github.com/larryevolveu/reference). Do not view from an editor.
+EvolveU is an immersive 6 month Full Stack Developer program that aims to teach programming fundamentals, frameworks and non-technical skills in an agile working environment including daily stand-ups, weekly sprints, and weekly retrospectives. Developers learn the skills needed to succeed in the workplace and foster the ability to adapt to the ever-changing tech space.
 
-This is the "Getting Started" repository for the EvovleU Full Stack Development program. It is a baseline to demonstrate:
+Languages & Frameworks -
+ReactJS - Migration, hooks, context, lists
+Python - Flask, REST APIs
+PostgreSQL, SQLite, Data Modelling
+Unit Testing - Jest, PyTest
+Version control - Git, Github
+Microsoft - C# and Blazor
+Languages & Frameworks - Git, HTML/CSS, Bootstrap, JavaScript, React.js, Redux, Python, Flask, PostgreSQL, Node.js, AWS, C#
 
-- development environment
-- development tools
-- best practices
-
-## Required Tools
-
-The following tools are required to run the sample project:
-
-- git - If you do not have git installed, install with default parameters. See [git](https://git-scm.com). To check, enter:
-```sh
-git --version
-```
-- Node - If you do not have Node installed, install the LTS version (left). See [node](https://nodejs.org/en/). To check, enter: 
-```sh
-node -v
-```
-- VSCode - If you do not have VSCode installed see [VSCode](https://code.visualstudio.com/).
-- live-server - is a little development server with live reload capability. 
-```sh
-npm install -g live-server
-```
-
-## Clone this Repository
-
-For the following instructions use your command line. In Windows, it could be dos or PowerShell. For mac and Linux use terminal.
-
-1. Clone this repository. In your command line move to the directory that you would like to use as your base code directory. For the course it must be 'code'. This command will add a directory called 'reference' below the directory you are in.
-```sh
-git clone https://github.com/larryevolveu/reference.git
-```
-
-This repository has a number of projects within it. Each folder is a project. See the README.md in each folder for further instructions. 
-
+## Contents
+1. **Getting Started -** First few exercises to understand the basics of Javascript syntax and logic.
+2. **Document Object Model -** Playing around with DOM manipulation and HTML/CSS for the first time.
+4. **Object Orientated Programming -** Created my first Javascript program (Bank) - Utilized principles of abstraction, encapsulation, inhertiance, polymorphism. Used Jest for unit testing.   
+4. **OOP + Fetch, API -** My second Javascript application that allows the user to create, delete and modify city cards. I used fetch API for storing the data.
+5. **REACT.js -** Contains a Single Page Application using the React framework. Incorporated the 12 Main Concepts of React in my applications, migrated over my Bank and Cities application, learned to used Hooks, Context, and created apps that showcase data strucuring such as Linked Lists, Stacks, Queues. 
+6. **Python -** Pipenv Environment, pytest for unit testing, working with File-IO (reading CVS file, generate report), Excel (OpenPyXL library - read excel sheets and generate invoices), and Flask (continuing off the Excel compentency, I used Flask fetch the data to display on a React front page).
