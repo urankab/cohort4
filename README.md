@@ -20,4 +20,4 @@ Languages & Frameworks - Git, HTML/CSS, Bootstrap, JavaScript, React.js, Redux, 
 6. **Python -** Pipenv Environment, pytest for unit testing, working with File-IO (reading CVS file, generate report), Excel (OpenPyXL library - read excel sheets and generate invoices), and Flask (continuing off the Excel compentency, I used Flask fetch the data to display on a React front page).
 
 ## Live Demo
-https://urankab.github.io/cohort4/ to visit my React page - includes work from 5. React.js portion 
+https://urankab.github.io/cohort4/ to visit my React page - includes work from REACT.js portion 
