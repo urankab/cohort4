@@ -1,7 +1,6 @@
 import data from '../data.js'
 
-// const url = 'http://localhost:5000/';
-const url = 'https://my-react-api.herokuapp.com/'
+const url = 'http://localhost:5000/';
 
 async function postData(url = '', data = {}) {
     // Default options are marked with *
