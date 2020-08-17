@@ -1,6 +1,7 @@
 import data from '../data.js'
 
-const url = 'http://localhost:5000/';
+// const url = 'http://localhost:5000/';
+const url = 'https://urankab.github.io/cities/'
 // const url = 'https://my-react-api.herokuapp.com/'
 // const url = 'https://bf40bw8dz2.execute-api.ca-central-1.amazonaws.com/dev/hello-world'
 
