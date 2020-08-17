@@ -48,23 +48,7 @@ function CitiesApp() {
    const [northest, setNorthest] = useState()
    const [southest, setSouthest] = useState()
 
-   // const [loaded, isLoaded] = useState()
-
    useEffect(() => {
-      //Load cities from the API - re-render when count is updated
-
-      // async function fetchData() {
-      //    try {
-      //       await cityCtrl.loadCities()
-      //       updateSummary()
-      //       console.log('Loaded cities')
-      //    } catch (e) {
-      //       userMsg('Turn on the server')
-      //       console.log(e)
-      //    }
-      // }
-      // fetchData();
-
       let isCancelled = false
 
       const fetchData = async () => {
